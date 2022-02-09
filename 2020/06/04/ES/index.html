@@ -1,0 +1,3464 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>ES和模块化学习笔记 - wallleap</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="luwang的博客，正在努力学习💪">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/favicon.png" type="image/png" />
+  <meta name="description" content="一、理解ES 全称: ECMAScript  它是一种由ECMA组织(前身为欧洲计算机制造商协会)制定和发布的脚本语言规范 我们学习的JavaScript就是ECMA的实现，但属于ECMAScript和JavaScript平时表达同一个意思   JS包含三个部分：  ECMAScript(js基础、核心)  扩展–&gt;浏览器端  BOM(浏览器对象模型) DOM(文档对象模型)   扩展–&amp;g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES和模块化学习笔记">
+<meta property="og:url" content="https://blog.wallleap.cn/2020/06/04/ES/index.html">
+<meta property="og:site_name" content="wallleap">
+<meta property="og:description" content="一、理解ES 全称: ECMAScript  它是一种由ECMA组织(前身为欧洲计算机制造商协会)制定和发布的脚本语言规范 我们学习的JavaScript就是ECMA的实现，但属于ECMAScript和JavaScript平时表达同一个意思   JS包含三个部分：  ECMAScript(js基础、核心)  扩展–&gt;浏览器端  BOM(浏览器对象模型) DOM(文档对象模型)   扩展–&amp;g">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/cover/(00).jpg">
+<meta property="article:published_time" content="2020-06-04T15:33:49.000Z">
+<meta property="article:modified_time" content="2020-07-12T09:18:26.000Z">
+<meta property="article:author" content="Luwang">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content=" ES">
+<meta property="article:tag" content=" 模块化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/cover/(00).jpg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/gh/nexmoe/nexmoe.github.io@latest/css/style.css,npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css" crossorigin>
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1721693_jg94kndwhe.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1599833537207">
+
+   
+    <style>
+      .nexmoe-avatar img:hover {
+        -webkit-transform: rotateZ(360deg);
+        -moz-transform: rotateZ(360deg);
+        transform: rotateZ(360deg);
+      }	
+    </style>
+  
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<script src="https://cdn.jsdelivr.net/gh/wallleap/live2d-widget@latest/autoload.js"></script> 
+<script src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/js/busuanzi.pure.mini.js"></script>
+
+<link rel="stylesheet" href="/css/github-badge.css">
+<link rel="stylesheet" href="/css/tags_ca.css">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+  .pace .pace-progress {  background: rgb(254, 27, 115); /*进度条颜色*/
+  height: 3px;  }
+  .pace .pace-progress-inner {  box-shadow: 0 0 10px #ff0000, 0 0 5px     #ff0000; /*阴影颜色*/
+  }
+  .pace .pace-activity {  border-top-color: rgb(251, 30, 30);    /*上边框颜色*/
+  border-left-color: rgb(251, 30, 30);    /*左边框颜色*/
+}
+</style>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Luwang" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/custom/avatar.jpg" alt="Luwang"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Luwang">
+            <img src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/custom/avatar.jpg" alt="Luwang" alt="Luwang">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>54</div>
+        <div><span>标签</span>57</div>
+        <div><span>分类</span>25</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/categories" title="文章分类">
+            <i class="mdui-list-item-icon nexmoefont icon-appstore-fill"></i>
+            <div class="mdui-list-item-content">
+                文章分类
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friends.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:wallleap.cn" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://space.bilibili.com/157360395" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+            <!-- <i class="fa icon-bilibili"></i> -->
+        </a><a class="mdui-ripple" href="https://github.com/wallleap/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+            <!-- <i class="fa icon-github"></i> -->
+        </a><a class="mdui-ripple" href="https://github.com/wallleap/" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(0 , 0, 252);background-color: rgba(0, 0, 252, .15);">
+            <i class="nexmoefont icon-QQ"></i>
+            <!-- <i class="fa icon-QQ"></i> -->
+        </a><a class="mdui-ripple" href="https://github.com/wallleap/" target="_blank" mdui-tooltip="{content: '微信公众号'}" style="color: rgb(0, 229, 105);background-color: rgba(0, 229, 105, .15);">
+            <i class="nexmoefont icon-wechat-fill"></i>
+            <!-- <i class="fa icon-wechat-fill"></i> -->
+        </a><a class="mdui-ripple" href="https://github.com/wallleap/" target="_blank" mdui-tooltip="{content: '我的邮箱'}" style="color: rgb(245, 0, 0);background-color: rgba(245, 0, 0, .15);">
+            <i class="nexmoefont icon-mail-fill"></i>
+            <!-- <i class="fa icon-mail-fill"></i> -->
+        </a><a class="mdui-ripple" href="https://github.com/wallleap/" target="_blank" mdui-tooltip="{content: '我的微博'}" style="color: rgb(245, 0, 0);background-color: rgba(245, 0, 0, .15);">
+            <i class="nexmoefont icon-weibo"></i>
+            <!-- <i class="fa icon-weibo"></i> -->
+        </a><a class="mdui-ripple" href="https://github.com/wallleap/" target="_blank" mdui-tooltip="{content: 'RSS'}" style="color: rgb(252, 129, 0);background-color: rgba(252, 129, 0, .15);">
+            <i class="nexmoefont icon-rss"></i>
+            <!-- <i class="fa icon-rss"></i> -->
+        </a> 
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">标签云</h3>
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud">
+      <a href="/tags/ACL/" style="font-size: 10px;">ACL</a> <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/AngularJS/" style="font-size: 10px;">AngularJS</a> <a href="/tags/Blog/" style="font-size: 17.14px;">Blog</a> <a href="/tags/C-C/" style="font-size: 11.43px;">C/C++</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/ES/" style="font-size: 10px;">ES</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub/" style="font-size: 15.71px;">GitHub</a> <a href="/tags/HCL/" style="font-size: 15.71px;">HCL</a> <a href="/tags/HCNA/" style="font-size: 15.71px;">HCNA</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Hexo/" style="font-size: 17.14px;">Hexo</a> <a href="/tags/JavaScript/" style="font-size: 14.29px;">JavaScript</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/NAT/" style="font-size: 10px;">NAT</a> <a href="/tags/NodeJS/" style="font-size: 10px;">NodeJS</a> <a href="/tags/OSPF/" style="font-size: 10px;">OSPF</a> <a href="/tags/RIP/" style="font-size: 10px;">RIP</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/STP/" style="font-size: 10px;">STP</a> <a href="/tags/Sakura/" style="font-size: 10px;">Sakura</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/VLAN/" style="font-size: 10px;">VLAN</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/Win10/" style="font-size: 10px;">Win10</a> <a href="/tags/eNSP/" style="font-size: 15.71px;">eNSP</a> <a href="/tags/eNsp/" style="font-size: 11.43px;">eNsp</a> <a href="/tags/hackintosh/" style="font-size: 10px;">hackintosh</a> <a href="/tags/hexo/" style="font-size: 11.43px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/w650dc/" style="font-size: 10px;">w650dc</a> <a href="/tags/web/" style="font-size: 18.57px;">web</a> <a href="/tags/%E4%B8%BB%E9%A2%98/" style="font-size: 12.86px;">主题</a> <a href="/tags/%E4%BA%94%E7%AC%94/" style="font-size: 10px;">五笔</a> <a href="/tags/%E4%BA%A4%E6%8D%A2%E6%9C%BA/" style="font-size: 10px;">交换机</a> <a href="/tags/%E4%BC%81%E4%B8%9A%E7%BD%91/" style="font-size: 10px;">企业网</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E5%8D%8E%E4%B8%89/" style="font-size: 15.71px;">华三</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 17.14px;">博客</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 11.43px;">后端</a> <a href="/tags/%E5%9B%BE%E9%9B%86/" style="font-size: 10px;">图集</a> <a href="/tags/%E5%AE%89%E8%A3%85/" style="font-size: 10px;">安装</a> <a href="/tags/%E5%AE%9E%E9%AA%8C/" style="font-size: 12.86px;">实验</a> <a href="/tags/%E5%BE%AE%E4%BF%A1/" style="font-size: 10px;">微信</a> <a href="/tags/%E5%BE%AE%E4%BF%A1%E9%98%B2%E7%9B%97%E9%93%BE/" style="font-size: 10px;">微信防盗链</a> <a href="/tags/%E6%82%A6%E8%AF%BB/" style="font-size: 10px;">悦读</a> <a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 10px;">技术</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 11.43px;">数据结构</a> <a href="/tags/%E6%A1%86%E6%9E%B6/" style="font-size: 10px;">框架</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E5%8C%96/" style="font-size: 10px;">模块化</a> <a href="/tags/%E8%80%83%E7%A0%94/" style="font-size: 10px;">考研</a> <a href="/tags/%E8%8B%B1%E8%AF%AD/" style="font-size: 10px;">英语</a> <a href="/tags/%E9%80%86%E6%B0%B4%E5%AF%92/" style="font-size: 10px;">逆水寒</a> <a href="/tags/%E9%85%8D%E7%BD%AE/" style="font-size: 12.86px;">配置</a> <a href="/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/" style="font-size: 10px;">黑苹果</a>
+    </div>
+    
+      <script>
+        var maxTagcloud = parseInt(10);
+        var tags_length = parseInt(57);
+        var tags_arr = [];
+        for(var i = 0; i < tags_length; i++){
+          tags_arr.push(i);
+        }
+        tags_arr.sort(function (l, r) {
+          return Math.random() > 0.5 ? -1 : 1;
+        });
+        tags_arr = tags_arr.slice(0, maxTagcloud < tags_length ? tags_length - maxTagcloud : 0);
+        for(var tag_i = 0; tag_i < tags_arr.length; tag_i++){
+          document.getElementById("randomtagcloud").children[tags_arr[tag_i]].style.display = 'none';
+        }
+      </script>
+    
+  </div>
+
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">最新文章</h3>
+    <div class="nexmoe-widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/08/28/VUE/">Vue学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/20/AJAX/">Ajax学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/12/React/">React全家桶(技术栈)学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/04/Git/">Git学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/14/nodejs/">NodeJs学习笔记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+    <!-- <div class="nexmoe-copyright">
+        &copy; 2020 Luwang
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div> -->
+    <div style="text-align: center;">
+        <div class="github-badge">
+            <a rel="license" href="https://github.io/" target="_blank" title="静态网页托管于Github">
+            <span class="badge-subject">Hosted</span><span class="badge-value bg-brightgreen"><i class="fa fa-github" aria-hidden="true"></i> Github</span></a>
+        </div>
+        <div class="github-badge">
+            <a rel="license" href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank" title="站点使用 Sakura 主题，作者：Mashiro & Hojun">
+            <span class="badge-subject"><i class="fa fa-themeisle" aria-hidden="true"></i> Theme</span><span class="badge-value bg-theme">nexmoe</span></a>
+        </div><br />
+        <div class="github-badge">
+            <span class="badge-subject"><i class="fa fa-user" aria-hidden="true"></i> UV</span>
+            <span  class="badge-value bg-orange" id="busuanzi_value_site_uv"></span>
+        </div>
+        <div class="github-badge">
+            <span class="badge-subject"><i class="fa fa-eye" aria-hidden="true"></i> PV</span>
+            <span class="badge-value bg-brightgreen" id="busuanzi_value_site_pv"></span>
+        </div>
+    </div>
+    <div class="site-img" style="margin: 20px 0 20px 16px;">
+        <a href="#"><img width="200px" src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/wechat/wallleap.bmp"></a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 66.66666666666666%;"> 
+          <img data-src="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg" data-sizes="auto" alt="ES和模块化学习笔记" class="lazyload">
+          <h1>ES和模块化学习笔记</h1>
+      </div>
+  
+  
+  <link rel="stylesheet" href="/css/sharejs.css">
+  <input type="hidden" id="yelog_site_posts_number" value="54">
+  <input type="hidden" id="yelog_site_word_count" value="276.4k">
+<div class="nexmoe-post-meta" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2020年06月04日</a>
+    <a><i class="nexmoefont icon-areachart"></i>12.1k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 60 分钟</a>
+    <a><i class="nexmoefont icon-eye-fill"></i>阅读次数 <span id="busuanzi_value_page_pv"></span></a>
+</div>
+
+  <div class="nexmoe-post-right">
+    
+      <div class="nexmoe-fixed">
+        <div class="nexmoe-valign">
+            <div class="nexmoe-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、理解ES"><span class="toc-number">1.</span> <span class="toc-text">一、理解ES</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、ES5"><span class="toc-number">2.</span> <span class="toc-text">二、ES5</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、严格模式"><span class="toc-number">2.1.</span> <span class="toc-text">1、严格模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、JSON对象"><span class="toc-number">2.2.</span> <span class="toc-text">2、JSON对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、Object扩展"><span class="toc-number">2.3.</span> <span class="toc-text">3、Object扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、Array扩展"><span class="toc-number">2.4.</span> <span class="toc-text">4、Array扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、Function扩展"><span class="toc-number">2.5.</span> <span class="toc-text">5、Function扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6、Date扩展"><span class="toc-number">2.6.</span> <span class="toc-text">6、Date扩展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、ES6"><span class="toc-number">3.</span> <span class="toc-text">三、ES6</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、2个新的关键字"><span class="toc-number">3.1.</span> <span class="toc-text">1、2个新的关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、变量-对象-的解构赋值"><span class="toc-number">3.2.</span> <span class="toc-text">2、变量(对象)的解构赋值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、各种数据类型的扩展"><span class="toc-number">3.3.</span> <span class="toc-text">3、各种数据类型的扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、深度克隆"><span class="toc-number">3.4.</span> <span class="toc-text">4、深度克隆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7、class类"><span class="toc-number">3.5.</span> <span class="toc-text">7、class类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、set-Map容器结构"><span class="toc-number">3.6.</span> <span class="toc-text">4、set&#x2F;Map容器结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、for–of循环"><span class="toc-number">3.7.</span> <span class="toc-text">5、for–of循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6、Promise对象"><span class="toc-number">3.8.</span> <span class="toc-text">6、Promise对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8、Symbol属性"><span class="toc-number">3.9.</span> <span class="toc-text">8、Symbol属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9、Iterator遍历器"><span class="toc-number">3.10.</span> <span class="toc-text">9、Iterator遍历器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10、Generator函数"><span class="toc-number">3.11.</span> <span class="toc-text">10、Generator函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、模块化"><span class="toc-number">4.</span> <span class="toc-text">四、模块化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、理解"><span class="toc-number">4.1.</span> <span class="toc-text">1、理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、CommonJS基于服务器端（Node-js）"><span class="toc-number">4.2.</span> <span class="toc-text">2、CommonJS基于服务器端（Node.js）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、CommonJS基于浏览器端应用（Browserify）"><span class="toc-number">4.3.</span> <span class="toc-text">3、CommonJS基于浏览器端应用（Browserify）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、AMD规范"><span class="toc-number">4.4.</span> <span class="toc-text">4、AMD规范</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）NoAMD"><span class="toc-number">4.4.1.</span> <span class="toc-text">（1）NoAMD</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）AMD（require-js）"><span class="toc-number">4.4.2.</span> <span class="toc-text">（2）AMD（require.js）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、CMD规范"><span class="toc-number">4.5.</span> <span class="toc-text">5、CMD规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6、ES6-Babel-Browserify使用教程"><span class="toc-number">4.6.</span> <span class="toc-text">6、ES6-Babel-Browserify使用教程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、ES7"><span class="toc-number">5.</span> <span class="toc-text">五、ES7</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、async函数-源自ES2017"><span class="toc-number">5.1.</span> <span class="toc-text">1、async函数(源自ES2017)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、指数运算符-幂"><span class="toc-number">5.2.</span> <span class="toc-text">2、指数运算符(幂): **</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、Array-prototype-includes-value-判断数组中是否包含指定value"><span class="toc-number">5.3.</span> <span class="toc-text">3、Array.prototype.includes(value): 判断数组中是否包含指定value</span></a></li></ol></li></ol>
+            </div>
+        </div>
+      </div>
+    
+  </div>
+
+  <article>
+    <h2 id="一、理解ES"><a href="#一、理解ES" class="headerlink" title="一、理解ES"></a>一、理解ES</h2><ol>
+<li><p>全称: ECMAScript</p>
+<ul>
+<li>它是一种由ECMA组织(前身为欧洲计算机制造商协会)制定和发布的脚本语言规范</li>
+<li>我们学习的JavaScript就是ECMA的实现，但属于ECMAScript和JavaScript平时表达同一个意思</li>
+</ul>
+</li>
+<li><p>JS包含三个部分：</p>
+<ul>
+<li><p>ECMAScript(js基础、核心)</p>
+</li>
+<li><p>扩展–&gt;浏览器端</p>
+<ul>
+<li>BOM(浏览器对象模型)</li>
+<li>DOM(文档对象模型)</li>
+</ul>
+</li>
+<li><p>扩展–&gt;服务器端</p>
+<ul>
+<li>Node.js</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>ES的几个重要版本</p>
+<ul>
+<li>ES5：09年发布</li>
+<li><strong>ES6(ES2015)</strong>:15年发布，也称为ECMA2015——重点</li>
+<li>ES7(ES2016):16年发布，也称为ECMA2016（变化不大）</li>
+</ul>
+</li>
+</ol>
+<h2 id="二、ES5"><a href="#二、ES5" class="headerlink" title="二、ES5"></a>二、ES5</h2><h3 id="1、严格模式"><a href="#1、严格模式" class="headerlink" title="1、严格模式"></a>1、严格模式</h3><ul>
+<li><p>理解</p>
+<ul>
+<li>运行模式: 正常(混杂)模式与严格模式</li>
+<li>这种模式使得JavaScript在更严格的语法条件下运行</li>
+</ul>
+</li>
+<li><p>目的/作用: </p>
+<ul>
+<li>使得Javascript在更严格的条件下运行</li>
+<li>消除Javascript语法的一些不合理、不严谨之处，减少一些怪异行为</li>
+<li>消除代码运行的一些不安全之处，保证代码运行的安全</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>使用</p>
+<ul>
+<li>在全局或函数的第一条语句定义为：<code>use strict</code></li>
+<li>如果浏览器不支持，只解析为一条简单的语句，没有任何副作用</li>
+</ul>
+</li>
+<li><p>语法和行为改变</p>
+<ul>
+<li>声明定义变量必须用var</li>
+<li>禁止自定义的函数中的this关键字指向全局对象(window)</li>
+<li>创建eval作用域, 更安全</li>
+<li>对象不能有重名的属性</li>
+</ul>
+<pre><code class="html">&lt;script&gt;
+  &#39;use strict&#39;
+  var username = &#39;luwang&#39;
+  // name = &#39;luwang&#39; 在严格模式下不用var声明变量会报错
+  console.log(username)
+
+  function Person(name, age){
+    this.name = name
+    this.age = age
+  }
+  new Person(&#39;luwang&#39;, 23)
+  // Person(&#39;luwang&#39;, 23) //没有new会报错
+
+  var str = &#39;web&#39;
+  eval(&#39;var str = &quot;HTML&quot;; alert(str)&#39;) // HTML
+  alert(str) // web 即开启严格模式之后不会污染全局作用域
+
+  var obj = {
+    username: &#39;luwang&#39;,
+    username: &#39;luwang&#39;  // 定义重名了
+  }
+&lt;/script&gt;</code></pre>
+</li>
+</ul>
+<h3 id="2、JSON对象"><a href="#2、JSON对象" class="headerlink" title="2、JSON对象"></a>2、JSON对象</h3><ul>
+<li>作用: 用于在json对象/数组与js对象/数组相互转换</li>
+<li><code>JSON.stringify(obj/arr)</code> js对象(数组)转换为json对象(数组)</li>
+<li><code>JSON.parse(json)</code> json对象(数组)转换为js对象(数组)<pre><code class="html">&lt;script&gt;
+var obj = {username: &#39;wallleap&#39;}
+obj = JSON.stringify(obj)
+console.log(typeof obj)
+obj = JSON.parse(obj)
+console.log(typeof obj)
+&lt;/script&gt;</code></pre>
+</li>
+</ul>
+<h3 id="3、Object扩展"><a href="#3、Object扩展" class="headerlink" title="3、Object扩展"></a>3、Object扩展</h3><p>ES5给Object扩展了一些静态方法，常用的两个：</p>
+<ul>
+<li><p><code>Object.create(prototype[, descriptors])</code>: 创建一个新的对象</p>
+<ul>
+<li><p>作用：以指定对象为原型创建新的对象</p>
+</li>
+<li><p>为新的对象指定新的属性, 并对属性进行描述</p>
+<ul>
+<li><code>value</code>: 指定值</li>
+<li><code>writable</code> : 标识当前属性值是否是可修改的, 默认为<code>false</code></li>
+<li><code>configurable</code>：标识当前属性是否可以被删除，默认为<code>false</code></li>
+<li><code>enumerable</code>：标识当前属性是否能用for in枚举，默认为<code>false</code></li>
+</ul>
+<pre><code class="html">&lt;script&gt;
+  var obj = {username: &#39;luwang&#39;, age:23}
+  var obj1 = {}
+  obj1 = Object.create(obj, {  // obj的属性为obj1的原型
+    sex: {
+      value: &#39;男&#39;,
+      writable: true,  // 默认false
+      configurable: true,
+      enumerable: true
+    }
+  })
+  console.log(obj1.sex)
+  obj1.sex = &#39;nan&#39;
+  console.log(obj1.sex)
+  delete obj1.sex
+  console.log(obj1)
+  for(var i in obj1){
+    console.log(i)
+  }
+&lt;/script&gt;</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><code>Object.defineProperties(object, descriptors)</code>: 为指定对象定义扩展多个属性</p>
+<ul>
+<li><strong>get方法</strong> : 用来得到当前属性值的回调函数</li>
+<li><strong>set方法</strong> : 用来监视当前属性值变化的回调函数</li>
+</ul>
+<pre><code class="html">&lt;script&gt;
+  var obj = {username: &#39;luwang&#39;, age:23}
+  var obj1 = {}
+  var obj2 = {firstName: &#39;lu&#39;, lastName: &#39;wang&#39;}
+  Object.defineProperties(obj2, {
+    fullName: { // 此方法在原型中
+      get: function(){ // 获取扩展属性的值
+        console.log(&#39;get方法被调用&#39;)
+        return this.firstName + &#39; &#39; + this.lastName
+      },
+      set: function(data){ // 监听扩展属性，当扩展属性发生变化的时候会自动调用，自动调用后会讲变化的值作为实参注入到set函数
+        console.log(&#39;set方法被调用，&#39;, data)
+        var names = data.split(&#39; &#39;) // 根据空格拆分为数组
+        this.firstName = names[0]
+        this.lastName = names[1]
+      }
+    }
+  })
+  console.log(obj2.fullName) // get会自动调用 
+  obj2.fullName = &#39;lu wang&#39;  
+  console.log(obj2.fullName)
+&lt;/script&gt;</code></pre>
+<p>console.log(obj2)   fullName</p>
+<p>惰性求值：点击才给值(什么时候要什么时候给)，会再次调用get方法</p>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn/img/pic/illustration/1589786198022.png" alt="惰性求值" class="lazyload"></p>
+<ul>
+<li>什么时候调用：<ul>
+<li>get方法：获取扩展属性值的时候get方法自动调用</li>
+<li>set方法：监听</li>
+</ul>
+</li>
+<li>存储器属性：setter，getter一个用来存值，一个用来取值</li>
+</ul>
+</li>
+</ul>
+<p>对象本身也有两个方法</p>
+<ul>
+<li>get propertyName(){}</li>
+<li>set propertyName(){}</li>
+</ul>
+<pre><code class="html">&lt;script&gt;
+  var obj = {
+    firstName: &#39;lu&#39;, 
+    lastName: &#39;wang&#39;,
+    get fullName(){
+      return this.firstName + &#39; &#39; + this.lastName
+    },
+    set fullName(data){
+      var names = data.split(&#39; &#39;)
+      this.firstName = names[0]
+      this.lastName = names[1]
+    }
+  }
+  console.log(obj)
+  obj.fullName = &#39;lu wang&#39;
+  console.log(obj.fullName)
+&lt;/script&gt;</code></pre>
+<h3 id="4、Array扩展"><a href="#4、Array扩展" class="headerlink" title="4、Array扩展"></a>4、Array扩展</h3><ul>
+<li><p>Array.prototype.indexOf(value) : 得到值在数组中的第一个下标</p>
+</li>
+<li><p>Array.prototype.lastIndexOf(value) : 得到值在数组中的最后一个下标</p>
+</li>
+<li><p><strong>Array.prototype.forEach(function(item, index){}) : 遍历数组</strong></p>
+</li>
+<li><p><strong>Array.prototype.map(function(item, index){}) : 遍历数组返回一个新的数组</strong></p>
+</li>
+<li><p><strong>Array.prototype.filter(function(item, index){}) : 遍历过滤出一个子数组，返回条件为true的值</strong></p>
+<pre><code class="javascript">var arr = [2,4,5,1,6,7,4,3,9]
+console.log(arr.indexOf(4))
+console.log(arr.lastIndexOf(4))
+arr.forEach(function(item, index){
+    console.log(item, index)
+})
+var arr1 = arr.map(function(item, index){
+    return item + 10
+})
+console.log(arr, arr1)
+arr.filter(fuction(item, index){
+    return item &gt; 3
+})</code></pre>
+</li>
+</ul>
+<h3 id="5、Function扩展"><a href="#5、Function扩展" class="headerlink" title="5、Function扩展"></a>5、Function扩展</h3><p>this，强制绑定使用call和bind</p>
+<p>eg:</p>
+<pre><code class="javascript">var obj = {username: &#39;luwang&#39;}
+function foo(){
+    console.log(this)   
+}
+foo() // this--&gt;Window 全局
+// call和apply不传参的时候是一样的
+foo.call(obj) // this--&gt;{username: &#39;luwang&#39;} obj对象
+foo.apply(obj) // this--&gt;{username: &#39;luwang&#39;} obj对象
+// bind的特点： 绑定完this不会立即调用当前的函数，而是将函数返回
+// var bar = foo.bind(obj)
+// bar()
+foo.bind(obj)()
+
+
+// 传入参数的形式
+var obj1 = {age: 23}
+function fun(data){
+    console.log(this, data)
+}
+fun(22) // Window  22
+// call直接从第二个参数开始，依次传入
+fun.call(obj1, 21) // {age: 23} 21
+// 第二参数必须是数组，传入放在数组里
+fun.apply(obj1, [20]) // {age: 23} 20
+
+// bind传参的方式通call一样
+fun.bind(obj1, 18)()</code></pre>
+<ul>
+<li><p><code>Function.prototype.bind(obj)</code></p>
+<ul>
+<li>将函数内的this绑定为obj, 并将函数返回</li>
+</ul>
+</li>
+<li><p>面试题: 区别bind()与call()和apply()?</p>
+<ul>
+<li><p><code>fn.bind(obj)</code> : 指定函数中的this, 并返回函数(不会立即调用)，一般用在回调函数绑定其他对象的this</p>
+<pre><code class="javascript">var obj = {username: &#39;luwang&#39;}
+setTimeout(function(){
+    console.log(this) // Window
+}, 1000)
+setTimeout(function(){
+    console.log(this) // Window
+}.bind(obj), 1000)</code></pre>
+</li>
+<li><p><code>fn.call(obj)</code>: 指定函数中的this,并调用函数</p>
+</li>
+<li><p><code>fn.apply(obj)</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="6、Date扩展"><a href="#6、Date扩展" class="headerlink" title="6、Date扩展"></a>6、Date扩展</h3><ul>
+<li>Date.now() : 得到当前时间值</li>
+</ul>
+<h2 id="三、ES6"><a href="#三、ES6" class="headerlink" title="三、ES6"></a>三、ES6</h2><h3 id="1、2个新的关键字"><a href="#1、2个新的关键字" class="headerlink" title="1、2个新的关键字"></a>1、2个新的关键字</h3><ul>
+<li>块作用域：ES5中没有(只有全局和函数作用域)，ES6有</li>
+</ul>
+<ol>
+<li><p><strong>let</strong></p>
+<ul>
+<li><p>作用：与var相似，用于声明一个变量</p>
+</li>
+<li><p>特点</p>
+<ul>
+<li>在块作用域内有效</li>
+<li>不能重复声明</li>
+<li>不会预处理，不存在变量提升</li>
+</ul>
+</li>
+<li><p>应用</p>
+<ul>
+<li><p>循环遍历加监听</p>
+<pre><code class="html">&lt;br/&gt;&lt;button&gt;按钮1&lt;/button&gt;&lt;br/&gt;&lt;br/&gt;
+&lt;button&gt;按钮2&lt;/button&gt;&lt;br/&gt;&lt;br/&gt;
+&lt;button&gt;按钮3&lt;/button&gt;
+&lt;script&gt;
+    var btns = document.getElementsByTagName(&#39;button&#39;)
+    for(var i = 0; i &lt; btns.length; i++){
+        var btn = btns[i]
+        btn.onclick = function(){
+            alert(i)
+        }
+    }
+    /*
+     * 一直会显示3
+     * 点击事件对应的是回调函数，回调函数又称勾子函数，回调函数会被放到事件队列中，等主线程上的代码执行完毕之后再通过钩子一样的形式，勾出来执行
+     * 以前的方式是通过闭包，立即执行函数(自己的作用域)
+    */
+    for(var i = 0; i &lt; btns.length; i++){
+      var btn = btns[i]
+      ;(function(i){  // 声明的形参
+        btn.onclick = function(){
+        alert(i)
+      }
+      })(i)   // 传的实参
+    }
+    /*
+    * 闭包利用的是函数作用域的特点
+    * 因此可以直接使用let
+    */
+    for(let i = 0; i &lt; btns.length; i++){ // let，在块作用域内有效
+      var btn = btns[i]
+      btn.onclick = function(){
+        alert(i)
+      }
+    }
+&lt;/script&gt;</code></pre>
+</li>
+<li><p>使用let代替var是趋势</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>const</strong></p>
+<ul>
+<li><p>作用：定义一个常量</p>
+</li>
+<li><p>特点</p>
+<ul>
+<li>不能修改</li>
+<li>其他特点同let</li>
+</ul>
+</li>
+<li><p>应用</p>
+<ul>
+<li>保存不用改变的数据</li>
+</ul>
+<pre><code class="javas">const PI = 3.1415926</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="2、变量-对象-的解构赋值"><a href="#2、变量-对象-的解构赋值" class="headerlink" title="2、变量(对象)的解构赋值"></a>2、变量(对象)的解构赋值</h3><ul>
+<li><p>理解：从对象或数组中提取数据，并赋值给多个变量</p>
+</li>
+<li><p>将包含多个数据的对象(数组)一次赋值给多个变量</p>
+</li>
+<li><p>数据源: 对象/数组</p>
+</li>
+<li><p>目标: {a, b}/[a, b]</p>
+</li>
+<li><p>对象的解构赋值：<code>let {n, a} = {n:&#39;tom&#39;, a:12}</code> 把对象中的值赋值出来(根据属性名key)</p>
+</li>
+<li><p>数组的解构赋值：<code>let[a, b] = [1, &#39;luwang&#39;]</code> (根据下标)</p>
+</li>
+<li><p>用途：给多个形参赋值</p>
+<pre><code class="javascript">let obj = {
+    username: &#39;luwang&#39;,
+    age: 23
+}
+// let username = obj.username
+// let age = obj.age
+// console.log(username, age)
+// let {username, age} = obj // 对象，因此需要以对象的形式来接收 只需要一个就写一个，不需要按顺序
+// console.log(username, age)
+let {age} = obj
+console.log(age)
+
+let arr = [1, 3, 5,&#39;abc&#39;, true]
+// let [a, b, c, d, e] = arr
+// console.log(a, b, c, d, e)
+// let [a, b] = arr
+// console.log(a, b)
+let [,,a, b] = arr
+console.log(a, b)
+
+function foo({username, age}){ // {username, age} = obj
+    console.log(username, age)
+}
+foo(obj)</code></pre>
+</li>
+</ul>
+<h3 id="3、各种数据类型的扩展"><a href="#3、各种数据类型的扩展" class="headerlink" title="3、各种数据类型的扩展"></a>3、各种数据类型的扩展</h3><ul>
+<li><p>字符串</p>
+<ul>
+<li><strong>模板字符串</strong> <ul>
+<li>作用: 简化字符串的拼接</li>
+<li>模板字符串必须用``，波浪线那个</li>
+<li>变化的部分使用${xxx}定义</li>
+</ul>
+</li>
+</ul>
+<pre><code class="javascript">let obj = {username: &#39;luwang&#39;, age: 23}
+/*
+* 之前的写法：简单拼串
+* 缺点：可能会拼错，效率低。比如，url携带10个参数，动态拼起来
+*/
+let str = &#39;My name is &#39; + obj.username + &#39;, age is &#39;+ obj.age
+console.log(str)
+/*
+* ES6提供的模板字符串
+*/
+str = `My name is ${obj.username} age is ${obj.age}`</code></pre>
+<ul>
+<li><code>includes(str)</code> : 判断是否包含指定的字符串</li>
+<li><code>startsWith(str)</code>: 判断是否以指定字符串开头</li>
+<li><code>endsWith(str)</code> : 判断是否以指定字符串结尾</li>
+<li><code>repeat(count)</code>: 重复指定次数</li>
+</ul>
+<pre><code class="javascript">let str = &#39;asdfghjkklqwrtyuiopzxcvbnm123467890&#39;
+console.log(str.includes(&#39;t&#39;)) // true
+console.log(str.includes(&#39;abc&#39;)) // false
+console.log(str.startsWith(&#39;a&#39;)) // true
+console.log(str.endsWith(&#39;0&#39;)) // true
+console.log(str.repeat(2)) // asdfghjkklqwrtyuiopzxcvbnm123467890asdfghjkklqwrtyuiopzxcvbnm123467890</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>数值扩展</p>
+<ul>
+<li>二进制与八进制表示法：二进制用0b，八进制用0o</li>
+<li><code>Number.isFinite(i)</code>：判断是否是有限大的数字</li>
+<li><code>Number.isNaN(i)</code>：判断是否是NaN</li>
+<li><code>Number.isInteger(i)</code>：判断是否是整数</li>
+<li><code>Number.parseInt(str)</code>：将字符串转换为对应的数值</li>
+<li><code>Math.trunc(i)</code>：直接去除小数部分</li>
+</ul>
+<pre><code class="javascript">console.log(0b1010)
+console.log(0o12)
+console.log(Number.isFinite(Infinity))
+console.log(Number.isNaN(NaN))
+console.log(Number.isInteger(123.1))
+console.log(Number.isInteger(123.0))
+console.log(Number.parseInt(&#39;123abc123&#39;)) // 123
+console.log(Number.parseInt(&#39;a123abc123&#39;)) // NN
+console.log(Math.trunc(123.123)) // 123</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>对象</p>
+<ul>
+<li><p><strong>简化的对象写法</strong></p>
+<ul>
+<li>省略同名的属性值</li>
+<li>省略方法的function</li>
+</ul>
+<pre><code class="JavaScript">let name = &#39;Tom&#39;;
+let age = 12;
+/* 正常情况 */
+let obj = {
+    name: name,
+    age: age，
+    getName: function(){
+        retrun this.name
+    }
+}
+console.log(obj)
+/* key和value相同，可以省略 */
+let person = {
+    name,  // 同名的属性可以不写
+    age,
+    setName (name) { // 可以省略函数的function
+        this.name = name
+    }
+}</code></pre>
+</li>
+<li><p><code>Object.assign(target, source1, source2..)</code>: 将源对象的属性复制到目标对象上</p>
+</li>
+</ul>
+<pre><code class="javascript">let obj = {}
+let obj1 = {username:&#39;a&#39;, age: 20}
+let obj2 = {sex: &#39;男&#39;}
+// Object.assign(obj, obj1)
+// console.log(obj) // {username: &quot;a&quot;, age: 20}
+Object.assign(obj, obj1, obj2)
+console.log(obj) // {username: &quot;a&quot;, age: 20, sex: &quot;男&quot;}</code></pre>
+<ul>
+<li><code>Object.is(v1, v2)</code> : 判断2个数据是否完全相等</li>
+</ul>
+<pre><code class="javascript">console.log(0 == -0) // true
+console.log(NaN == NaN) //false
+console.log(Object.is(0, -0)) // false
+console.log(Object.is(NaN, NaN)) // true</code></pre>
+<ul>
+<li><strong>proto</strong>属性 : 隐式原型属性.ES6中能直接操作<code>__proto__</code>属性</li>
+</ul>
+<pre><code class="javascript">let obj = {}
+let obj1 = {salary: 5000000}
+obj.__proto__ = obj1
+console.log(obj)
+console.log(obj.salary)</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>数组</p>
+<ul>
+<li><code>Array.from(v)</code> : 将伪数组对象或可遍历对象转换为真数组</li>
+<li><code>Array.of(v1, v2, v3)</code> : 将一系列值转换成数组</li>
+<li><code>find(function(value, index, arr){return true})</code> : 找出第一个满足条件返回true的元素</li>
+<li><code>findIndex(function(value, index, arr){return true})</code>: 找出第一个满足条件返回true的元素下标</li>
+</ul>
+<pre><code class="html">&lt;button&gt;測試1&lt;/button&gt;&lt;br&gt;
+&lt;button&gt;測試2&lt;/button&gt;&lt;br&gt;
+&lt;button&gt;測試3&lt;/button&gt;
+&lt;script&gt;
+  let btns = document.getElementsByTagName(&#39;button&#39;)
+  // 偽數組 不能使用forEach(數組的方法)
+  Array.from(btns).forEach(function(item, index){
+    console.log(item)
+  })
+
+  let arr = Array.of(1, 4, &#39;abc&#39;, true)
+  console.log(arr)
+
+  let arr2 = [2,3,4,2,5,7,3,6]
+  console.log(arr2.find(function(item, index){
+    return item &gt; 4
+  }))
+  console.log(arr2.findIndex(function(item, index){
+    return item &gt; 4
+  }))
+&lt;/script&gt;</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>函数</p>
+<ul>
+<li><strong>箭头函数</strong><ul>
+<li>用来定义匿名函数</li>
+<li>基本语法:<ul>
+<li>没有参数: () =&gt; console.log(‘xxxx’)   箭头前的()不能省略</li>
+<li>一个参数: i =&gt; i+2  可以省略</li>
+<li>大于一个参数: (i,j) =&gt; i+j  ()不能省略</li>
+<li>函数体不用大括号: 默认返回结果</li>
+<li>函数体如果有多个语句, 需要用{}包围</li>
+</ul>
+</li>
+<li>使用场景: 多用来定义回调函数</li>
+<li>特点：<ul>
+<li>简洁</li>
+<li>箭头函数没有自己的this，箭头函数的this不是调用的时候决定的，而是在定义的时候所处的对象就是它的this</li>
+<li>扩展理解：箭头函数的this看外层是否有函数<ul>
+<li>箭头外层有函数，this是外层函数的this</li>
+<li>箭头外层无函数，this是window</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="javascript">let fun = function(){console.log(&#39;fun&#39;)}
+fun()
+// 1、没有形参
+let fun1 = () =&gt; console.log(&#39;fun1&#39;)
+fun1()
+
+// 2、只有一个形参
+let fun2 = (a) =&gt; console.log(a)
+// 可省略() let fun2 = a =&gt; console.log(a)
+fun2(&#39;aaa&#39;)
+
+// 3、两个及两个以上的形参
+let fun3 = (x,y) =&gt; console.log(x, y)
+fun3(1, 2)
+
+// I、函数体只有一条语句或表达式，{}可以省略--&gt;会自动返回语句执行的结果或表达式的结果
+let foo = (x, y) =&gt; x + y
+// let foo = (x, y) =&gt; {return x + y}
+console.log(foo(1, 3))
+
+// II、函数体不止一条语句或者表达式， {}不可以省略
+let foo2 = (x, y) =&gt; {
+    console.log(x, y)
+    return x + y
+}
+console.log(foo2(3, 5))
+
+// 箭头函数的this
+&lt;br/&gt;&lt;button id=&quot;btn1&quot;&gt;按钮1&lt;/button&gt;&lt;br/&gt;&lt;br/&gt;
+&lt;button id=&quot;btn2&quot;&gt;按钮2&lt;/button&gt;&lt;br/&gt;&lt;br/&gt;
+&lt;button id=&quot;btn3&quot;&gt;按钮3&lt;/button&gt;
+&lt;script&gt;
+    let btn1 = document.getElementById(&#39;btn1&#39;)
+    let btn2 = document.getElementById(&#39;btn2&#39;)
+    let btn3 = document.getElementById(&#39;btn3&#39;)
+    btn1.onclick = function(){
+      console.log(this) // &lt;button id=&quot;btn1&quot;&gt;按钮1&lt;/button&gt;
+    }
+    btn2.onclick = () =&gt; {
+      console.log(this)  // Window
+    }
+    let obj = {
+      name: &#39;箭头函数&#39;,
+      getName: function(){
+        btn3.onclick = () =&gt; {
+          console.log(this) // {name: &quot;箭头函数&quot;, getName: ƒ}
+        }
+      }
+    }
+    obj.getName()
+    let obj1 = {
+      name: &#39;箭头函数&#39;,
+      getName: () =&gt; {
+        btn3.onclick = () =&gt; {
+          console.log(this) // Window
+        }
+      }
+    }
+    obj.getName()
+&lt;/script&gt;</code></pre>
+</li>
+</ul>
+<ul>
+<li><p><strong>3点运算符/点点点运算符</strong></p>
+<ul>
+<li>rest(可变)参数<ul>
+<li>通过形参左侧的…来表达, 取代arguments的使用</li>
+<li>比arguments灵活，只能是最后部分形参参数<ul>
+<li>arguments是伪数组，有length，但是没有数组的一般方法，不能使用forEach遍历</li>
+<li>callee是arguments的一个属性，等于函数本身，递归的时候可以写为：<code>arguments.callee()</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="javascript">// arguments
+function foo(a, b){
+  console.log(arguments)
+  // arguments.callee() 调用自身，相当于foo(参数)
+  /* arguments.forEach(function(item, index){ // 会报错，伪数组并没有数组的一般方法
+      console.log(item, index)
+  }) */
+}
+foo(2,5)</code></pre>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn/img/pic/illustration/1590476357564.png" alt="参数" class="lazyload"></p>
+<pre><code class="javascript">// 点点点运算符
+function foo(...value){
+  console.log(arguments)
+  console.log(value) // 就是一个正常的数组
+  value.forEach(function(item, index){
+    console.log(item, index)
+  })
+}
+foo(2,5)
+
+function foo(a, ...value){// ...value只能放在最后面
+  console.log(arguments)
+  // arguments.callee()
+  console.log(value)    // 使用的时候不用加...
+  value.forEach(function(item, index){
+    console.log(item, index)
+  })
+}
+foo(2, 3, 5, 7) // 最前面的就是a，value就不包括它了</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>第二种用法——扩展运算符</p>
+<ul>
+<li>可以分解出数组或对象中的数据</li>
+</ul>
+<pre><code class="javascript">let arr = [1, 6]
+let arr1 = [2, 3, 4, 5]
+arr = [1, ...arr1, 6]
+console.log(arr)    // (6) [1, 2, 3, 4, 5, 6]  数组
+console.log(...arr) // 1 2 3 4 5 6  每项值</code></pre>
+</li>
+</ul>
+<ul>
+<li><p><strong>形参的默认值</strong></p>
+<ul>
+<li>定义形参时指定其默认的值</li>
+<li>当不传入参数的时候默认使用形参里的默认值</li>
+</ul>
+<pre><code class="javascript">// 定义一个点的坐标的构造函数
+function Point(x, y){
+  this.x = x
+  this.y = y
+}
+let point = new Point(50, 20)
+console.log(point) // Point {x: 50, y: 20}
+// 忘记传参
+let point1 = new Point()
+console.log(point1) // Point {x: undefined, y: undefined}
+
+/* 
+* 因此会有需求，在忘记传参的时候使用默认值
+* 在形参的位置赋默认值
+*/
+function Point(x = 0, y = 0){
+  this.x = x
+  this.y = y
+}
+let point = new Point(50, 20)
+console.log(point) // Point {x: 50, y: 20}
+// 忘记传参，使用默认值
+let point1 = new Point()
+console.log(point1) // Point {x: 0, y: 0}</code></pre>
+</li>
+</ul>
+<h3 id="4、深度克隆"><a href="#4、深度克隆" class="headerlink" title="4、深度克隆"></a>4、深度克隆</h3><ul>
+<li><p>拷贝数据：</p>
+<ul>
+<li>基本数据类型<ul>
+<li>拷贝后会生成一份新的数据</li>
+<li>修改拷贝以后的数据不会影响原数据</li>
+</ul>
+</li>
+<li>引用数据类型<ul>
+<li>拷贝后不会生成新的数据，而是拷贝的引用</li>
+<li>修改拷贝以后的数据会影响原来的数据</li>
+</ul>
+</li>
+</ul>
+<pre><code class="javascript">// 基本數據類型
+let str = &#39;abcd&#39;
+let str2 = str
+console.log(str, str2)
+str2 = &#39;&#39;
+console.log(str, str2)
+
+// 引用數據類型
+let obj = {username: &#39;kobe&#39;, age:39}
+let obj1 = obj
+console.log(obj, obj1)
+obj1.username = &#39;wade&#39;
+console.log(obj, obj1)
+let arr = [1,4,{username:&#39;kobe&#39;,age:39}]
+let arr2 = arr
+arr2[0] = &#39;abcd&#39;
+console.log(arr, arr2)</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>拷贝数据的方法</p>
+<ul>
+<li>直接赋值给一个变量    // 浅拷贝(浅克隆)——能影响</li>
+<li><code>Object.assign()</code>     // 浅拷贝</li>
+</ul>
+<pre><code class="javascript">let obj = {username: &#39;kobe&#39;}
+let obj2 = Object.assign(obj)
+console.log(obj, obj2)
+obj2.username = &#39;wade&#39;
+console.log(obj, obj2)</code></pre>
+<ul>
+<li><code>Array.prototype.concat()</code>   //浅拷贝</li>
+</ul>
+<pre><code class="javascript">let arr = [1, 4, {username: &#39;kobe&#39;}]
+let testArr = [&#39;ce&#39;, &#39;shi&#39;]
+// let arr2 = arr.concat(testArr)
+let arr2 = arr.concat()
+console.log(arr, arr2)
+arr2[1] = &#39;a&#39;
+console.log(arr, arr2)
+arr2[2].username = &#39;wade&#39;
+console.log(arr, arr2)</code></pre>
+<ul>
+<li><code>Array.prototype.slice()</code>   // 浅拷贝</li>
+</ul>
+<pre><code class="javascript">let arr = [1, 4, {username: &#39;kobe&#39;}]
+let arr2 = arr.slice()
+arr2[2].username = &#39;wade&#39;
+console.log(arr, arr2)</code></pre>
+<ul>
+<li><code>JSON.parse(JSON.stringify())</code>   // 深拷贝(深度克隆)——修改不影响引用类型的原数据。<ul>
+<li>拷贝的数据里不能有函数(处理不了)，先是将数据转为了JSON格式，字符串对应js中的只有对象和数组，没有函数</li>
+</ul>
+</li>
+</ul>
+<pre><code class="javascript">let arr = [1, 4, {username: &#39;kobe&#39;}]
+let arr2 = JSON.stringify(arr)
+arr2 = JSON.parse(arr2)
+arr2[2].username = &#39;wade&#39;
+console.log(arr, arr2)</code></pre>
+</li>
+<li><p>浅拷贝</p>
+<ul>
+<li>特点：拷贝的是引用，修改拷贝以后的数据会影响原来的数据，使得原数据不安全</li>
+</ul>
+</li>
+<li><p>深拷贝</p>
+<ul>
+<li>特点：拷贝的时候生成新数据，修改拷贝以后的数据不会影响原数据</li>
+</ul>
+</li>
+<li><p>这两个都是针对对象/数组来说的</p>
+</li>
+<li><p>思考：如何实现深度拷贝？</p>
+<ul>
+<li><p>拷贝的数据里有对象/数组，即使有对象/数组可以继续遍历对象、数组，拿到里边的每一项值，直到拿到的是基本数据类型，然后再去复制(拷贝的数据里不能有对象/数组)</p>
+</li>
+<li><p>知识点储备</p>
+<ul>
+<li>如何判断数据类型<ol>
+<li><code>typeof</code>返回的数据类型： String、Number、boolean、undefined、Object、Function</li>
+<li><code>Object.prototype.toString.call(obj)</code>—&gt;<code>Object.prototype.toString.call(data).slice(8, -1)</code></li>
+</ol>
+</li>
+</ul>
+<pre><code class="javascript">let result = &#39;abc&#39; // [object String]
+result = null // [object Null]
+result = [1, &#39;a&#39;] // test-demo.html:17 [object Array]
+// console.log(Object.prototype.toString.call(result))
+// console.log(typeof Object.prototype.toString.call(result)) // 返回的是string
+// 因此可以用下面这种方式显示数据类型
+console.log(Object.prototype.toString.call(result).slice(8, -1))
+</code></pre>
+<ul>
+<li><p>for in 循环</p>
+<ul>
+<li>用于循环对象，枚举出来的是属性名</li>
+</ul>
+<pre><code class="javascript">let obj = {username: &#39;kobe&#39;, age: 39}
+for(let i in obj){
+  console.log(i) // username age
+}</code></pre>
+<ul>
+<li>循环数组时，枚举的是下标</li>
+</ul>
+<pre><code class="javascript">let arr = [1,3,&#39;abc&#39;]
+for(let i in arr){
+  console.log(i) // 0 1 2
+}</code></pre>
+</li>
+</ul>
+</li>
+<li><p>实现深度克隆</p>
+</li>
+</ul>
+<pre><code class="javascript">// 定义检测数据类型的功能函数
+function checkType(target){
+  return Object.prototype.toString.call(target).slice(8, -1)
+}
+console.log(checkType([1,2,&#39;a&#39;]))
+// 实现深度克隆--&gt;对象/数组
+function clone(target){
+  // 1.判断拷贝的数据类型
+  let result, targetType = checkType(target)
+  if(targetType === &#39;Object&#39;){
+    // 2.初始化数据，对象/数组/其他类型仍不改变
+    result = {}
+  }else if(targetType === &#39;Array&#39;){
+    result = []
+  }else{
+    return target
+  }
+  // 3.遍历目标数据
+  for(let i in target){
+    // 遍历数据结构的每一项值
+    let value = target[i] // key、下标都可以用[]
+    // 判断目标结构里的每一值是否存在数组/对象
+    if(checkType(value) === &#39;Object&#39; || checkType(value) === &#39;Array&#39;){// 对象、数组中还嵌套了对象数组
+      // 继续遍历获取到的value值
+      result[i] = clone(value)
+    }else{ // 获取到的value值是基本数据类型或函数
+      result[i] = value
+    }
+  }
+  return result
+}
+let arr = [1,2,{username: &#39;kobe&#39;}]
+let arr2 = clone(arr)
+console.log(arr, arr2)
+arr2[2].username = &#39;abdc&#39;
+console.log(arr, arr2)
+
+let obj = {username: &#39;luwang&#39;, age: 23}
+let obj2 = clone(obj)
+console.log(obj, obj2)
+obj2.username = &#39;LUWANG&#39;
+console.log(obj, obj2)</code></pre>
+</li>
+</ul>
+<h3 id="7、class类"><a href="#7、class类" class="headerlink" title="7、class类"></a>7、class类</h3><ul>
+<li><p>通过class定义类，实现类的继承</p>
+<ul>
+<li><p>回顾：原型、构造函数、构造函数+原型——继承</p>
+<pre><code class="javascript">function Person(name, age){
+  this.name = name
+  this.age = age
+}
+let person = new Person(&#39;kobe&#39;, 39)
+console.log(person)</code></pre>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn/img/pic/illustration/1591769869983.png" alt="继承" class="lazyload"></p>
+</li>
+</ul>
+</li>
+<li><p>在类中通过 constructor() 定义构造方法(相当于构造函数)</p>
+<pre><code class="javascript">// 定義一個人物的類
+class Person{
+ // 类的构造方法
+  constructor(name, age){
+    this.name = name
+    this.age = age
+  }
+  // 类的一般方法
+  showMe(){
+    console.log(this.name)
+  }
+}
+let person = new Person(&#39;kobe&#39;, 39)
+console.log(person)
+person.showName()</code></pre>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn/img/pic/illustration/1591770059566.png" alt="继承" class="lazyload"></p>
+</li>
+<li><p>一般方法: xxx () {}</p>
+</li>
+<li><p>用extends来定义子类（实现累的继承）</p>
+</li>
+<li><p>用super()来调用父类的构造方法</p>
+</li>
+<li><p>子类方法自定义: 将从父类中继承来的方法重新实现一遍（重写从父类继承的一般方法）</p>
+<pre><code class="javascript">// 定義一個人物的類
+class Person{
+  constructor(name, age){
+    this.name = name
+    this.age = age
+  }
+  showMe(){
+    console.log(&#39;調用父類的方法&#39;)
+    console.log(this.name, this.age)
+  }
+}
+let person = new Person(&#39;kobe&#39;, 39)
+person.showMe()
+
+// 子類
+class StarPerson extends Person{
+  constructor(name, age, salary){
+    super(name, age) // 調用父類的構造方法
+    this.salary = salary
+  }
+  showMe(){
+    console.log(&#39;子類重寫的方法&#39;)
+    console.log(this.name, this.age, this.salary)
+  }
+}
+let p1 = new StarPerson(&#39;wade&#39;, 36, 10000000)
+console.log(p1)
+p1.showMe()</code></pre>
+</li>
+<li><p>js中没有方法重载(方法名相同, 但参数不同)的语法</p>
+</li>
+</ul>
+<h3 id="4、set-Map容器结构"><a href="#4、set-Map容器结构" class="headerlink" title="4、set/Map容器结构"></a>4、set/Map容器结构</h3><ul>
+<li><p>容器: 能保存多个数据的对象, 同时必须具备操作内部数据的方法</p>
+</li>
+<li><p>任意对象都可以作为容器使用, 但有的对象不太适合作为容器使用(如函数)</p>
+</li>
+<li><p><strong>Set的特点</strong>: 保存多个value, value是不重复 ====&gt;数组元素去重</p>
+</li>
+<li><p><strong>Map的特点</strong>: 保存多个key–value, key是不重复, value是可以重复的</p>
+</li>
+<li><p>API</p>
+<ul>
+<li>Set容器：无序不可重复的多个value的集合体<ul>
+<li><code>Set()</code></li>
+<li><code>Set(arr)</code> //arr是一维数组</li>
+<li><code>add(value)</code></li>
+<li><code>delete(value)</code></li>
+<li><code>clear()</code></li>
+<li><code>has(value)</code></li>
+<li><code>size</code></li>
+<li>Map容器：无序的key、不重复的多个key-value的集合体</li>
+</ul>
+</li>
+<li><code>Map()</code></li>
+<li><code>Map(arr)</code>//arr是二维数组</li>
+<li><code>set(key, value)</code></li>
+<li><code>get(key)</code></li>
+<li><code>delete(key)</code></li>
+<li><code>clear()</code></li>
+<li><code>has(key)</code></li>
+<li><code>size</code></li>
+</ul>
+<pre><code class="javascript">// let set = new Set()
+let set = new Set([1,2,4,5,2,3,6]) // 重复的会去除
+console.log(set)
+set.add(7)
+console.log(set.size, set)
+console.log(set.has(8))
+console.log(set.has(7))
+set.delete(7)
+console.log(set.size, set)
+set.clear()
+console.log(set.size, set)
+
+// let map = new Map()
+let map = new Map([[&#39;username&#39;, &#39;aaa&#39;], [&#39;age&#39;, 35], [&#39;sex&#39;, &#39;female&#39;]]) // 二维数组，且只能有两值(一个是key，一个是value)
+map.set(&#39;other&#39;, &#39;shuoming&#39;)
+console.log(map.size, map)
+map.delete(&#39;other&#39;)
+console.log(map)
+console.log(map.has(&#39;username&#39;))
+map.clear()
+console.log(map)</code></pre>
+</li>
+</ul>
+<h3 id="5、for–of循环"><a href="#5、for–of循环" class="headerlink" title="5、for–of循环"></a>5、for–of循环</h3><ul>
+<li>可以遍历任何容器（Set、Map）</li>
+</ul>
+<pre><code class="javascript">let set = new Set([1, 2, 4, 3, 4, 5]) 
+for(let i of set){
+  console.log(i)
+}
+
+// 可以用Set给数组去重
+let arr = [1,2,4,5,5,6,2]
+let arr1 = arr
+arr = [] // 保留数组类型
+let set = new Set(arr1)
+for(let i of set){
+  arr.push(i)
+}
+console.log(arr)</code></pre>
+<ul>
+<li>数组</li>
+<li>对象</li>
+<li>伪/类对象</li>
+<li>字符串</li>
+<li>可迭代的对象</li>
+</ul>
+<h3 id="6、Promise对象"><a href="#6、Promise对象" class="headerlink" title="6、Promise对象"></a>6、Promise对象</h3><ul>
+<li><p>理解：</p>
+<ul>
+<li>Promise对象代表了某个将要发生的事件（通常是一个异步操作）</li>
+<li>ES6的Promise是一个构造函数，用来生成promise实例</li>
+</ul>
+<ul>
+<li><p>解决<code>回调地狱</code>(回调函数的层层嵌套, 编码是不断向右扩展, 阅读性很差)；有了promise对象，可以将异步操作以同步的流程表达出来，避免了层层嵌套的回调函数（回调地狱）</p>
+</li>
+<li><p>能以同步编码的方式实现异步调用</p>
+</li>
+<li><p>在es6之前原生的js中是没这种实现的, 一些第三方框架(jQuery)实现了promise</p>
+</li>
+<li><p>promise对象的3个状态：</p>
+<ul>
+<li>pending：初始化状态</li>
+<li>fullfilled：成功状态</li>
+<li>rejected：失败状态</li>
+</ul>
+</li>
+<li><p>应用：</p>
+<ul>
+<li>使用promise实现超时处理</li>
+<li>使用promise封装处理Ajax请求</li>
+</ul>
+<pre><code>let request = new XMLHttpRequest()
+request.responseType = &#39;json&#39;
+request.open(&quot;GET&quot;, url)
+request.send()</code></pre></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>ES6中定义实现API(使用Promise基本步骤): </p>
+<pre><code>// 1. 创建promise对象
+let promise = new Promise((resolve, reject) =&gt; { 
+      // 初始化promise状态为pending
+  // 执行异步操作 
+  if(异步操作成功) { // 调用成功的回调
+    resolve(result);     // 修改promise状态为fullfilled
+  } else { // 调用失败的回调
+    reject(errorMsg);   // 修改promise的状态为rejected
+  } 
+}) 
+// 2. 调用promise对象的then()
+promise.then(function(
+  result =&gt; console.log(result), 
+  errorMsg =&gt; alert(errorMsg)
+))</code></pre><p>例子：</p>
+<pre><code class="javascript">// 1、创建promise对象
+let promise = new Promise((resolve, reject) =&gt; {
+  // 初始化promise状态  pending： 初始化
+  console.log(&#39;11111111&#39;)
+  // 执行异步操作，通常是发送Ajax请求，开启定时器
+  setTimeout(() =&gt; {
+    console.log(&#39;3333333&#39;)
+    // 根据异步任务的返回结果去修改promise的状态
+    // 异步任务执行成功
+    // resolve(&#39;哈哈，&#39;) // 修改promise的状态为 fullfilled：成功
+    // 异步任务执行失败
+    reject(&#39;555, &#39;) // 修改promise的状态为 rejsected： 失败
+  }, 2000)
+})
+console.log(&#39;222222222&#39;)
+// 2. 调用promise对象的then()
+promise
+  .then((data) =&gt; { // 成功的回调
+    console.log(data, &#39;成功了~~~&#39;)
+  }, (error) =&gt; { // 失败的回调
+    console.log(error, &#39;失败了……&#39;)
+})</code></pre>
+<p>实例：新闻、新闻的评论：只发新闻的内容；在接着根据新闻的id拿取这个新闻下的评论</p>
+<p>1、打开ES5_6_7中code目录中的es_server</p>
+<p>2、输入命令<code>node bin/www</code></p>
+<p>3、浏览器中访问 <a href="http://localhost:3000/news" target="_blank" rel="noopener">http://localhost:3000/news</a> ，能够获取数据</p>
+<pre><code class="javascript">// 定义获取新闻的功能函数
+function getNews(url){
+  let promise = new Promise((resolve, reject) =&gt; {
+    // 状态：初始化
+    // 执行异步任务
+    let xmlHttp = new XMLHttpRequest()
+    // 绑定监听readyState
+    /*xmlHttp.onreadystatechange = function(){
+      if(xmlHttp.readyState === 4 &amp;&amp; xmlHttp.status == 200){
+        // 请求成功
+        console.log(xmlHttp.responseText)
+        // 修改状态
+        resolve(xmlHttp.responseText) // 修改promise的状态为成功
+      }else{
+        // 请求失败
+        reject(&#39;暂时没有新闻内容&#39;)
+      }
+    } --&gt; 逻辑有问题*/
+    xmlHttp.onreadystatechange = function(){
+      if(xmlHttp.readyState === 4){
+        if(xmlHttp.status == 200){
+          // 请求成功
+          // console.log(xmlHttp.responseText)
+          // 修改状态
+          resolve(xmlHttp.responseText) // 修改promise的状态为成功
+        }else{
+          // 请求失败
+          reject(&#39;暂时没有新闻内容&#39;)
+        }
+      }
+    }
+
+    // open 设置请求得方式以及url
+    xmlHttp.open(&#39;GET&#39;, url)
+    // 发送
+    xmlHttp.send()
+  })
+  return promise
+}
+getNews(&#39;http://localhost:3000/news?id=2&#39;)
+  .then((data) =&gt; {
+    console.log(data)
+    // 发送请求获取评论内容准备url
+    let commentsUrl = JSON.parse(data).commentsUrl
+    let url = &#39;http://localhost:3000&#39; + commentsUrl
+    // 发送请求
+    return getNews(url)
+  },(error) =&gt; {
+    console.log(error)
+  })
+  .then((data) =&gt; {
+    console.log(data)
+  }, () =&gt; {
+
+})</code></pre>
+</li>
+</ul>
+<h3 id="8、Symbol属性"><a href="#8、Symbol属性" class="headerlink" title="8、Symbol属性"></a>8、Symbol属性</h3><ul>
+<li>前言：ES5中对象的属性名都是字符串，容易造成重名，污染环境</li>
+<li>概念：ES6中添加了一种<strong>原始数据类型symbol</strong>(已有的数据类型：String、Number、boolean、null、undefined、对象)</li>
+<li>特点<ul>
+<li>Symbol属性对应的值是<strong>唯一</strong>的，解决命名冲突问题</li>
+<li>Symbol值<strong>不能</strong>与<strong>其他数据</strong>进行<strong>计算</strong>，包括与字符串拼串</li>
+<li>for in、for of遍历时不会遍历symbol属性</li>
+</ul>
+</li>
+<li>使用<ul>
+<li>调用Symbol函数得到symbol值</li>
+<li>传参标识</li>
+<li>内置Symbol值<ul>
+<li>除了定义自己使用的Symbol值以外，ES6还提供了11个内置的Symbol值（查看官方文档）</li>
+<li>对象的Symbol.iterator属性，指向该对象的默认遍历器方法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="javascript">// 创建symbol属性值
+let symbol = Symbol()
+console.log(symbol)  // Symbol()
+let obj = {username:&#39;kobe&#39;, age:39}
+// 可以添加symbol属性——但是得用另一种方式
+obj.gender = &#39;男&#39;
+obj[symbol] = &#39;hello&#39;
+console.log(obj)  // {username: &quot;kobe&quot;, age: 39, gender: &quot;男&quot;, Symbol(): &quot;hello&quot;}
+
+//let symbol2 = Symbol()
+//let symbol3 = Symbol()
+// 并不相同，值是唯一的
+//console.log(symbol2, symbol3, symbol2 == symbol3)  // Symbol() Symbol() false
+
+// 可以传参，这样就能很明显看出不同了
+let symbol2 = Symbol(&#39;one&#39;)
+let symbol3 = Symbol(&#39;two&#39;)
+console.log(symbol2, symbol3, symbol2 == symbol3)  // Symbol(one) Symbol(two) false
+
+// 可以用来定义常量
+const Person_key = Symbol(&#39;person_key&#39;)
+console.log(Person_key)  // Symbol(person_key)
+
+
+
+
+
+
+// 等同于在指定的数据结构上部署了Iterator接口
+// 当使用for of去遍历某一个数据结构的时候，首先去找Symbol.itearator，找到了就去遍历，没有找到就不能遍历
+let targetData = {
+  [Symbol.iterator]: function(){
+    let nextIndex = 0
+    return{
+      next: function(){
+        return nextIndex &lt; this.length ? {value: this[nextIndex++], done: false} : {value: undefined, done: true}
+      }
+    }
+  }
+}
+// 使用三点运算符、解构赋值，默认会去调用Iterator接口
+let arr2 = [1,6]
+let arr3 = [2,3,4,5]
+arr2 = [1,...arr3,6]
+console.log(arr2)
+let [a,b] = arr2
+console.log(a,b)
+</code></pre>
+<h3 id="9、Iterator遍历器"><a href="#9、Iterator遍历器" class="headerlink" title="9、Iterator遍历器"></a>9、Iterator遍历器</h3><ul>
+<li><p>概念：iterator是一种接口机制，为各种不同的数据结构提供统一的访问机制</p>
+</li>
+<li><p>作用：</p>
+<ul>
+<li>为各种数据结构，提供一个统一的、简便的访问接口</li>
+<li>使得数据机构的成员能够按照某种次序排列</li>
+<li>ES6创造了一种新的遍历命令for…of循环，Iterator接口主要供for…of消费</li>
+</ul>
+</li>
+<li><p>工作原理</p>
+<ul>
+<li>创建一个指针对象(遍历器对象)，指向数据结构的起始位置</li>
+<li>第一次调用next方法，指针自动指向数据结构的第一个成员</li>
+<li>接下来不断调用next方法，指针会一直往后移动，直到指向最后一个成员</li>
+<li>没调用next方法返回的是一个包含value和done的对象<code>{value: 当前成员的值, done: 布尔值}</code><ul>
+<li>value表示当前成员的值，done对应的布尔值表示当前的数据的结构是否遍历结束</li>
+<li>当遍历结束的时候返回的value值是undefined，done值为false</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>原生具备Iterator接口的数据(可用for…of遍历)</p>
+</li>
+<li><p>扩展理解</p>
+<ul>
+<li>当数据结构上部署了Symbol.iterator接口，该数据就是可以用for of遍历</li>
+<li>当使用for of去遍历目标数据的时候，该数据会自动去找Symbol.iterator属性（Symbol.iterator属性指向对象的默认遍历器方法）<ul>
+<li>Array</li>
+<li>arguments</li>
+<li>set容器</li>
+<li>map容器</li>
+<li>String</li>
+<li>……</li>
+</ul>
+</li>
+</ul>
+<pre><code class="javascript">// 模拟指针对象(遍历器对象)
+function myIterator(arr){// Iterator接口
+let nextIndex = 0 // 记录指针的位置
+  return{
+    next: function(){// 遍历器对象
+      return nextIndex &lt; arr.length ? {value: arr[nextIndex++], done: false} : {value: undefined, done: true}
+    }
+  }
+}
+// 准备一个数据
+let arr =[1,4,65,&#39;abc&#39;]
+
+let iteratorObj = myIterator(arr)
+console.log(iteratorObj.next()) // {value: 1, done: false}
+console.log(iteratorObj.next()) // {value: 4, done: false}
+console.log(iteratorObj.next()) // {value: 65, done: false}
+console.log(iteratorObj.next()) // {value: &quot;abc&quot;, done: false}
+console.log(iteratorObj.next()) // {value: undefined, done: true}
+
+// 将iterator接口部署到指定的数据类型上，可以使用for of去循环遍历
+// 数组、字符串、argument、set容器、map容器
+for(let i of arr){
+  console.log(i)
+}// 1 4 65 abc
+
+let str = &#39;abcdefg&#39;
+for(let i of str){
+  console.log(i)
+}// a b c d e f g
+
+function fun(){
+  for(let i of arguments){
+    console.log(i)
+  }
+}
+fun(1,4,5,&#39;abc&#39;) // 1 4 5 abc
+
+// let obj = {username:&#39;kobe&#39;, age: 39}
+// for(let i of obj){
+//   console.log(i)
+// }// Uncaught TypeError: obj is not iterable 不可迭代</code></pre>
+</li>
+</ul>
+<h3 id="10、Generator函数"><a href="#10、Generator函数" class="headerlink" title="10、Generator函数"></a>10、Generator函数</h3><ul>
+<li><p>概念</p>
+<ul>
+<li>ES6提供的解决异步编程的方案之一</li>
+<li>Generator函数是一个状态机，内部封装了不同状态的数据</li>
+<li>用来生成遍历器对象</li>
+<li>可暂停函数(惰性求值)，yield可暂停，next方法可启动。每次返回的是yield后的表达式结果</li>
+</ul>
+</li>
+<li><p>特点</p>
+<ul>
+<li><p>function 与函数名之间有一个星号</p>
+</li>
+<li><p>内部用yield表达式来定义不同的状态</p>
+<p>例如：</p>
+<pre><code class="javascript">function* generatorExample(){
+    let result = yield &#39;hello&#39;  // 状态值为hello
+    yield &#39;generator&#39;  // 状态值为generator
+}</code></pre>
+</li>
+<li><p>generator函数返回的是指针对象，而不会执行函数内部逻辑</p>
+<pre><code class="javascript">function* generatorExample(){
+    console.log(&#39;开始执行&#39;)
+    let result = yield &#39;hello&#39;  // 状态值为hello
+    yield &#39;generator&#39;  // 状态值为generator
+}
+generatorExample() // 调用并不会执行函数内部逻辑</code></pre>
+</li>
+<li><p>调用next方法函数，内部逻辑开始执行，遇到yield表达式停止，返回<code>{value: yield后的表达式结果/return后的返回结果(如果没写，返回undefined),done: boolean值(后面还有返回false，没有返回true)}</code></p>
+<pre><code class="javascript">function* generatorExample(){
+    console.log(&#39;开始执行&#39;)
+    let result = yield &#39;hello&#39;  // 状态值为hello，会执行，停止 测试yield console.log(&#39;会执行&#39;)
+    console.log(&#39;下次调用next执行&#39;)
+    yield &#39;generator&#39;  // 状态值为generator
+    console.log(&#39;下次调用next执行&#39;)
+    return &#39;返回的结果&#39;
+}
+let MG = generatorExample() // 返回的是指针对象
+console.log(MG.next()) // 执行，遇到yield停止
+console.log(MG.next(&#39;可以拿到这个值&#39;)) // 再次调用next，往下执行，可以传参
+console.log(MG.next()) // 再次调用next，往下执行，返回true</code></pre>
+</li>
+<li><p>再次调用next方法会从上一次停止时的yield处开始，直到最后</p>
+</li>
+<li><p>yield语句返回结果通常为undefined，当调用next方法时传参内容会作为启动时yield语句的返回值</p>
+</li>
+<li><p>补充</p>
+<ul>
+<li>对象的Symbol.iterator属性，指向遍历器对象</li>
+</ul>
+<pre><code class="javascript">let obj = {username:&#39;kobe&#39;, age: 39}
+obj[Symbol.iterator] = function* myTest(){
+    yield 1
+    yield 2
+    yield 3
+}
+for(let i of obj){
+  console.log(i)
+}</code></pre>
+<ul>
+<li>案例<ul>
+<li>需求<ul>
+<li>发送ajax请求获取新闻内容</li>
+<li>新闻内容获取成功后再次发送请求，获取对应的新闻评论内容</li>
+<li>新闻内容获取失败则不需要再次发送请求</li>
+</ul>
+</li>
+<li>启动服务器——进入es_server目录，cmd输入命令<code>node bin/www</code></li>
+</ul>
+</li>
+</ul>
+<pre><code class="javascript">// 要比使用Promise更好
+function getNews(url){
+  $.get(url, function(data){ // 前面引入了jQuery
+    console.log(data)
+    let url = &#39;http://localhost:3000&#39; + data.commentsUrl
+    SX.next(url) // 放在这里也可以往下移，并且这里参数传输更方便
+  })
+}
+function* sendXml(){
+  let url = yield getNews(&#39;http://localhost:3000/news?id=3&#39;) // 如果这里出错，后面评论也不会再执行了
+  yield getNews(url)
+}
+// 获取遍历器对象
+let SX = sendXml()
+SX.next()</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<p>​        </p>
+<h2 id="四、模块化"><a href="#四、模块化" class="headerlink" title="四、模块化"></a>四、模块化</h2><h3 id="1、理解"><a href="#1、理解" class="headerlink" title="1、理解"></a>1、理解</h3><ul>
+<li><p>什么是模块?</p>
+<ul>
+<li>将一个复杂的程序依据一定的规则(规范)封装成几个块(文件), 并进行组合在一起</li>
+<li>块的内部数据/实现是私有的, 只是向外部暴露一些接口(方法)与外部其它模块通信</li>
+</ul>
+</li>
+<li><p>一个模块的组成</p>
+<ul>
+<li>数据—&gt;内部的属性</li>
+<li>操作数据的行为—&gt;内部的函数</li>
+</ul>
+</li>
+<li><p>模块化</p>
+<ul>
+<li>编码时是按照模块一个一个编码的, 整个项目就是一个模块化的项目</li>
+</ul>
+</li>
+<li><p>模块化的进化过程</p>
+<ul>
+<li><p>全局function模式 : </p>
+<ul>
+<li>编码: 全局变量/函数</li>
+<li>问题: 污染全局命名空间, 容易引起命名冲突/数据不安全</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn/img/pic/illustration/1591870404488.png" alt="全局变量" class="lazyload"></p>
+<ul>
+<li><p>namespace模式 : </p>
+<ul>
+<li>编码: 将数据/行为封装到对象中</li>
+<li>解决: 命名冲突(减少了全局变量)</li>
+<li>问题: 数据不安全(外部可以直接修改模块内部的数据)</li>
+</ul>
+</li>
+</ul>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn/img/pic/illustration/1591870416611.png" alt="Namespace" class="lazyload"></p>
+<ul>
+<li><p>IIFE模式/增强</p>
+<ul>
+<li><p>IIFE : 立即调用函数表达式—&gt;匿名函数自调用</p>
+</li>
+<li><p>编码: 将数据和行为封装到一个函数内部, 通过给window添加属性来向外暴露接口</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn/img/pic/illustration/1591870442007.png" alt="IIFE" class="lazyload"></p>
+<ul>
+<li><p>引入依赖: 通过函数形参来引入依赖模块</p>
+<pre><code>(function(window, module2){
+  var data = &#39;atguigu.com&#39;
+  function foo() {
+     module2.xxx()
+     console.log(&#39;foo()&#39;+data)
+  }
+  function bar() {
+     console.log(&#39;bar()&#39;+data)
+  }
+
+  window.module = {foo}
+})(window, module2)</code></pre><p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn/img/pic/illustration/1591870456267.png" alt="IIFE增强" class="lazyload"></p>
+</li>
+<li><p>模块化好处</p>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn/img/pic/illustration/1591870477012.png" alt="模块化好处" class="lazyload"></p>
+<ul>
+<li>避免命名冲突(减少命名空间污染)</li>
+<li>更好的分离, 按需加载</li>
+<li>更高复用性</li>
+<li>高可维护性</li>
+</ul>
+</li>
+<li><p>页面引入加载script</p>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn/img/pic/illustration/1591871174402.png" alt="引入js" class="lazyload"></p>
+<ul>
+<li>问题<ul>
+<li>请求过多</li>
+<li>依赖模糊</li>
+<li>难以维护</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>模块化规范</p>
+<ul>
+<li><p><strong>CommonJS</strong></p>
+<ul>
+<li><p>Node.js : 服务器端</p>
+</li>
+<li><p>Browserify : 浏览器端    也称为js的打包工具</p>
+</li>
+<li><p>基本语法:</p>
+<ul>
+<li><p>定义暴露模块 : exports</p>
+<pre><code>exports.xxx = value
+module.exports = value</code></pre><p>引入模块 : require</p>
+<pre><code>var module = require(&#39;模块名/模块相对路径&#39;)</code></pre></li>
+</ul>
+</li>
+<li><p>每个文件都可以当作一个模块</p>
+</li>
+<li><p>引入模块发生在什么时候?</p>
+<ul>
+<li>Node : 运行时, 动态同步引入</li>
+<li>Browserify : 在运行前对模块进行编译/转译/打包的处理(已经将依赖的模块包含进来了), <pre><code>运行的是打包生成的js, 运行时不存在需要再从远程引入依赖模块</code></pre></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>*<em>AMD *</em>: 浏览器端，模块的加载时异步的</p>
+<ul>
+<li><p>require.js</p>
+</li>
+<li><p>基本语法</p>
+<ul>
+<li><p>定义暴露模块: define([依赖模块名], function(){return 模块对象})</p>
+</li>
+<li><p>引入模块: require([‘模块1’, ‘模块2’, ‘模块3’], function(m1, m2){//使用模块对象})</p>
+</li>
+<li><p>配置: </p>
+<pre><code>require.config({
+  //基本路径
+  baseUrl : &#39;js/&#39;,
+  //标识名称与路径的映射
+  paths : {
+    &#39;模块1&#39; : &#39;modules/模块1&#39;,
+    &#39;模块2&#39; : &#39;modules/模块2&#39;,
+    &#39;angular&#39; : &#39;libs/angular&#39;,
+    &#39;angular-messages&#39; : &#39;libs/angular-messages&#39;
+  },
+  //非AMD的模块
+  shim : {
+    &#39;angular&#39; : {
+        exports : &#39;angular&#39;
+    },
+    &#39;angular-messages&#39; : {
+        exports : &#39;angular-messages&#39;,
+        deps : [&#39;angular&#39;]
+    }
+  }
+})</code></pre></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>CMD(通用模块定义) : 浏览器端，模块加载是异步的；模块使用时才会加载执行</p>
+<ul>
+<li><p>sea.js</p>
+</li>
+<li><p>基本语法</p>
+<ul>
+<li><p>定义暴露模块: </p>
+<pre><code>define(function(require, module, exports){
+  通过require引入依赖模块
+  通过module/exports来暴露模块
+  exports.xxx = value
+})</code></pre></li>
+<li><p>使用模块seajs.use([‘模块1’, ‘模块2’])</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>ES6</strong></p>
+<ul>
+<li><p>ES6内置了模块化的实现，依赖模块需要编译打包处理</p>
+</li>
+<li><p>基本语法</p>
+<ul>
+<li><p>定义暴露模块 : export</p>
+<ul>
+<li><p>暴露一个对象: </p>
+<pre><code>export default 对象</code></pre></li>
+<li><p>暴露多个: </p>
+<pre><code>export var xxx = value1
+export let yyy = value2
+
+var xxx = value1
+let yyy = value2
+export {xxx, yyy}</code></pre></li>
+</ul>
+</li>
+<li><p>引入使用模块 : import</p>
+<ul>
+<li><p>default模块:</p>
+<pre><code>import xxx  from &#39;模块路径/模块名&#39;</code></pre></li>
+<li><p>其它模块</p>
+<pre><code>import {xxx, yyy} from &#39;模块路径/模块名&#39;
+import * as module1 from &#39;模块路径/模块名&#39;</code></pre></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>问题: 所有浏览器还不能直接识别ES6模块化的语法  </p>
+</li>
+<li><p>解决:</p>
+<ul>
+<li>使用Babel将ES6—&gt;ES5(使用了CommonJS) —-浏览器还不能直接支行</li>
+<li>使用Browserify—&gt;打包处理—-浏览器可以运行</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2、CommonJS基于服务器端（Node-js）"><a href="#2、CommonJS基于服务器端（Node-js）" class="headerlink" title="2、CommonJS基于服务器端（Node.js）"></a>2、CommonJS基于服务器端（Node.js）</h3><ul>
+<li><p>下载安装Node.js</p>
+</li>
+<li><p>创建目录结构</p>
+<ul>
+<li><p>Modules</p>
+<ul>
+<li>module1.js</li>
+<li>module2.js</li>
+<li>module3.js</li>
+</ul>
+</li>
+<li><p>app.js</p>
+</li>
+<li><p>package.json（命令创建,<code>npm init</code>,再输入包名）</p>
+<pre><code class="json">{
+    &quot;name&quot;: &quot;conmmonjs_node&quot;,
+    &quot;version&quot;: &quot;1.0.0&quot;
+}</code></pre>
+</li>
+</ul>
+</li>
+<li><p>下载第三方模块<code>npm install uniq --save</code></p>
+<ul>
+<li><p>package.json</p>
+<pre><code class="json">{
+    &quot;name&quot;: &quot;conmmonjs_node&quot;,
+    &quot;version&quot;: &quot;1.0.0&quot;,
+    &quot;dependencies&quot;:{
+        &quot;uniq&quot;: &quot;^1.0.1&quot;
+    }
+}</code></pre>
+</li>
+</ul>
+</li>
+<li><p>模块化编码</p>
+<ul>
+<li><p>module1.js</p>
+<pre><code class="javascript">// module.exports = value 暴露一个对象
+module.exports = {
+    msg: &#39;module1&#39;,
+    foo(){
+        console.log(this.msg)
+    }
+}</code></pre>
+</li>
+<li><p>module2.js</p>
+<pre><code class="javascript">// 暴露一个函数 module.exports = function(){}
+module.exports = fuction(){
+    console.log(&quot;module2&quot;)
+}</code></pre>
+</li>
+<li><p>module3.js</p>
+<pre><code class="javascript">// exports.xxx = value 分别暴露
+exports.foo = function(){
+    console.log(&#39;foo() module3&#39;)
+}
+exports.bar = function(){
+    console.log(&#39;bar() module3&#39;)
+}
+
+exports.arr = [2, 4, 5, 2, 3, 5, 1]</code></pre>
+</li>
+<li><p>app.js</p>
+<pre><code class="javascript">// 将其他的模块汇集到主模块
+let uniq = require(&#39;uniq&#39;)
+
+let module1 = require(&#39;./modules/module1&#39;)
+let module2 = require(&#39;./modules/module2&#39;)
+let module3 = require(&#39;./modules/module3&#39;)
+
+module1.foo()
+
+module2()
+
+module3.foo()
+module3.bar()
+
+let result = uniq(module3.arr)
+console.log(result)</code></pre>
+</li>
+</ul>
+</li>
+<li><p>通过node运行app.js——<code>node app.js</code></p>
+</li>
+</ul>
+<h3 id="3、CommonJS基于浏览器端应用（Browserify）"><a href="#3、CommonJS基于浏览器端应用（Browserify）" class="headerlink" title="3、CommonJS基于浏览器端应用（Browserify）"></a>3、CommonJS基于浏览器端应用（Browserify）</h3><ul>
+<li><p>创建项目结构</p>
+<ul>
+<li><p>js</p>
+<ul>
+<li>dist //打包生成文件的目录</li>
+<li>src //源码所在的目录<ul>
+<li>module1.js</li>
+<li>module2.js</li>
+<li>module3.js</li>
+<li>app.js //应用主源文件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>index.html</p>
+</li>
+<li><p>package.json</p>
+<pre><code class="json">{
+    &quot;name&quot;: &quot;browserify-test&quot;,
+    &quot;version&quot;: &quot;1.0.0&quot;
+}</code></pre>
+</li>
+</ul>
+</li>
+<li><p>下载browserify</p>
+<ul>
+<li><p>全局：<code>npm install browserify -g</code></p>
+</li>
+<li><p>局部：<code>npm install browserify --save-dev</code></p>
+<pre><code class="json">{
+    &quot;name&quot;: &quot;browserify-test&quot;,
+    &quot;version&quot;: &quot;1.0.0&quot;,
+    &quot;devDependencies&quot;:{
+        &quot;browserify&quot;: &quot;^14.5.0&quot;
+    }
+}</code></pre>
+</li>
+</ul>
+</li>
+<li><p>下载第三方模块<code>npm install uniq --save</code></p>
+<ul>
+<li><p>package.json</p>
+<pre><code class="json">{
+    &quot;name&quot;: &quot;browserify-test&quot;,
+    &quot;version&quot;: &quot;1.0.0&quot;,
+    &quot;devDependencies&quot;:{
+        &quot;browserify&quot;: &quot;^14.5.0&quot;
+    },
+    &quot;dependencies&quot;:{
+        &quot;uniq&quot;: &quot;^1.0.1&quot;
+    }
+}</code></pre>
+</li>
+</ul>
+</li>
+<li><p>定义模块代码</p>
+<ul>
+<li><p>module1.js</p>
+<pre><code class="javascript">module.exports = {
+  foo() {
+    console.log(&#39;moudle1 foo()&#39;)
+  }
+}</code></pre>
+</li>
+<li><p>module2.js</p>
+<pre><code class="javascript">module.exports = function () {
+  console.log(&#39;module2()&#39;)
+}</code></pre>
+</li>
+<li><p>module3.js</p>
+<pre><code class="javascript">exports.foo = function () {
+  console.log(&#39;module3 foo()&#39;)
+}
+
+exports.bar = function () {
+  console.log(&#39;module3 bar()&#39;)
+}</code></pre>
+</li>
+<li><p>app.js</p>
+<pre><code class="javascript">//引用模块
+let module1 = require(&#39;./module1&#39;)
+let module2 = require(&#39;./module2&#39;)
+let module3 = require(&#39;./module3&#39;)
+
+let uniq = require(&#39;uniq&#39;)
+
+//使用模块
+module1.foo()
+module2()
+module3.foo()
+module3.bar()
+
+console.log(uniq([1, 3, 1, 4, 3]))</code></pre>
+</li>
+</ul>
+</li>
+<li><p>打包处理js：<code>browserify js/src/app.js -o js/dist/bundle.js</code></p>
+</li>
+<li><p>页面使用引入</p>
+<ul>
+<li><p>index.html</p>
+<pre><code class="html">&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;title&gt;broserify测试&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script src=&quot;js/dist/bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4、AMD规范"><a href="#4、AMD规范" class="headerlink" title="4、AMD规范"></a>4、AMD规范</h3><h4 id="（1）NoAMD"><a href="#（1）NoAMD" class="headerlink" title="（1）NoAMD"></a>（1）NoAMD</h4><ul>
+<li><p>项目结构</p>
+<ul>
+<li>js<ul>
+<li>alerter.js</li>
+<li>dataService.js</li>
+</ul>
+</li>
+<li>app.js</li>
+<li>test1.html</li>
+</ul>
+</li>
+<li><p>文件内容</p>
+<ul>
+<li><p>dataService.js</p>
+<pre><code class="javascript">// 定义一个没有依赖的模块
+(function(win){ // 形参可以和实参的名字相同，这里方便区分
+    let name = &#39;dataservice.js&#39;
+    function getName(){
+        return name
+    }
+    win.dataService = {getName}
+})(window) // 实参</code></pre>
+</li>
+<li><p>alerter.js</p>
+<pre><code class="javascript">// 定义一个有依赖的模块
+(function(window, dataService){
+    let msg = &#39;alerter.js&#39;
+    function showMsg(){
+        alert(msg + &#39;,&#39; + dataService.getName())
+    }
+    window.alerter = {showMsg}
+})(window, dataService) // 依赖dataService</code></pre>
+</li>
+<li><p>app.js</p>
+<pre><code class="javascript">(function (alerter){
+    alerter.showMsg()
+})(alerter)</code></pre>
+</li>
+<li><p>test1.html</p>
+<pre><code class="html">&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;title&gt;Modular Demo: 未使用AMD(require.js)&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script src=&quot;./js/dataService.js&quot;&gt;&lt;/script&gt; 
+&lt;script src=&quot;./js/alerter.js&quot;&gt;&lt;/script&gt; 
+&lt;script src=&quot;./app.js&quot;&gt;&lt;/script&gt; // 下面的分别依赖上面的模块
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="（2）AMD（require-js）"><a href="#（2）AMD（require-js）" class="headerlink" title="（2）AMD（require.js）"></a>（2）AMD（require.js）</h4><ol>
+<li><p>下载require.js, 并引入</p>
+<ul>
+<li>官网: <a href="http://www.requirejs.cn/" target="_blank" rel="noopener">http://www.requirejs.cn/</a></li>
+<li>github : <a href="https://github.com/requirejs/requirejs" target="_blank" rel="noopener">https://github.com/requirejs/requirejs</a></li>
+<li>将require.js导入项目: js/libs/require.js </li>
+</ul>
+</li>
+<li><p>创建项目结构</p>
+</li>
+</ol>
+<ul>
+<li>js<ul>
+<li>libs<ul>
+<li>require.js</li>
+</ul>
+</li>
+<li>modules<ul>
+<li>alerter.js</li>
+<li>dataService.js</li>
+</ul>
+</li>
+<li>main.js</li>
+</ul>
+</li>
+<li>index.html</li>
+</ul>
+<ol start="3">
+<li><p>定义require.js的模块代码</p>
+<ul>
+<li><p>dataService.js</p>
+<pre><code class="javascript">// 定义没有依赖的模块
+define(function () {
+ let msg = &#39;dataService.js&#39;
+
+ function getMsg() {
+   return msg.toUpperCase()
+ }
+ // 暴露模块
+ return {getMsg}
+})</code></pre>
+</li>
+<li><p>alerter.js</p>
+<pre><code class="javascript">// 定义有依赖的模块
+define([&#39;dataService&#39;, &#39;jquery&#39;], function (dataService, $) {
+ let msg = &#39;alerter.js&#39;
+
+ function showMsg() {
+   $(&#39;body&#39;).css(&#39;background&#39;, &#39;gray&#39;)
+   alert(dataService.getMsg() + &#39;, &#39; + msg)
+ }
+
+ return {showMsg}
+})</code></pre>
+</li>
+</ul>
+</li>
+<li><p>应用主(入口)js：main.js</p>
+<pre><code class="javascript">(function () {
+    //配置
+    require.config({
+        //基本路径 出发点在根目录下
+        baseUrl: &quot;js/&quot;,
+        //模块标识名与模块路径映射
+        paths: {
+            &quot;alerter&quot;: &quot;modules/alerter&quot;,
+            &quot;dataService&quot;: &quot;modules/dataService&quot;,
+        }
+    })
+    //引入使用模块
+    require( [&#39;alerter&#39;], function(alerter) {
+        alerter.showMsg()
+    })
+})()</code></pre>
+</li>
+<li><p>页面使用模块：index.html</p>
+</li>
+</ol>
+<pre><code class="html">&lt;script data-main=&quot;js/main&quot; src=&quot;js/libs/require.js&quot;&gt;&lt;/script&gt;</code></pre>
+<hr>
+<ol start="6">
+<li><p>使用第三方基于require.js的框架(jquery)</p>
+<ul>
+<li><p>将jquery的库文件导入到项目: </p>
+<ul>
+<li>js/libs/jquery-1.10.1.js</li>
+</ul>
+</li>
+<li><p>在main.js中配置jquery路径</p>
+<pre><code class="javascript">paths: {
+   &#39;jquery&#39;: &#39;libs/jquery-1.10.1&#39;  // jQuery定义的返回AMD模块名为小写
+}</code></pre>
+</li>
+<li><p>在alerter.js中使用jquery</p>
+<pre><code class="javascript">define([&#39;dataService&#39;, &#39;jquery&#39;], function (dataService, $) {
+   var name = &#39;xfzhang&#39;
+   function showMsg() {
+       $(&#39;body&#39;).css({background : &#39;red&#39;})
+       alert(name + &#39; &#39;+dataService.getMsg())
+   }
+   return {showMsg}
+})</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<ol start="7">
+<li><p>使用第三方不基于require.js的框架(angular/angular-messages)</p>
+<ul>
+<li><p>将angular.js和angular-messages.js导入项目</p>
+<ul>
+<li>js/libs/angular.js</li>
+<li>js/libs/angular-messages.js</li>
+</ul>
+</li>
+<li><p>在main.js中配置</p>
+<pre><code class="javascript">(function () {
+ require.config({
+   //基本路径
+   baseUrl: &quot;js/&quot;,
+   //模块标识名与模块路径映射
+   paths: {
+     //第三方库
+     &#39;jquery&#39; : &#39;libs/jquery-1.10.1&#39;,
+     &#39;angular&#39; : &#39;libs/angular&#39;,
+     &#39;angular-messages&#39; : &#39;libs/angular-messages&#39;,
+     //自定义模块
+     &quot;alerter&quot;: &quot;modules/alerter&quot;,
+     &quot;dataService&quot;: &quot;modules/dataService&quot;
+   },
+   /*
+    配置不兼容AMD的模块
+    exports : 指定导出的模块名
+    deps  : 指定所有依赖的模块的数组
+    */
+   shim: {
+     &#39;angular&#39; : {
+       exports : &#39;angular&#39;
+     },
+     &#39;angular-messages&#39; : {
+       exports : &#39;angular-messages&#39;,
+       deps : [&#39;angular&#39;]
+     }
+   }
+ })
+ //引入使用模块
+ require( [&#39;alerter&#39;, &#39;angular&#39;, &#39;angular-messages&#39;], function(alerter, angular) {
+   alerter.showMsg()
+   angular.module(&#39;myApp&#39;, [&#39;ngMessages&#39;])
+   angular.bootstrap(document,[&quot;myApp&quot;])
+ })
+})()</code></pre>
+</li>
+<li><p>页面:</p>
+<pre><code class="html">&lt;form name=&quot;myForm&quot;&gt;
+ 用户名: &lt;input type=&quot;text&quot; name=&quot;username&quot; ng-model=&quot;username&quot; ng-required=&quot;true&quot;&gt;
+ &lt;div style=&quot;color: red;&quot; ng-show=&quot;myForm.username.$dirty&amp;&amp;myForm.username.$invalid&quot;&gt;用户名是必须的&lt;/div&gt;
+&lt;/form&gt;</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="5、CMD规范"><a href="#5、CMD规范" class="headerlink" title="5、CMD规范"></a><font color=lightgray>5、CMD规范</font></h3><ol>
+<li><p>下载sea.js, 并引入</p>
+<ul>
+<li>官网: <a href="http://seajs.org/" target="_blank" rel="noopener">http://seajs.org/</a></li>
+<li>github : <a href="https://github.com/seajs/seajs" target="_blank" rel="noopener">https://github.com/seajs/seajs</a></li>
+<li>将sea.js导入项目: js/libs/sea.js </li>
+</ul>
+</li>
+<li><p>创建项目结构</p>
+<pre><code>|-js
+ |-libs
+   |-sea.js
+ |-modules
+   |-module1.js
+   |-module2.js
+   |-module3.js
+   |-module4.js
+   |-main.js
+|-index.html</code></pre></li>
+<li><p>定义sea.js的模块代码</p>
+<ul>
+<li><p>module1.js</p>
+<pre><code class="javascript">// 没有依赖的模块
+define(function (require, exports, module) {
+ //内部变量数据
+ var data = &#39;atguigu.com&#39;
+ //内部函数
+ function show() {
+   console.log(&#39;module1 show() &#39; + data)
+ }
+
+ //向外暴露
+ exports.show = show
+})</code></pre>
+</li>
+<li><p>module2.js</p>
+<pre><code class="javascript">define(function (require, exports, module) {
+ let msg = &#39;module2&#39;
+ function bar(){
+     console.log(msg)
+ }
+   module.exports = bar
+ /* module.exports = {
+   msg: &#39;I Will Back&#39;
+ } */
+})</code></pre>
+</li>
+<li><p>module3.js</p>
+<pre><code class="javascript">define(function(require, exports, module){
+   let data = &#39;module3&#39;
+   function fun(){
+       console.log(data)
+   }
+   exports.module3 = {fun}
+})
+/* define(function (require, exports, module) {
+ const API_KEY = &#39;abc123&#39;
+ exports.API_KEY = API_KEY
+}) */</code></pre>
+</li>
+<li><p>module4.js</p>
+<pre><code class="javascript">define(function(require, exports, module){
+   let msg = &#39;module4&#39;
+   // 同步引入
+   let module2 = require(&#39;./module2&#39;)
+   module2()
+   // 异步引入
+   require.async(&#39;./module3&#39;, function(module3){
+       module3.module3.fun()
+   })
+   function fun2(){
+       console.log(msg)
+   }
+   exports.fun2 = fun2
+})
+/*define(function (require, exports, module) {
+ //引入依赖模块(同步)
+ var module2 = require(&#39;./module2&#39;)
+
+ function show() {
+   console.log(&#39;module4 show() &#39; + module2.msg)
+ }
+
+ exports.show = show
+ //引入依赖模块(异步)
+ require.async(&#39;./module3&#39;, function (m3) {
+   console.log(&#39;异步引入依赖模块3  &#39; + m3.API_KEY)
+ })
+})*/</code></pre>
+</li>
+<li><p>main.js : 主(入口)模块</p>
+<pre><code class="javascript">define(function (require) {
+ let module1 = require(&#39;./module1&#39;)
+ console.log(module1.foo())
+ let module4 = require(&#39;./module4&#39;)
+ module4.fun2()
+})
+/*define(function (require) {
+ var m1 = require(&#39;./module1&#39;)
+ var m4 = require(&#39;./module4&#39;)
+ m1.show()
+ m4.show()
+})*/</code></pre>
+</li>
+</ul>
+</li>
+<li><p>index.html:</p>
+<pre><code>&lt;!--
+使用seajs:
+ 1. 引入sea.js库
+ 2. 如何定义导出模块 :
+   define()
+   exports
+   module.exports
+ 3. 如何依赖模块:
+   require()
+ 4. 如何使用模块:
+   seajs.use()
+--&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;js/libs/sea.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+ seajs.use(&#39;./js/modules/main&#39;)
+&lt;/script&gt;</code></pre></li>
+</ol>
+<p>​       </p>
+<h3 id="6、ES6-Babel-Browserify使用教程"><a href="#6、ES6-Babel-Browserify使用教程" class="headerlink" title="6、ES6-Babel-Browserify使用教程"></a><font color=red>6、ES6-Babel-Browserify使用教程</font></h3><ol>
+<li><p>定义package.json文件</p>
+<pre><code class="json">{
+ &quot;name&quot; : &quot;es6-babel-browserify&quot;,
+ &quot;version&quot; : &quot;1.0.0&quot;
+}</code></pre>
+</li>
+<li><p>安装babel-cli, babel-preset-es2015和browserify // cli——command line interface</p>
+<ul>
+<li><code>npm install babel-cli browserify -g</code></li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><code>npm install babel-preset-es2015 --save-dev</code></li>
+<li>preset 预设（将es6转换成es5的所有插件打包）</li>
+</ul>
+<ol start="3">
+<li><p>定义.babelrc文件（babel run control）</p>
+<pre><code class="bash">{
+ &quot;presets&quot;: [&quot;es2015&quot;]
+}</code></pre>
+</li>
+<li><p>编码</p>
+<ul>
+<li><p>js/src/module1.js</p>
+<pre><code class="JavaScript">// 暴露模块 分别暴露
+export function foo() {
+ console.log(&#39;module1 foo()&#39;);
+}
+export let bar = function () {
+ console.log(&#39;module1 bar()&#39;);
+}
+export const DATA_ARR = [1, 3, 5, 1]</code></pre>
+</li>
+<li><p>js/src/module2.js</p>
+<pre><code class="JavaScript">// 统一暴露——常规暴露
+let data = &#39;module2 data&#39;
+
+function fun1() {
+ console.log(&#39;module2 fun1() &#39; + data);
+}
+
+function fun2() {
+ console.log(&#39;module2 fun2() &#39; + data);
+}
+
+export {fun1, fun2}</code></pre>
+</li>
+<li><p>js/src/module3.js</p>
+<pre><code class="JavaScript">// 默认暴露：可以暴露任意数据类型，暴露什么数据类型接收到的就是什么数据
+// export default value
+export default() =&gt;{
+   console.log(&#39;我是默认暴露的箭头函数&#39;)
+} // 只能暴露一个default，因此暴露对象
+/* export default {
+ name: &#39;Tom&#39;,
+ setName: function (name) {
+   this.name = name
+ }
+} */</code></pre>
+</li>
+<li><p>js/src/app.js</p>
+<pre><code class="JavaScript">// 引入其他的模块
+// 语法： import xxx from &#39;路径&#39;
+import {foo, bar} from &#39;./module1&#39;
+import {DATA_ARR} from &#39;./module1&#39;
+import {fun1, fun2} from &#39;./module2&#39;
+
+import module3 from &#39;./module3&#39;
+/* import person from &#39;./module3&#39; */
+
+// 安装 npm install jquery@1
+import $ from &#39;jquery&#39;
+
+$(&#39;body&#39;).css(&#39;background&#39;, &#39;red&#39;)
+
+foo()
+bar()
+console.log(DATA_ARR);
+fun1()
+fun2()
+
+module3()
+/* person.setName(&#39;JACK&#39;)
+console.log(person.name); */</code></pre>
+</li>
+</ul>
+</li>
+<li><p>编译</p>
+<ul>
+<li>使用Babel将ES6编译为ES5代码(但包含CommonJS语法) : <code>babel js/src -d js/lib</code></li>
+<li>使用Browserify编译js : <code>browserify js/lib/app.js -o js/lib/bundle.js</code></li>
+</ul>
+</li>
+<li><p>页面中引入测试</p>
+<pre><code class="html">&lt;script type=&quot;text/javascript&quot; src=&quot;js/lib/bundle.js&quot;&gt;&lt;/script&gt;</code></pre>
+</li>
+<li><p>引入第三方模块(jQuery)<br>1). 下载jQuery模块: </p>
+<ul>
+<li><code>npm install jquery@1 --save</code> // @后的是版本，1代表<code>1.x.x</code>中的最新版本</li>
+</ul>
+<p>2). 在app.js中引入并使用</p>
+<pre><code>import $ from &#39;jquery&#39;
+$(&#39;body&#39;).css(&#39;background&#39;, &#39;red&#39;)</code></pre></li>
+</ol>
+<h2 id="五、ES7"><a href="#五、ES7" class="headerlink" title="五、ES7"></a>五、ES7</h2><h3 id="1、async函数-源自ES2017"><a href="#1、async函数-源自ES2017" class="headerlink" title="1、async函数(源自ES2017)"></a>1、async函数(源自ES2017)</h3><ul>
+<li><p>概念：真正意义上去解决异步回调的问题，同步流程表达异步操作</p>
+</li>
+<li><p>本质：Generator的语法</p>
+</li>
+<li><p>语法：</p>
+<pre><code class="javascript">async function foo(){
+    await 异步操作;
+    await 异步操作;
+}</code></pre>
+</li>
+<li><p>特点：</p>
+<ul>
+<li>不需要像Generator去调用next方法，遇到await等待，当前的异步操作完成就往下执行</li>
+<li>返回的总是Promise对象，可以用then方法进行下一步操作</li>
+<li>async取代Generator函数的<code>*</code>，await取代Generator的yield</li>
+<li>语义上更为明确，使用简单，暂时没有任何副作用</li>
+</ul>
+<pre><code class="javascript">// async基本使用
+async function foo(){
+  return new Promise(resolve =&gt; {
+    // setTimeout(function(){
+    //   resolve()
+    // }, 2000)
+    // 可以写成下方这种
+    setTimeout(resolve, 2000)
+  })
+}
+async function test(){
+  console.log(&#39;开始执行&#39;, new Date().toTimeString())
+  await foo()
+  console.log(&#39;执行完毕&#39;, new Date().toTimeString())
+}
+test()
+
+</code></pre>
+</li>
+</ul>
+<p>  // async里await返回值<br>  function test2(){<br>    return ‘xxx’<br>  }<br>  async function asyncPrint(){<br>    /* let result = await test2()<br>    console.log(result) // 普通函数没有返回值<br>    <em>/<br>    /</em><br>    let result = await Promise.resolve()<br>    console.log(result) // Promise对象成功状态返回undefined<br>    */<br>    let result = await Promise.resolve(‘promise’)<br>    console.log(result) // Promise对象成功状态传参返回参数 promise<br>    result = await Promise.reject(‘失败了……’)<br>    console.log(result) // 失败状态，返回出错，且能将参数返回 Uncaught (in promise) 失败了……</p>
+<p>  }<br>  asyncPrint()</p>
+<pre><code>
+  仍是获取新闻内容案例
+
+  ```javascript
+  // async比generator又更简单
+  async function getNews(url){
+    return new Promise((resolve, reject) =&gt; {
+      $.ajax({ // 前面已经引入jQuery
+        method: &#39;GET&#39;,
+        url,  // 这是ES6中简写
+        /* success: function(data){
+          resolve()
+        },
+        error: function(error){
+          reject() 
+        }*/
+        // 简写
+        success: data =&gt; resolve(data),
+        error: error =&gt; reject(error)
+
+      })
+    })
+  }
+  async function sendXml(){
+    let result = await getNews(&#39;http://localhost:3000/news?id=7&#39;)
+    console.log(result) // {id: &quot;7&quot;, title: &quot;news title1...&quot;, content: &quot;news content1...&quot;, commentsUrl: &quot;/comments?newsId=7&quot;}
+    result = await getNews(&#39;http://localhost:3000&#39; + result.commentsUrl)
+    console.log(result)
+  }
+  sendXml()</code></pre><p>  改进一下，由于这种写法error并不会显示错误信息</p>
+<pre><code class="html">  &lt;script src=&quot;./jquery-3.1.0.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;
+    // async比generator又更简单
+    async function getNews(url){
+      return new Promise((resolve, reject) =&gt; {
+        $.ajax({
+          method: &#39;GET&#39;,
+          url,  // 这是ES6中简写
+          /* success: function(data){
+            resolve()
+          },
+          error: function(error){
+            reject() 
+          }*/
+          // 简写
+          success: data =&gt; resolve(data),
+          // error: error =&gt; reject(error)
+          error: error =&gt; resolve(false) // 不用reject，而是返回false
+        })
+      })
+    }
+    async function sendXml(){
+      let result = await getNews(&#39;http://localhost:30010/news?id=7&#39;)
+      console.log(result) // {id: &quot;7&quot;, title: &quot;news title1...&quot;, content: &quot;news content1...&quot;, commentsUrl: &quot;/comments?newsId=7&quot;}
+      if(!result){ // 出错就弹窗
+        alert(&#39;暂时没有新闻……&#39;)
+      }
+      result = await getNews(&#39;http://localhost:3000&#39; + result.commentsUrl)
+      console.log(result)
+    }
+    sendXml()
+  &lt;/script&gt;</code></pre>
+<h3 id="2、指数运算符-幂"><a href="#2、指数运算符-幂" class="headerlink" title="2、指数运算符(幂): **"></a>2、指数运算符(幂): <code>**</code></h3><p><code>console.log(3 ** 3)</code></p>
+<h3 id="3、Array-prototype-includes-value-判断数组中是否包含指定value"><a href="#3、Array-prototype-includes-value-判断数组中是否包含指定value" class="headerlink" title="3、Array.prototype.includes(value): 判断数组中是否包含指定value"></a>3、<code>Array.prototype.includes(value)</code>: 判断数组中是否包含指定value</h3><pre><code class="javascript">let arr = [1,2,3,&#39;abc&#39;]
+console.log(arr.includes(&#39;a&#39;))</code></pre>
+<ul>
+<li><strong>区别方法的2种称谓</strong><ul>
+<li>静态(工具)方法<ul>
+<li>Fun.xxx = function(){}</li>
+</ul>
+</li>
+<li>实例方法<ul>
+<li>所有实例对象 : Fun.prototype.xxx = function(){} //xxx针对Fun的所有实例对象</li>
+<li>某个实例对象 : fun.xxx = function(){} //xxx只是针对fun对象 </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
+  </article>
+
+  <div class="nexmoe-post-meta">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><a class="nexmoefont icon-appstore-fill -link" href="/categories/%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/">前端</a>
+    
+    
+        <a class="nexmoefont icon-tag-fill -link" href="/tags/ES/" rel="tag">ES</a> <a class="nexmoefont icon-tag-fill -link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a> <a class="nexmoefont icon-tag-fill -link" href="/tags/%E6%A8%A1%E5%9D%97%E5%8C%96/" rel="tag">模块化</a>
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+      <!-- 
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Luwang<br>
+    <strong>本文链接：</strong><a href="https://blog.wallleap.cn/2020/06/04/ES/" title="https:&#x2F;&#x2F;blog.wallleap.cn&#x2F;2020&#x2F;06&#x2F;04&#x2F;ES&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;blog.wallleap.cn&#x2F;2020&#x2F;06&#x2F;04&#x2F;ES&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+ -->
+
+  <div class="my_post_copyright">
+    <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script> 
+    <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <p><span>本文标题:</span>ES和模块化学习笔记</a></p>
+    <p><span>文章作者:</span><a href="/" title="访问 {{ theme.author }} 的个人博客">luwang</a></p>
+    <p><span>发布时间:</span>2020年06月04日 - 23:06</p>
+    <p><span>最后更新:</span>2020年07月12日 - 17:07</p>
+    <p><span>原始链接:</span><a href="/2020/06/04/ES/" title="ES和模块化学习笔记">https://blog.wallleap.cn/2020/06/04/ES/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.wallleap.cn/2020/06/04/ES/"  aria-label="复制成功！"></i></span>
+    </p>
+    <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+  </div>
+  <script> 
+      var clipboard = new Clipboard('.fa-clipboard');
+        $(".fa-clipboard").click(function(){
+        clipboard.on('success', function(){
+          swal({   
+            title: "",   
+            text: '复制成功',
+            icon: "success", 
+            showConfirmButton: true
+            });
+          });
+      });  
+    </script>
+  
+
+  
+    
+    <!-- <div style="text-align:center;color: #ccc;font-size:14px;margin-top: 46px;">-------------喜欢就分享<i class="fa fa-paw"></i>疼爱就打赏-------------</div>
+    <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+    <footer class="post-footer">
+        <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+        <div class="post-tags">
+        </div>
+        <div class="post-share">
+          <div class="social-share sharehidden share-component"></div>
+          <i class="iconfont show-share icon-forward"></i>
+        </div>
+      </footer>.entry-footer -->
+    
+      <style>
+/* .list, .list li, .list-left li {
+	list-style: none;
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+} 
+.pos-f {
+	position: fixed;
+} 
+*/
+
+.left-100 {
+	width: 100%;
+    height: 100%;
+    float: left;
+}
+.blur {
+	-webkit-filter: blur(3px);
+	filter: blur(3px);
+}
+.tr3, .list li {
+	transition: all .3s;
+}
+.hidden {
+    display: none;
+}
+.click-cursor, .icon-donate, .list li {
+    cursor: pointer;
+}
+#drinks-box .opacity-show {
+    opacity: 1;
+}
+#drinks-box {
+    width: 320px;
+    height: 240px;
+    margin: 0 auto;
+	text-align: center;
+	/* left: calc(50% - 160px);
+	top: calc(50% - 120px);
+    position: fixed; */
+    position: relative;
+    top:0;
+    left: 0;
+}
+#drinks-icons {
+    background: no-repeat center center url(https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/images/donate/drinks/text.png);
+}
+.drinks-button>div {
+    position: absolute;
+    top: 0;
+    left: 0;
+	transition: all 0.3s;
+	transform-style: preserve-3d;
+    transform-origin: center center;
+}
+.icon-donate {
+    width: 64px;
+    height: 64px;
+    position: absolute;
+	left: calc(50% - 32px);
+	top: calc(50% - 32px);
+}
+.icon-donate img {
+    max-width: 64px;
+    max-height: 64px;
+}
+#drinks-button-box {
+    display: none;
+    opacity: 0;
+    transform: scale(1.3,1.3);
+}
+#drinks-button-bg {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    height: 100px;
+    opacity: 0;
+}
+#donate-buttons {
+    position: absolute;
+    overflow: hidden;
+    top: calc(50% - 14px);
+    left: 20px;
+    height: 28px;
+    border-radius: 6px;
+    background-color: #ff006e;
+    box-shadow: 0 10px 20px 1px rgba(255, 0, 110, 0.5);
+}
+#donate-buttons a, #github-box a {
+    display: block;
+}
+li[id$="_donate"] {
+    position: relative;
+    float: left;
+    width: 70px;
+    height: 28px;
+    line-height: 600px;
+    overflow: hidden;
+	cursor: pointer;
+	background: no-repeat center center;
+    background-size: 45px;
+    text-align: center;
+}
+li[id$="_donate"]::after {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: calc(50% - 5px);
+    height: 0;
+    width: 0;
+    opacity: 0;
+	border: 5px solid #fff;
+	border-color: #fff transparent transparent transparent;
+    transition: all .3s;
+}
+li[id$="_donate"]:hover::after {
+    opacity: 1;
+    top: 0px;
+}
+#github-box {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: calc(50% - 16px);
+    background: no-repeat center center url(https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/images/donate/drinks/github.svg);
+    background-size: contain;
+    right: 72px;
+    line-height: 600px;
+    overflow: hidden;
+    transform: rotatez(20deg );
+    opacity: 0;
+    transition: all .3s ease-out;
+}
+#drinks-button-box:hover #github-box, #drinks-button-box.Mobile #github-box {
+    top: calc(50% - 40px);
+    right: 64px;
+    transform: rotatez(5deg );
+    opacity: 0.8;
+}
+#paypal_donate {
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMy4wLjIsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iUGF5UGFsIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgdmlld0JveD0iMCAwIDUxMiAxNDUiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiAxNDU7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiNGRkZGRkY7fQ0KPC9zdHlsZT4NCjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik00OS41LDcyLjljLTMuNywwLTcuMywwLTExLDBjLTEuOCwwLTMuMSwwLjctMy42LDIuNmMtMS4yLDQuMi02LjMsMjIuOS03LjYsMjguMWMtMC43LDIuNy0yLjEsMy44LTQuOSwzLjgNCgljLTUuNywwLTExLjUsMC0xNy4yLDBjLTMuMSwwLTQuNC0xLjQtMy45LTQuNGMwLjQtMi42LDE1LjQtNjcuMiwyMi4zLTk2LjlDMjQuNiwyLjMsMjYuMiwxLDMwLjIsMWMxMC43LDAsNDMuNCwwLjIsNDkuMSwwLjINCglDOTMuNywxLjMsMTA1LjUsMTIuNywxMDYsMjdjMC4zLDkuNi0xLjUsMTguNy02LjksMjYuOGMtNS4zLDcuOS0xMi44LDEyLjgtMjEuNywxNS43QzY4LjMsNzIuNSw1OSw3My40LDQ5LjUsNzIuOXogTTUwLjIsNTMNCgljMi42LTAuMiw0LjctMC4zLDYuOC0wLjVjNS4zLTAuNiwxMC40LTIsMTQuOC01LjNjNS0zLjgsNi43LTksNS43LTE1LjFjLTAuOS01LjYtNC42LTguNi05LjctMTAuM0M2Mi42LDIwLDU3LjIsMjAsNTEuOCwyMC40DQoJYy0yLjcsMC4yLTQuNSwxLjctNS4yLDQuNWMtMC42LDIuNi0xLjUsNS4yLTIuMSw3LjhjLTEuMSw0LjgtMi4yLDkuNy0zLjEsMTQuNmMtMC42LDMuMSwwLjUsNC43LDMuNSw1LjINCglDNDYuOCw1Mi45LDQ4LjcsNTIuOSw1MC4yLDUzeiIvPg0KPHBhdGggY2xhc3M9InN0MCIgZD0iTTIwMywxNDMuNmMzLjEsMCw2LjItMC4xLDkuMywwYzIsMC4xLDMuNS0wLjUsNC43LTIuMmMxLjktMi44LDYzLjQtMTAyLjksNjguNS0xMTEuN2MxLjMtMi4yLDAuNS00LTEuOS00DQoJYy02LjctMC4xLTEzLjUsMC0yMC4yLDAuMWMtMS43LDAtMywwLjktNCwyLjVjLTQuOCw3LjgtMjQuMywzOS4yLTI5LjMsNDcuMmMtMC4zLDAuNS0xLjEsMS0xLjUsMC45Yy0wLjYtMC4xLTEuMS0wLjgtMS41LTEuMw0KCWMtMC4yLTAuMy0wLjItMC43LTAuMy0xLjFjLTAuNy0zLjgtNS4zLTMyLjEtNy00Mi40Yy0wLjctNC40LTIuOS02LjEtNy4zLTYuMWMtNC42LDAtOS4yLDAuMi0xMy44LDAuM2MtMy42LDAuMS01LjYsMi40LTUuMSw1LjkNCgljMC4zLDEuOSwxMi40LDY2LjcsMTQuNSw3Ny40YzAuMSwwLjUsMC4yLDEsMC4xLDEuNGMtMC41LDEuNC0wLjksMi44LTEuNiw0Yy00LjcsNy41LTkuNSwxNS0xNC4yLDIyLjVjLTAuNCwwLjctMC45LDEuNC0xLjEsMi4xDQoJYy0wLjYsMi41LTAuOCw0LjIsMi45LDQuMkMxOTcsMTQzLjMsMjAzLDE0My41LDIwMywxNDMuNnoiLz4NCjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xNDkuOCw5OS4yYy0xLjYsMC45LTIuOCwxLjUtMy45LDIuMWMtMi45LDEuNi01LjcsMy4xLTguNiw0LjhjLTUuNCwzLjItMTEuMywzLjktMTcuMywzLjcNCgljLTMuMS0wLjEtNi4yLTAuNC05LjEtMS4yYy03LjctMi0xMi4zLTctMTMuMi0xNS4xYy0wLjgtNi42LTAuMS0xMy4xLDMuMy0xOWMzLjgtNi43LDkuOS0xMC4zLDE2LjktMTIuNmM2LjMtMi4xLDEyLjktMi42LDE5LjUtMi43DQoJYzUuMi0wLjEsMTAuNC0wLjMsMTUuNy0wLjRjMC42LDAsMS4yLTAuMiwxLjgtMC4xYzIuNSwwLjEsMy42LTEuNSw0LTMuNmMwLjMtMS43LDAuNi0zLjYsMC40LTUuM2MtMC40LTMuNS0yLjMtNS43LTUuOC02DQoJYy00LjMtMC41LTguNi0wLjctMTIuOS0wLjZjLTYuMywwLjItMTIuNSwxLTE4LjUsMi44Yy0wLjksMC4zLTEuOCwwLjctMi44LDEuMWMtMi40LDEtNC42LTAuMi00LjQtMi43YzAuMy00LjEsMC44LTguMiwxLjctMTIuMg0KCWMwLjUtMi4yLDIuNC0zLjYsNC43LTRjNy44LTEuNiwxNS43LTIuNCwyMy43LTIuN2M2LjUtMC4yLDEyLjksMCwxOS4yLDEuNWM1LjgsMS4zLDEwLjYsNC4zLDE0LjcsOC41YzQuNCw0LjYsNS45LDEwLjIsNC44LDE2LjMNCgljLTIuMSwxMS4zLTkuNCw0NS41LTEwLjcsNTEuNGMtMC42LDIuOS0yLjMsNC40LTUuMyw0LjVjLTUuNSwwLjItMTEsMC4yLTE2LjUsMC4zYy0xLjYsMC0yLjEtMC42LTItMi4yDQoJQzE0OS41LDEwMy41LDE0OS43LDEwMS42LDE0OS44LDk5LjJ6IE0xNDcuNyw3MC4xYzAsMCwwLDAuMSwwLDAuMWMtMi41LDAuMi00LjksMC4zLTcuNCwwLjVjLTQuMSwwLjQtOC4xLDEuMS0xMS44LDIuOQ0KCWMtNC45LDIuNC02LjksNS44LTYuNiwxMS4zYzAuMyw0LjksMy4zLDguMSw4LjIsOC43YzQsMC41LDcuOSwwLjEsMTEuNy0wLjdjMy4xLTAuNiw1LjktMiw3LjktNC41YzMuOC00LjcsNS0xMC4yLDUtMTYuMQ0KCWMwLTEuNC0wLjktMi4xLTIuMy0yLjJDMTUwLjksNzAuMSwxNDkuMyw3MC4xLDE0Ny43LDcwLjF6Ii8+DQo8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzI1LjksNzIuOWMtMy42LDAtNy4zLDAtMTEsMGMtMS44LDAtMy4xLDAuNy0zLjYsMi42Yy0xLjIsNC4yLTYuMywyMi45LTcuNiwyOC4xYy0wLjcsMi43LTIuMSwzLjgtNC45LDMuOA0KCWMtNS43LDAtMTEuNSwwLTE3LjIsMGMtMy4xLDAtNC40LTEuNC0zLjktNC40YzAuNC0yLjYsMTUuNC02Ny4yLDIyLjMtOTYuOWMwLjktMy45LDIuNi01LjIsNi42LTUuMmMxMC43LDAsNDMuNCwwLjIsNDkuMSwwLjINCglDMzcwLDEuMywzODEuOCwxMi43LDM4Mi4zLDI3YzAuMyw5LjYtMS41LDE4LjctNi45LDI2LjhjLTUuMyw3LjktMTIuOCwxMi44LTIxLjcsMTUuN0MzNDQuNiw3Mi41LDMzNS4zLDczLjQsMzI1LjksNzIuOXogTTMyNi41LDUzDQoJYzIuNi0wLjIsNC43LTAuMyw2LjgtMC41YzUuMy0wLjYsMTAuNC0yLDE0LjgtNS4zYzUtMy44LDYuNy05LDUuNy0xNS4xYy0wLjktNS42LTQuNi04LjYtOS43LTEwLjNjLTUuMi0xLjctMTAuNi0xLjgtMTYuMS0xLjMNCgljLTIuNywwLjItNC41LDEuNy01LjIsNC41Yy0wLjYsMi42LTEuNSw1LjItMi4xLDcuOGMtMS4xLDQuOC0yLjIsOS43LTMuMSwxNC42Yy0wLjYsMy4xLDAuNSw0LjcsMy41LDUuMg0KCUMzMjMuMSw1Mi45LDMyNSw1Mi45LDMyNi41LDUzeiIvPg0KPHBhdGggY2xhc3M9InN0MCIgZD0iTTQyNS41LDk5LjJjLTEsMC40LTEuNiwwLjYtMi4yLDAuOWMtNC41LDIuNC05LjEsNC44LTEzLjYsNy4yYy00LjQsMi4zLTkuMiwyLjYtMTQsMi42Yy00LDAtOC0wLjUtMTEuOC0yLjENCgljLTYuNi0yLjgtMTAtNy45LTEwLjctMTQuOWMtMC41LTQuOS0wLjEtOS44LDEuNi0xNC40YzIuOC03LjksOC44LTEyLjcsMTYuNC0xNS43YzYuOS0yLjYsMTQtMy40LDIxLjMtMy41DQoJYzUuNi0wLjEsMTEuMy0wLjMsMTYuOS0wLjVjMy41LTAuMSw0LjMtMC43LDUuMS00LjFjMC40LTEuNywwLjUtMy41LDAuNC01LjJjLTAuMy0zLjItMi4zLTUuNC01LjctNS45Yy0zLjctMC41LTcuNS0wLjgtMTEuMi0wLjcNCgljLTcsMC4yLTEzLjksMS0yMC42LDIuOWMtMC44LDAuMi0xLjYsMC42LTIuNCwxYy0yLjYsMS4yLTQuOCwwLTQuNS0yLjhjMC4zLTMuOCwwLjgtNy42LDEuNS0xMS40YzAuNC0yLjMsMi0zLjksNC40LTQuMw0KCWM0LjgtMC44LDkuNi0xLjgsMTQuNS0yLjFjNi4xLTAuNSwxMi4zLTAuNywxOC41LTAuNmM4LDAuMiwxNS42LDEuNywyMi4xLDdjMy45LDMuMiw2LjksNi45LDcuOCwxMmMwLjYsMy42LDAuMiw3LjItMC41LDEwLjcNCgljLTMuMywxNS41LTYuNiwzMS05LjksNDYuNWMtMC45LDQuMS0yLjMsNS40LTYuNCw1LjVjLTUuMSwwLjItMTAuMiwwLjItMTUuMiwwLjNjLTEuOCwwLTIuMi0wLjQtMi4xLTIuMg0KCUM0MjUuMywxMDMuNSw0MjUuNCwxMDEuNiw0MjUuNSw5OS4yeiBNNDI1LjgsNzAuMWMtMy4yLDAuMi02LjcsMC4zLTEwLjIsMC43Yy00LDAuNC03LjksMS4yLTExLjQsMy4xYy0zLjMsMS43LTUuNiw0LjMtNiw4LjENCgljLTAuNiw1LjMsMS4yLDEwLjksOC40LDExLjdjNC4zLDAuNSw4LjQsMC4xLDEyLjUtMC45YzMuOC0wLjksNi44LTMuMiw4LjctNi42YzIuMy00LDMuMi04LjQsMy40LTEyLjljMC4xLTIuMy0wLjktMy4xLTMuMi0zLjINCglDNDI3LjQsNzAsNDI2LjcsNzAuMSw0MjUuOCw3MC4xeiIvPg0KPHBhdGggY2xhc3M9InN0MCIgZD0iTTQ4NC40LDEwNy40YzIuMy0wLjEsMi44LTAuNSwzLjMtMi41YzIuMS04LjcsMTcuNS03NC4xLDIzLjItOTguMWMwLjYtMi42LTEuMi00LjktNC00LjkNCgljLTUuNCwwLTEwLjgtMC4xLTE2LjItMC4xYy0zLjMsMC00LjksMS4yLTUuNiw0LjRjLTEuMiw0LjgtMjAuNyw5My45LTIxLjMsOThjLTAuMywyLDAuOCwyLjksMi45LDIuOQ0KCUM0NjkuNSwxMDcuMiw0ODIuOSwxMDcuNCw0ODQuNCwxMDcuNHoiLz4NCjwvc3ZnPg0K);
+}
+#btc_donate{
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMy4wLjIsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAxMzAzLjYgMjc0LjYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDEzMDMuNiAyNzQuNjsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4NCgkuc3Qwe2ZpbGw6I0ZGRkZGRjt9DQo8L3N0eWxlPg0KPGc+DQoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTEzNi42LDkzLjZsLTcuNSwzMC4xYzguNSwyLjEsMzQuNywxMC44LDM5LTYuMkMxNzIuNSw5OS43LDE0NS4xLDk1LjcsMTM2LjYsOTMuNnoiLz4NCgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTcwLjUsNC4xQzk3LTE0LjIsMjIuNSwzMC41LDQuMiwxMDQuMWMtMTguMyw3My41LDI2LjQsMTQ4LDk5LjksMTY2LjNjNzMuNiwxOC4zLDE0OC0yNi40LDE2Ni40LTk5LjkNCgkJQzI4OC44LDk2LjksMjQ0LDIyLjQsMTcwLjUsNC4xeiBNMTk3LjgsMTE3LjdjLTIsMTMuNC05LjQsMTkuOC0xOS4yLDIyLjFjMTMuNSw3LDIwLjQsMTcuOCwxMy44LDM2LjUNCgkJYy04LjEsMjMuMi0yNy40LDI1LjItNTMuMSwyMC4zbC02LjIsMjVsLTE1LjEtMy44bDYuMS0yNC42Yy0zLjktMS03LjktMi0xMi0zLjFsLTYuMiwyNC44bC0xNS0zLjhsNi4yLTI1DQoJCWMtMy41LTAuOS03LjEtMS45LTEwLjctMi44bC0xOS42LTQuOWw3LjUtMTcuMmMwLDAsMTEuMSwyLjksMTAuOSwyLjdjNC4zLDEuMSw2LjItMS43LDYuOS0zLjZsOS45LTM5LjVjMC42LDAuMSwxLjEsMC4zLDEuNiwwLjQNCgkJYy0wLjYtMC4yLTEuMS0wLjQtMS42LTAuNWw3LTI4LjJjMC4yLTMuMi0wLjktNy4yLTctOC44YzAuMi0wLjItMTAuOS0yLjctMTAuOS0yLjdsNC0xNi4xbDIwLjgsNS4ydjAuMWMzLjEsMC44LDYuMywxLjUsOS42LDIuMw0KCQlsNi4yLTI0LjdsMTUuMSwzLjhsLTYsMjQuM2M0LDAuOSw4LjEsMS45LDEyLjEsMi44bDYtMjQuMWwxNS4xLDMuOEwxNjcuNiw4M0MxODYuNiw4OS42LDIwMC41LDk5LjQsMTk3LjgsMTE3Ljd6Ii8+DQoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTEyOTQuMiwxMDcuMmMtMTAuMy0xNS43LTI4LjktMjMuNS01NS45LTIzLjVjLTkuMiwwLTE3LjUsMC40LTI0LjcsMS4yYy03LjMsMC44LTEzLjksMS44LTE5LjcsMy4xDQoJCWMtNS45LDEuMi0xMS4yLDIuNi0xNS45LDQuMWMtNC43LDEuNS05LjEsMi45LTEyLjksNGwtNDEuOSwxNzMuNmg1MS41bDMzLjYtMTQwLjdjNi45LTEuNCwxMy43LTIuMSwyMC40LTIuMWM2LjksMCwxMiwxLjMsMTUuNCw0DQoJCWMzLjMsMi43LDUuNSw2LjIsNi40LDEwLjRjMSw0LjMsMSw5LjIsMC4yLDE0LjlzLTEuOSwxMS41LTMuMywxNy41bC0yMi44LDk2LjFoNTEuNWwyMy41LTk4LjINCgkJQzEzMDYuMywxNDQuNCwxMzA0LjUsMTIyLjksMTI5NC4yLDEwNy4yeiIvPg0KCTxwb2x5Z29uIGNsYXNzPSJzdDAiIHBvaW50cz0iMTA3Ni42LDg3LjkgMTAzMy40LDI2OS44IDEwODQuNiwyNjkuOCAxMTI4LjIsODcuOSAJIi8+DQoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTEwOTAuMiw1OS4zYzUuNyw0LjMsMTIuMiw2LjQsMTkuMyw2LjRjNC45LDAsOS40LTAuOSwxMy43LTIuOGM0LjMtMS44LDgtNC4zLDExLjItNy40DQoJCWMzLjItMy4xLDUuOC02LjgsNy44LTExLjFjMS45LTQuMywzLTguOCwzLTEzLjdjMC04LjctMi45LTE1LjMtOC43LTE5LjVjLTUuOC00LjMtMTIuMi02LjQtMTkuNC02LjRjLTQuOCwwLTkuNCwwLjktMTMuNiwyLjgNCgkJcy04LDQuMy0xMS4yLDcuNHMtNS44LDYuOC03LjgsMTEuMXMtMi45LDguOC0yLjksMTMuNkMxMDgxLjUsNDguNiwxMDg0LjQsNTUuMSwxMDkwLjIsNTkuM3oiLz4NCgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNTIwLjYsNTkuM2M1LjcsNC4zLDEyLjIsNi40LDE5LjQsNi40YzQuOCwwLDkuNC0wLjksMTMuNy0yLjhjNC4yLTEuOCw4LTQuMywxMS4yLTcuNA0KCQljMy4yLTMuMSw1LjgtNi44LDcuOC0xMS4xczIuOS04LjgsMi45LTEzLjdjMC04LjctMi45LTE1LjMtOC42LTE5LjVjLTUuOC00LjMtMTIuMi02LjQtMTkuMy02LjRjLTQuOSwwLTkuNCwwLjktMTMuNywyLjgNCgkJcy04LDQuMy0xMS4yLDcuNHMtNS44LDYuOC03LjgsMTEuMWMtMiw0LjMtMyw4LjktMywxMy43QzUxMiw0OC42LDUxNC45LDU1LjEsNTIwLjYsNTkuM3oiLz4NCgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTI1LjMsMTM4LjhMMTE3LDE3MmMxMC4yLDIuNSw0MS43LDEyLjcsNDYuNC02LjFDMTY4LjIsMTQ2LjQsMTM1LjUsMTQxLjQsMTI1LjMsMTM4Ljh6Ii8+DQoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTgwOC4xLDEyNi42YzcuMiwwLDEzLjIsMC43LDE4LjIsMi4zYzUsMS41LDkuNywzLjEsMTQuNCw1bDE3LjctNDAuMWMtNi43LTMuMi0xNC4xLTUuOC0yMi4zLTcuOA0KCQlzLTE3LjQtMy0yNy44LTNjLTE2LjYsMC0zMS43LDMtNDUuMSw5Yy0xMy41LDYtMjUsMTQuMi0zNC40LDI0LjVjLTkuNSwxMC40LTE2LjcsMjIuNS0yMS44LDM2LjNjLTUuMSwxMy44LTcuNiwyOC42LTcuNiw0NC4zDQoJCWMwLDEwLjQsMS41LDIwLjMsNC4zLDI5LjdjMi45LDkuNSw3LjUsMTcuNywxNCwyNC43YzYuNSw3LDE0LjYsMTIuNiwyNC41LDE2LjhjOS45LDQuMSwyMiw2LjIsMzYuMyw2LjJjMTAuOCwwLDIwLjItMSwyOC0yLjkNCgkJYzcuOC0yLDE1LTQuMywyMS40LTYuOGwtMy44LTQxLjFjLTQuOSwyLjEtMTAuNCwzLjgtMTYuNiw1LjJjLTYuMiwxLjQtMTIuNywyLjEtMTkuNCwyLjFjLTEzLjYsMC0yMi45LTMuNi0yOC0xMC45DQoJCWMtNS4xLTcuMy03LjYtMTYuOC03LjYtMjguNWMwLTE5LjgsNS0zNS42LDE1LjEtNDcuNEM3NzcuNSwxMzIuNSw3OTEsMTI2LjYsODA4LjEsMTI2LjZ6Ii8+DQoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTEwMTEuMSwxMDQuMWMtNS45LTYuNy0xMy40LTExLjktMjIuNS0xNS42cy0xOS43LTUuNi0zMS43LTUuNmMtMTYuMywwLTMwLjksMy41LTQzLjUsMTAuNQ0KCQljLTEyLjcsNy4xLTIzLjQsMTYuMS0zMi4xLDI3LjJjLTguOCwxMS4xLTE1LjQsMjMuNS0xOS45LDM3LjNzLTYuNywyNy43LTYuNyw0MS41YzAsMTEsMS41LDIxLjEsNC41LDMwLjJjMyw5LjEsNy40LDE3LDEzLjMsMjMuNw0KCQljNS45LDYuNywxMy4zLDExLjksMjIuMywxNS42YzksMy43LDE5LjYsNS41LDMxLjgsNS41YzE2LjgsMCwzMS43LTMuNSw0NC40LTEwLjZjMTIuOC03LDIzLjUtMTYuMSwzMi0yNy4xDQoJCWM4LjUtMTEuMSwxNS0yMy41LDE5LjQtMzcuM2M0LjQtMTMuOSw2LjYtMjcuNyw2LjYtNDEuNWMwLTExLjEtMS41LTIxLjItNC41LTMwLjJDMTAyMS40LDExOC43LDEwMTYuOSwxMTAuOCwxMDExLjEsMTA0LjF6DQoJCSBNOTc0LjgsMTg1LjljLTIsOC00LjksMTUuMy04LjgsMjJjLTMuOSw2LjctOC44LDEyLjItMTQuNSwxNi42Yy01LjgsNC40LTEyLjQsNi42LTIwLjEsNi42Yy05LjcsMC0xNi40LTMuMi0yMC4xLTkuNw0KCQljLTMuNy02LjUtNS41LTE1LjUtNS41LTI3YzAtNy4yLDEtMTQuNywyLjktMjIuNmMyLTcuOSw0LjktMTUuMyw4LjgtMjJjMy45LTYuNyw4LjctMTIuMiwxNC41LTE2LjZjNS43LTQuNCwxMi40LTYuNiwyMC02LjYNCgkJYzkuNywwLDE2LjQsMy4yLDIwLjEsOS43YzMuNyw2LjUsNS42LDE1LjUsNS42LDI3Qzk3Ny43LDE3MC40LDk3Ni43LDE3OCw5NzQuOCwxODUuOXoiLz4NCgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNjE4LjgsMTkzLjdsMTUuMi02My42aDU3bDEwLjQtNDIuMkg2NDRsMTMuMi01My42bC01My42LDguM2wtMzMuOSwxNDMuMmMtMi44LDExLjgtNC40LDIyLjktNC44LDMzLjUNCgkJYy0wLjUsMTAuNiwxLjIsMjAsNC44LDI4LjJjMy43LDguMiw5LjksMTQuNywxOC43LDE5LjRjOC44LDQuNywyMS4xLDcuMSwzNyw3LjFjMTEuMSwwLDIwLjYtMC45LDI4LjctMi44YzguMS0xLjgsMTUuNi00LDIyLjUtNi42DQoJCWwtMy44LTM5LjRjLTUuMywxLjktMTAuNSwzLjMtMTUuNyw0LjNzLTEwLjYsMS42LTE2LjEsMS42Yy02LjcsMC0xMS44LTAuOS0xNS40LTIuOGMtMy42LTEuOC02LjEtNC40LTcuNC03LjgNCgkJYy0xLjQtMy4zLTItNy4zLTEuNy0xMS45QzYxNi42LDIwMy45LDYxNy40LDE5OSw2MTguOCwxOTMuN3oiLz4NCgk8cG9seWdvbiBjbGFzcz0ic3QwIiBwb2ludHM9IjQ2My45LDI2OS44IDUxNS4xLDI2OS44IDU1OC43LDg3LjkgNTA3LjEsODcuOSAJIi8+DQoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTQ0NCwxMDUuOGMtNS40LTYuNy0xMi0xMi0yMC4xLTE1LjljLTgtMy45LTE3LjYtNS45LTI4LjctNS45Yy01LjMsMC0xMC4yLDAuNi0xNC45LDEuNw0KCQljLTQuNiwxLjItOS4yLDIuOC0xMy44LDQuOGwyMS40LTg5LjJsLTUzLjYsOC4zTDI3NC41LDI2MWM2LjcsMy4yLDEzLjgsNS44LDIxLjMsNy42YzcuNSwxLjksMTQuNiwzLjIsMjEuMyw0LjINCgkJYzYuNywwLjksMTIuNiwxLjQsMTcuOCwxLjVjNS4yLDAuMSw4LjgsMC4yLDEwLjksMC4yYzE2LjEsMCwzMS4xLTMuMSw0NC45LTkuMnMyNS44LTE0LjQsMzYtMjQuOXMxOC4yLTIyLjgsMjQtMzcNCgkJYzUuOS0xNC4yLDguOC0yOS4yLDguOC00NS4xYzAtMTAuNC0xLjMtMjAtMy44LTI5QzQ1My4yLDEyMC40LDQ0OS4zLDExMi41LDQ0NCwxMDUuOHogTTQwMy45LDE4OC4xYy0zLDguMy03LjEsMTUuNy0xMi4zLDIyLjMNCgkJYy01LjIsNi42LTExLjQsMTEuOC0xOC41LDE1LjdzLTE0LjcsNS45LTIyLjgsNS45Yy0yLjUsMC00LjYsMC02LjIsMHMtMy0wLjEtNC4yLTAuMmMtMS4xLTAuMS0yLjItMC4zLTMuMy0wLjUNCgkJYy0xLTAuMi0yLjMtMC40LTMuNi0wLjdsMjIuOC05NC43YzQuMi0zLjcsOC44LTYuMSwxNC03LjNjNS4yLTEuMSw5LjQtMS43LDEyLjYtMS43YzkuOSwwLDE2LjcsMy4xLDIwLjQsOS4zDQoJCWMzLjcsNi4yLDUuNSwxNC45LDUuNSwyNS45QzQwOC40LDE3MS4yLDQwNi45LDE3OS44LDQwMy45LDE4OC4xeiIvPg0KPC9nPg0KPC9zdmc+DQo=);
+}
+#alipay_donate{
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMy4wLjIsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgdmlld0JveD0iMCAwIDQ0OC41IDE0NS41IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0NDguNSAxNDUuNTsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4NCgkuc3Qwe2VuYWJsZS1iYWNrZ3JvdW5kOm5ldyAgICA7fQ0KCS5zdDF7ZmlsbC1ydWxlOmV2ZW5vZGQ7Y2xpcC1ydWxlOmV2ZW5vZGQ7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8ZyBpZD0i5Zu+5bGCXzIiPg0KPC9nPg0KPGcgaWQ9IuWbvuWxgl8xIj4NCgk8ZyBpZD0i5qSt5ZyGXzJfMV8iIGNsYXNzPSJzdDAiPg0KCQk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNMTA1LjYsMEg4MS44djE4LjdoLTQ4djkuOGg0OHYxOEg0OC4xdjExLjFoNjcuNGMwLDAsMCwxNS45LTIwLjMsMzcuNlM2Ny40LDEyMC4yLDU3LjgsMTIzcy0yNiwyLjQtMzEuNS0xLjUNCgkJCXMtMTEuOC04LjktMTEuMy0xOFMyNi45LDg0LjEsMzMuOSw4M2MwLDAtMjAtMi4yLTI0LjUsMTguMWMtMy41LDE1LjYsNi42LDIzLjMsMTIuNCwyNy4yczE4LjIsOC41LDI2LjMsOXMyNS44LTAuNiw0Mi43LTEyLjgNCgkJCWMxNi44LTEyLjIsMzcuMy0zNi43LDQzLjUtNTEuOHM4LjktMjEuMyw5LjgtMjYuMmgtMzguNHYtMThoNTAuMnYtOS44aC01MC4yVjAiLz4NCgkJPHBhdGggY2xhc3M9InN0MSIgZD0iTTE4NiwwYzAsMC0yLjUsMjEuNS0zMy44LDQ1bDMuNiw1LjNjMCwwLDEzLjktNS41LDE3LjQtOC4zdjgwLjNIMTk4VjI1LjVjMCwwLDEyLTEyLjUsMTItMjUuNQ0KCQkJQzIxMCwwLDE4NiwwLDE4NiwweiIvPg0KCQk8cG9seWdvbiBjbGFzcz0ic3QxIiBwb2ludHM9IjI0NiwwIDI0NiwyNyAyMDIuNSwyNyAyMDIuNSwzNi4xIDI0NiwzNi4xIDI0NiwxMjEuNSAyNzAuMSwxMjEuNSAyNzAuMSwzNi4xIDI4MS4zLDM2LjEgMjgxLjMsMjcgDQoJCQkyNzAuMSwyNyAyNzAuMSwwIAkJIi8+DQoJCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0zNjQuNSwwdjExLjJINDExdjcuNWMwLDIyLjEtMTQuMiwyNC44LTE0LjIsMjQuOGgtMzIuM1Y2M2gzMi4zdjkuOGgtMzIuM3Y0NS44aC0yNC43VjcyLjhoLTM0LjZWNjNoMzQuNg0KCQkJVjQzLjVoLTQ5LjVWOC4zaDIzLjF2M2gyNi40VjBIMzY0LjV6IE0zMTMuMywyMS41djEzaDc3LjR2LTEzSDMxMy4zeiIvPg0KCTwvZz4NCgk8ZyBpZD0i5qSt5ZyGXzFfMV8iIGNsYXNzPSJzdDAiPg0KCQk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNNDQuMSwxMzYuN2MwLDAtMjIuNS0zLjctMzIuMS0yMC41Yy0zLjctNi40LTQtMTkuMyw2LTI3LjhjOC40LTcuMSwxOS41LTYuNiwzMy44LTNzMjQuNCw4LjEsNDIuOCwxNy4zDQoJCQljMTguNSw5LjMsNDQuOSwyMi41LDc4LjcsMjkuNmMzMy43LDcuMSw1Mi4zLDkuNCw3Mi44LDEwLjljMzUuNCwyLjYsMTQ5LjQtMi40LDE2NS02bDM3LjUtMzljMCwwLTExMi45LDE3LjQtMTgzLjgsMTgNCgkJCWMtNzAuOCwwLjYtNzguOC0zLjctOTUuMy02LjhTMTA5LjYsOTIuMyw5Ni44LDg3Yy02LjMtMi42LTQxLjctMTYuMy02My0xNC4zUzEuMiw4NCwwLjgsOTguM1M1LjgsMTMyLjIsNDQuMSwxMzYuN3oiLz4NCgkJDQoJCQk8cmVjdCB4PSIyMDYuNiIgeT0iNDYuNyIgdHJhbnNmb3JtPSJtYXRyaXgoMC43MDcxIC0wLjcwNzEgMC43MDcxIDAuNzA3MSAyMS4zNjgzIDE3NC42Mzk3KSIgY2xhc3M9InN0MSIgd2lkdGg9IjI5LjciIGhlaWdodD0iMjkuNyIvPg0KCQkNCgkJCTxyZWN0IHg9IjM3OC40IiB5PSI3OC45IiB0cmFuc2Zvcm09Im1hdHJpeCgwLjcwNzEgLTAuNzA3MSAwLjcwNzEgMC43MDcxIDUwLjc0MDMgMzAxLjE0OTEpIiBjbGFzcz0ic3QxIiB3aWR0aD0iMjAuOSIgaGVpZ2h0PSIyMC45Ii8+DQoJPC9nPg0KPC9nPg0KPC9zdmc+DQo=);
+}
+#wechat_donate{
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMy4wLjIsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0i5Zu+5bGCXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgNTMxLjIgMTYxLjciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUzMS4yIDE2MS43OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8Zz4NCgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNjguNiwwQzMxLjEtMC42LDAsMjcsMCw1OS41YzAsMTguOCw4LjgsMzUsMjUuOSw0N2MwLDAtNi4zLDIwLjctNi4yLDIxLjFjMC4xLDAuNCwxLjUsMS4yLDEuOSwxDQoJCWMwLjQtMC4yLDIyLjYtMTMuNSwyMi42LTEzLjVjMTcsNS44LDI2LjksMy45LDI3LjQsMy45Yy0xLjctNS0yLjgtMTIuNy0xLjUtMjBjNi42LTM4LjEsNDUuNi01MCw2Ny00Ny45DQoJCUMxMzEuMiwyMy40LDEwNS42LDAuNSw2OC42LDB6IE00Mi41LDQ5LjFjLTQuOSwwLTguOS00LTguOS04LjlzNC04LjksOC45LTguOXM4LjksNCw4LjksOC45UzQ3LjQsNDkuMSw0Mi41LDQ5LjF6IE05Ni40LDQ5LjENCgkJYy00LjksMC04LjktNC04LjktOC45czQtOC45LDguOS04LjlzOC45LDQsOC45LDguOVMxMDEuNCw0OS4xLDk2LjQsNDkuMXoiLz4NCgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTkyLDEwNC43YzAtMjcuOC0yNi45LTQ5LjItNTguMS00OS4yYy0zMy4xLDAtNTkuNCwyMS44LTU5LjQsNDkuNmMwLDI3LjksMjUuMSw1MSw1OS41LDUxLjINCgkJYzYuOSwwLDE3LjItMS43LDI0LjItNC42YzAsMCwxNi42LDEwLjEsMTcuNSwxMHMxLjQtMC44LDEuNC0xLjRzLTUuMy0xNi40LTUuMy0xNi40QzE4NiwxMzIuNywxOTIsMTIwLjQsMTkyLDEwNC43eiBNMTEyLjEsOTQuNA0KCQljLTQuNCwwLTcuOS0zLjUtNy45LTcuOXMzLjUtNy45LDcuOS03LjlzNy45LDMuNSw3LjksNy45UzExNi40LDk0LjQsMTEyLjEsOTQuNHogTTE1NC4yLDk0LjRjLTQuNCwwLTcuOS0zLjUtNy45LTcuOQ0KCQlzMy41LTcuOSw3LjktNy45czcuOSwzLjUsNy45LDcuOVMxNTguNiw5NC40LDE1NC4yLDk0LjR6Ii8+DQo8L2c+DQo8Zz4NCgk8Zz4NCgkJPHBvbHlnb24gY2xhc3M9InN0MCIgcG9pbnRzPSIyNzcuNiw2Ni41IDI2NS43LDExNS41IDI1NS43LDY2LjUgMjQwLjUsNjYuNSAyMzAuNSwxMTUuNSAyMTguNiw2Ni41IDIwMy44LDY2LjUgMjIzLjcsMTM2IA0KCQkJMjM3LjIsMTM2IDI0OCw4Mi44IDI1OC44LDEzNiAyNzIuNCwxMzYgMjkyLjMsNjYuNSAJCSIvPg0KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzI4LjMsODkuOGMtNC4zLTQuNy0xMC4zLTcuMS0xOC4yLTcuMWMtNy40LDAtMTMuMiwyLjUtMTcuNSw3LjNjLTQuMyw0LjktNi40LDExLjUtNi40LDE5LjkNCgkJCWMwLDguNiwyLjIsMTUuMyw2LjUsMjAuM3MxMC4yLDcuNSwxNy42LDcuNWM2LDAsMTEuMS0xLjUsMTUuMy00LjZjNC4yLTMuMSw3LTcuMyw4LjQtMTIuN2gtMTMuNmMtMC45LDEuOS0yLjEsMy40LTMuNiw0LjENCgkJCWMtMS41LDAuOS0zLjQsMS40LTUuOCwxLjRjLTMuNCwwLTUuOS0xLjEtNy43LTMuMWMtMS43LTItMi43LTUuMS0yLjktOS4xaDM0LjJjMC0wLjQsMC4xLTAuOSwwLjEtMS40czAtMS4yLDAtMi4yDQoJCQlDMzM0LjcsMTAxLjMsMzMyLjYsOTQuNSwzMjguMyw4OS44eiBNMzAwLjQsMTA0LjljMC4zLTMuNCwxLjMtNiwzLTcuOWMxLjctMS44LDQtMi43LDctMi43YzMuMiwwLDUuNywwLjksNy40LDIuNw0KCQkJYzEuOCwxLjgsMi43LDQuNCwyLjgsNy45SDMwMC40eiIvPg0KCTwvZz4NCgk8Zz4NCgkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTQwMi43LDExMi4yTDQwMi43LDExMi4yQzQwMi43LDExMi4xLDQwMi43LDExMi4yLDQwMi43LDExMi4yTDQwMi43LDExMi4yeiIvPg0KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzgzLjQsMTIxLjdjLTIuOCwyLjItNi40LDMuMy0xMC43LDMuM2MtNiwwLTEwLjYtMi4xLTEzLjktNi4ycy00LjktMTAtNC45LTE3LjVjMC03LjgsMS42LTEzLjcsNC45LTE3LjgNCgkJCWMzLjItNC4xLDgtNi4xLDE0LjMtNi4xYzQuNSwwLDgsMSwxMC42LDMuMXM0LjIsNS4xLDQuOCw5aDE0LjFjLTAuNS03LjktMy40LTE0LTguNS0xOC4zcy0xMi4xLTYuNS0yMS02LjUNCgkJCWMtMTAuOSwwLTE5LjMsMy4xLTI1LjEsOS40cy04LjcsMTUuNC04LjcsMjcuMmMwLDExLjYsMi45LDIwLjYsOC42LDI3czEzLjcsOS42LDI0LDkuNmM4LjksMCwxNi4yLTIuMywyMS43LTcNCgkJCWM1LjUtNC42LDguNi0xMC44LDkuMS0xOC43aC0xMy45QzM4OCwxMTYuMywzODYuMiwxMTkuNSwzODMuNCwxMjEuN3oiLz4NCgkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTQ0OC41LDg5LjNjLTEuNS0xLjktMy41LTMuNC01LjktNC40Yy0yLjUtMS4xLTUuMi0xLjYtOC4yLTEuNmMtMy4yLDAtNi4xLDAuNi04LjYsMS44DQoJCQljLTIuNSwxLjItNC43LDMtNi42LDUuM1Y2Ni41aC0xMy42djY5LjNoMTMuNnYtMzAuNGMwLTMuMywwLjktNiwyLjgtNy45czQuNS0yLjksNy43LTIuOWMzLDAsNS4yLDAuNyw2LjMsMi40DQoJCQljMS4xLDEuNywxLjcsNS43LDEuNywxMnYyNi44aDEzLjZ2LTMzLjJ2LTAuOWMwLTMuNy0wLjItNi4zLTAuNi04QzQ1MC4zLDkyLjEsNDQ5LjUsOTAuNiw0NDguNSw4OS4zeiIvPg0KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNTAwLjcsMTMxLjRjLTAuNS0xLjEtMC43LTIuNy0wLjctNC44Vjk3LjVjMC00LjctMS45LTguMy01LjctMTAuOFM0ODUsODMsNDc3LjgsODMNCgkJCWMtNi42LDAtMTEuNywxLjUtMTUuNCw0LjVzLTUuNiw3LjEtNS42LDEyLjR2MC45aDEyLjhWMTAwYzAtMiwwLjctMy42LDIuMi00LjdzMy42LTEuNyw2LjQtMS43YzMuMSwwLDUuMiwwLjQsNi41LDEuMw0KCQkJczEuOSwyLjQsMS45LDQuNWMwLDIuNi0yLjksNC4yLTguNyw1Yy0yLjMsMC4zLTQuMiwwLjYtNS42LDAuOGMtNi4yLDAuOS0xMC42LDIuNy0xMy4zLDUuMmMtMi43LDIuNi00LDYuMy00LDExLjENCgkJCWMwLDUuMiwxLjMsOS4zLDQsMTIuMWMyLjcsMi44LDYuNSw0LjIsMTEuNSw0LjJjMy43LDAsNy0wLjcsOS44LTIuMXM1LjEtMy40LDYuOC02LjFjMCwxLjIsMC4yLDIuNCwwLjQsMy42YzAuMywxLDAuNiwyLDEuMSwyLjkNCgkJCWgxNC4zdi0yLjNDNTAxLjksMTMzLjIsNTAxLjEsMTMyLjUsNTAwLjcsMTMxLjR6IE00ODYuOSwxMTUuNmMwLDMuNy0xLjEsNi41LTMuMiw4LjZzLTUsMy4xLTguNywzLjFjLTIuMSwwLTMuOC0wLjYtNS0xLjcNCgkJCXMtMS44LTIuNi0xLjgtNC41YzAtMS44LDAuNC0zLjMsMS40LTQuM3MyLjctMS45LDUuMS0yLjZjMC4xLDAsMS42LTAuNCw0LjUtMXM1LjUtMS41LDcuNy0yLjVWMTE1LjZ6Ii8+DQoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01MzEuMiw5NC40di05LjZoLTcuOXYtMTRoLTEzLjZ2MTRoLTYuOHY5LjZoNi44djI3LjdjMCw1LjgsMSw5LjYsMi45LDExLjZjMiwxLjksNS41LDIuOSwxMC44LDIuOQ0KCQkJYzAuNCwwLDEuNiwwLDMuMy0wLjFjMS43LTAuMSwzLjItMC4yLDQuNS0wLjJsMCwwdi0xMC4yaC0zLjNjLTEuOSwwLTMuMS0wLjItMy43LTAuNmMtMC42LTAuNS0wLjktMS4zLTAuOS0yLjdWOTQuNEw1MzEuMiw5NC40DQoJCQlMNTMxLjIsOTQuNHoiLz4NCgk8L2c+DQo8L2c+DQo8L3N2Zz4NCg==);
+}
+#drinks-qrcodes {
+    display: none;
+}
+#drinks-qrcode {
+    position: absolute;
+    top: calc(50% - 90px);
+    left: calc(50% - 90px);
+    width: 180px;
+    height: 180px;
+	background: #fff no-repeat center center url(https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/images/donate/WeChatSQ.png);
+    background-size: 160px;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(255, 0, 110, 0.5);
+}
+
+/* 动画 */
+#drinks-icons, #drinks-button-box {filter: blur(0px);}
+.donate-animation-1>#drinks-icons, .donate-animation-4>#drinks-icons,.donate-animation-3>#drinks-button-box {
+    transform: scale(0.7,0.7);
+    filter: blur(2px);
+    display: block;
+    opacity: 1;
+}
+.donate-animation-1>#drinks-button-box,.donate-animation-4>#drinks-button-box,.donate-animation-3>#drinks-qrcodes {
+    display: block;
+    opacity: 1;
+    transform: scale(1,1);
+}
+.donate-animation-2>#drinks-button-box,.donate-animation-4>#drinks-qrcodes, .hideBox {
+    display: block;
+    transform: scale(1,1);
+    animation-name:hideBox;
+    animation-duration:0.3s;
+    animation-timing-function:ease-in-out;
+    animation-iteration-count:1;
+    animation-fill-mode:forwards;
+}
+
+.donate-animation-3>#drinks-icons {
+    transform: scale(0.4,0.4);
+    filter: blur(2px);
+}
+.showBox {
+    animation-name:showBox;
+    animation-duration:0.3s;
+    animation-timing-function:ease-in-out;
+    animation-iteration-count:1;
+    animation-fill-mode:forwards;
+}
+@keyframes showBox {
+	from {
+        opacity: 0;
+        transform: scale(1.3,1.3);
+	}
+	to {
+        opacity: 1;
+        transform: scale(1,1);
+	}
+}
+@keyframes hideBox {
+	from {
+        opacity: 1;
+        transform: scale(1,1);
+	}
+	to {
+        opacity: 0;
+        transform: scale(1.3,1.3);
+	}
+}
+</style>
+<section id="drinks-box">
+    <section id="drinks-box-s" class="drinks-button left-100">
+        <div id="drinks-icons" class="left-100 tr3">
+            <div id="coffee-donate" class="icon-donate"><img src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/images/donate/drinks/coffee.png" alt="coffee" data-creative
+                ="https://www.zcool.com.cn/work/ZMjQ3NTE2MA==.html"></div>
+        </div>
+        <div id="drinks-button-box" class="tr3 left-100">
+            <div id="drinks-button-bg" class="left-100"></div>
+            <div id="github-box"><a href="https://github.com/Kaiyuan/donate-page/" target="_blank">Github</a></div>
+            <ul id="donate-buttons" class="list tr3">
+                <li id="paypal_donate"><a href="https://www.paypal.me/wallleap" target="_blank">Paypal</a></li>
+                <!-- <li id="btc_donate" class="donate-button">Bitcoin</li> -->
+                <li id="alipay_donate" class="donate-button">AliPay</li>
+                <li id="wechat_donate" class="donate-button">WeChat</li>
+            </ul>
+        </div>
+        <div id="drinks-qrcodes" class="left-100 tr3">
+            <div id="drinks-qrcode"></div>
+        </div>
+    </section>
+</section>
+
+<script>
+jQuery(document).ready(function () {
+
+    var thisPage = $('body');
+    var drink_box = $('#donate-box');
+    var drink_box_s = $('#drinks-box-s');
+    var icon_donate = $('.icon-donate');
+    var donate_button = $('.donate-button');
+    var donate_buttons = $('#drinks-button-box');
+    var donate_button_bg = $('#drinks-button-bg');
+    var drinks_qrcodes = $('#drinks-qrcodes');
+    var drinks_qrcode = $('#drinks-qrcode');
+    var isMobile = /Android|webOS|iPhone|iPad|BlackBerry/i.test(navigator.userAgent);
+    
+    var GithubLink  =   "https://github.com/wallleap/sponsor-page/";
+    var PayPalLink  =   "https://www.paypal.me/wallleap";
+    $('#paypal-donate>a').href = PayPalLink;
+    $('#github-box>a').href = GithubLink;
+    var qrcodes = {
+        // 'btc_donate'	:	'https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/images/BTCQR.png',	// 二维码路径
+        'alipay_donate'	:	'https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/custom/donate/AliPayQR.jpg',	// 支付宝二维码
+        // 'alipay_donate_link'   :   'https://qr.alipay.com/3272611934645308',   // 支付宝二维码上的链接，必须换成自己的连接！！！手机点击会自动跳转到支付宝。
+        'wechat_donate'	:	'https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/custom/donate/WeChatSQ.jpg'
+    };
+    
+    var drinks_an = new Object();
+    // 动画有 4 种状态，不同状态给对应 DOM 添加 css 动画
+    drinks_an[0] = function(){
+        drink_box_s.removeClass('donate-animation-2 donate-animation-3').addClass('donate-animation-1');
+        donate_buttons.addClass('showBox');
+        setTimeout(() => {
+            donate_buttons.removeClass('showBox');
+        }, 300);
+        // console.log('donate-animation-1');
+    }
+    drinks_an[1] = function(){
+        drink_box_s.removeClass('donate-animation-1 donate-animation-3').addClass('donate-animation-2');
+        setTimeout(() => {
+            drink_box_s.removeClass('donate-animation-2');
+        }, 300);
+        // console.log('donate-animation-2');
+    }
+    drinks_an[2] = function(){
+        drink_box_s.removeClass('donate-animation-2 donate-animation-1').addClass('donate-animation-3');
+        drinks_qrcodes.addClass('showBox');
+        setTimeout(() => {
+            drinks_qrcodes.removeClass('showBox');
+        }, 300);
+        // console.log('donate-animation-3');
+    }
+    drinks_an[3] = function(){
+        drink_box_s.removeClass('donate-animation-3 donate-animation-2').addClass('donate-animation-4');
+        setTimeout(() => {
+            drink_box_s.removeClass('donate-animation-4');
+            drink_box_s.addClass('donate-animation-1');
+        }, 300);
+        // console.log('donate-animation-4');
+    }
+    
+    if (isMobile) {
+        donate_buttons.addClass('Mobile');
+    }
+    
+    icon_donate.on('click',drinks_an[0]); // drinks 图标点击
+    
+    donate_button_bg.on('click',drinks_an[1]); // 隐藏 donate box
+    
+    donate_button.on('click',function(){
+        var thisID = $(this).attr("id");
+        if (isMobile && thisID === 'alipay_donate') {
+            // 当前网页在手机端打开跳转到支付宝 App
+            window.open(qrcodes['alipay_donate_link']);
+        } else {
+            // 当前网页在PC端打开
+        drinks_qrcode.css({'background-image' : 'url('+qrcodes[thisID]+')'});
+        drinks_an[2]();
+        // 显示二维码
+        }
+    });
+    
+    drinks_qrcode.on('click',drinks_an[3]); // 隐藏二维码
+    //
+    })
+</script>
+    
+    <section class="nexmoe-comment">
+    <div class="valine" id="vcomments"></div>
+<!-- <script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script> -->
+<script type="text/javascript">
+    loadComments();
+    function loadComments() {
+      if (typeof Valine === 'undefined') {
+        var getScript = (options) => {
+          var script = document.createElement('script');
+          script.defer = true;
+          script.crossOrigin = 'anonymous';
+          Object.keys(options).forEach((key) => {
+              script[key] = options[key];
+          });
+          document.body.appendChild(script);
+        };
+        getScript({
+          src: '//unpkg.com/valine/dist/Valine.min.js',
+          onload: () => {
+            newValine();
+          }
+        });
+      } else {
+        newValine();
+      }
+    }
+    function newValine() {
+      new Valine({
+        el: '.valine',
+        appId: 'GOPlqD10uwQGshDFcsr8Cxik-gzGzoHsz',
+        appKey: 'vpzGg4wzHHLRPNOlPHf0UEDS',
+        placeholder: '欢迎访问本站，评论一下留个足迹👣呗',
+        notify: false,
+        verify: true,
+        avatar: 'mp',
+        meta: ['nick','mail','link'],
+        pageSize: 10,
+        recordIP: true,
+        enableQQ: true,
+        // 设置Bilibili表情包地址
+        emojiCDN: '//cdn.jsdelivr.net/gh/wallleap/cdn@latest/emote/cool/', 
+        // 表情title和图片映射
+        emojiMaps: {
+            "cool_coolapk_emotion_100_qqdoge": "coolapk_emotion_100_qqdoge.png",
+            "cool_coolapk_emotion_1010": "coolapk_emotion_1010.png",
+            "cool_coolapk_emotion_1011": "coolapk_emotion_1011.png",
+            "cool_coolapk_emotion_1012": "coolapk_emotion_1012.png",
+            "cool_coolapk_emotion_1013": "coolapk_emotion_1013.png",
+            "cool_coolapk_emotion_1014": "coolapk_emotion_1014.png",
+            "cool_coolapk_emotion_1015": "coolapk_emotion_1015.png",
+            "cool_coolapk_emotion_1016": "coolapk_emotion_1016.png",
+            "cool_coolapk_emotion_1017": "coolapk_emotion_1017.png",
+            "cool_coolapk_emotion_1018": "coolapk_emotion_1018.png",
+            "cool_coolapk_emotion_1019": "coolapk_emotion_1019.png",
+            "cool_coolapk_emotion_101_pyjiaoyi": "coolapk_emotion_101_pyjiaoyi.png",
+            "cool_coolapk_emotion_1020": "coolapk_emotion_1020.png",
+            "cool_coolapk_emotion_1021": "coolapk_emotion_1021.png",
+            "cool_coolapk_emotion_102_fadai": "coolapk_emotion_102_fadai.png",
+            "cool_coolapk_emotion_103_nb": "coolapk_emotion_103_nb.png",
+            "cool_coolapk_emotion_104": "coolapk_emotion_104.png",
+            "cool_coolapk_emotion_105": "coolapk_emotion_105.png",
+            "cool_coolapk_emotion_106": "coolapk_emotion_106.png",
+            "cool_coolapk_emotion_107": "coolapk_emotion_107.png",
+            "cool_coolapk_emotion_108": "coolapk_emotion_108.png",
+            "cool_coolapk_emotion_109": "coolapk_emotion_109.png",
+            "cool_coolapk_emotion_10_aoman": "coolapk_emotion_10_aoman.png",
+            "cool_coolapk_emotion_11_yiwen": "coolapk_emotion_11_yiwen.png",
+            "cool_coolapk_emotion_12_wuyu": "coolapk_emotion_12_wuyu.png",
+            "cool_coolapk_emotion_13_huaixiao": "coolapk_emotion_13_huaixiao.png",
+            "cool_coolapk_emotion_14_bishi": "coolapk_emotion_14_bishi.png",
+            "cool_coolapk_emotion_15_fanu": "coolapk_emotion_15_fanu.png",
+            "cool_coolapk_emotion_16_tuosai": "coolapk_emotion_16_tuosai.png",
+            "cool_coolapk_emotion_17_tushe": "coolapk_emotion_17_tushe.png",
+            "cool_coolapk_emotion_18_han": "coolapk_emotion_18_han.png",
+            "cool_coolapk_emotion_19_koubi": "coolapk_emotion_19_koubi.png",
+            "cool_coolapk_emotion_1_hahaha": "coolapk_emotion_1_hahaha.png",
+            "cool_coolapk_emotion_20_qinqin": "coolapk_emotion_20_qinqin.png",
+            "cool_coolapk_emotion_21_penxue": "coolapk_emotion_21_penxue.png",
+            "cool_coolapk_emotion_22_xiaoyan": "coolapk_emotion_22_xiaoyan.png",
+            "cool_coolapk_emotion_23_shui": "coolapk_emotion_23_shui.png",
+            "cool_coolapk_emotion_24_wuzuixiao": "coolapk_emotion_24_wuzuixiao.png",
+            "cool_coolapk_emotion_25_zaijian": "coolapk_emotion_25_zaijian.png",
+            "cool_coolapk_emotion_26_kelian": "coolapk_emotion_26_kelian.png",
+            "cool_coolapk_emotion_27_qiang": "coolapk_emotion_27_qiang.png",
+            "cool_coolapk_emotion_28_ruo": "coolapk_emotion_28_ruo.png",
+            "cool_coolapk_emotion_29_baoquan": "coolapk_emotion_29_baoquan.png",
+            "cool_coolapk_emotion_2_jingya": "coolapk_emotion_2_jingya.png",
+            "cool_coolapk_emotion_30_ok": "coolapk_emotion_30_ok.png",
+            "cool_coolapk_emotion_31_xiaoku": "coolapk_emotion_31_xiaoku.png",
+            "cool_coolapk_emotion_32_heiha": "coolapk_emotion_32_heiha.png",
+            "cool_coolapk_emotion_33_wulian": "coolapk_emotion_33_wulian.png",
+            "cool_coolapk_emotion_34_jizhi": "coolapk_emotion_34_jizhi.png",
+            "cool_coolapk_emotion_35_ye": "coolapk_emotion_35_ye.png",
+            "cool_coolapk_emotion_36_ku": "coolapk_emotion_36_ku.png",
+            "cool_coolapk_emotion_37_doge": "coolapk_emotion_37_doge.png",
+            "cool_coolapk_emotion_38_wozuimei": "coolapk_emotion_38_wozuimei.png",
+            "cool_coolapk_emotion_39_caidao": "coolapk_emotion_39_caidao.png",
+            "cool_coolapk_emotion_3_ciya": "coolapk_emotion_3_ciya.png",
+            "cool_coolapk_emotion_40_aixin": "coolapk_emotion_40_aixin.png",
+            "cool_coolapk_emotion_41_meigui": "coolapk_emotion_41_meigui.png",
+            "cool_coolapk_emotion_42_diaoxie": "coolapk_emotion_42_diaoxie.png",
+            "cool_coolapk_emotion_43_heixian": "coolapk_emotion_43_heixian.png",
+            "cool_coolapk_emotion_44_pen": "coolapk_emotion_44_pen.png",
+            "cool_coolapk_emotion_45_yinxian": "coolapk_emotion_45_yinxian.png",
+            "cool_coolapk_emotion_46_nanguo": "coolapk_emotion_46_nanguo.png",
+            "cool_coolapk_emotion_47_weiqu": "coolapk_emotion_47_weiqu.png",
+            "cool_coolapk_emotion_48_weiweiyixiao": "coolapk_emotion_48_weiweiyixiao.png",
+            "cool_coolapk_emotion_49_huanhu": "coolapk_emotion_49_huanhu.png",
+            "cool_coolapk_emotion_4_liulei": "coolapk_emotion_4_liulei.png",
+            "cool_coolapk_emotion_50_xinsui": "coolapk_emotion_50_xinsui.png",
+            "cool_coolapk_emotion_51_chigua": "coolapk_emotion_51_chigua.png",
+            "cool_coolapk_emotion_52_hejiu": "coolapk_emotion_52_hejiu.png",
+            "cool_coolapk_emotion_53_pu": "coolapk_emotion_53_pu.png",
+            "cool_coolapk_emotion_54_hongyaowan": "coolapk_emotion_54_hongyaowan.png",
+            "cool_coolapk_emotion_55_lvyaowan": "coolapk_emotion_55_lvyaowan.png",
+            "cool_coolapk_emotion_56_dogexiaoku": "coolapk_emotion_56_dogexiaoku.png",
+            "cool_coolapk_emotion_57_dogehechi": "coolapk_emotion_57_dogehechi.png",
+            "cool_coolapk_emotion_58_dogeyuanliangta": "coolapk_emotion_58_dogeyuanliangta.png",
+            "cool_coolapk_emotion_59_erha": "coolapk_emotion_59_erha.png",
+            "cool_coolapk_emotion_5_keai": "coolapk_emotion_5_keai.png",
+            "cool_coolapk_emotion_61_lvmao": "coolapk_emotion_61_lvmao.png",
+            "cool_coolapk_emotion_62_huaji": "coolapk_emotion_62_huaji.png",
+            "cool_coolapk_emotion_60_kuan": "coolapk_emotion_60_kuan.png",
+            "cool_coolapk_emotion_63_liuhanhuaji": "coolapk_emotion_63_liuhanhuaji.png",
+            "cool_coolapk_emotion_64_shounuehuaji": "coolapk_emotion_64_shounuehuaji.png",
+            "cool_coolapk_emotion_65_coshuaji": "coolapk_emotion_65_coshuaji.png",
+            "cool_coolapk_emotion_66_doujiyanhuaji": "coolapk_emotion_66_doujiyanhuaji.png",
+            "cool_coolapk_emotion_67_mojinghuaji": "coolapk_emotion_67_mojinghuaji.png",
+            "cool_coolapk_emotion_68": "coolapk_emotion_68.png",
+            "cool_coolapk_emotion_69": "coolapk_emotion_69.png",
+            "cool_coolapk_emotion_6_weixiao": "coolapk_emotion_6_weixiao.png",
+            "cool_coolapk_emotion_70": "coolapk_emotion_70.png",
+            "cool_coolapk_emotion_71": "coolapk_emotion_71.png",
+            "cool_coolapk_emotion_72": "coolapk_emotion_72.png",
+            "cool_coolapk_emotion_73": "coolapk_emotion_73.png",
+            "cool_coolapk_emotion_74": "coolapk_emotion_74.png",
+            "cool_coolapk_emotion_75": "coolapk_emotion_75.png",
+            "cool_coolapk_emotion_76": "coolapk_emotion_76.png",
+            "cool_coolapk_emotion_77": "coolapk_emotion_77.png",
+            "cool_coolapk_emotion_78": "coolapk_emotion_78.png",
+            "cool_coolapk_emotion_79": "coolapk_emotion_79.png",
+            "cool_coolapk_emotion_7_hehe": "coolapk_emotion_7_hehe.png",
+            "cool_coolapk_emotion_80": "coolapk_emotion_80.png",
+            "cool_coolapk_emotion_81_naikezui": "coolapk_emotion_81_naikezui.png",
+            "cool_coolapk_emotion_82_miaomiao": "coolapk_emotion_82_miaomiao.png",
+            "cool_coolapk_emotion_83_huoba": "coolapk_emotion_83_huoba.png",
+            "cool_coolapk_emotion_84_baiyan": "coolapk_emotion_84_baiyan.png",
+            "cool_coolapk_emotion_85": "coolapk_emotion_85.png",
+            "cool_coolapk_emotion_86": "coolapk_emotion_86.png",
+            "cool_coolapk_emotion_87": "coolapk_emotion_87.png",
+            "cool_coolapk_emotion_88": "coolapk_emotion_88.png",
+            "cool_coolapk_emotion_89": "coolapk_emotion_89.png",
+            "cool_coolapk_emotion_8_piezui": "coolapk_emotion_8_piezui.png",
+            "cool_coolapk_emotion_90": "coolapk_emotion_90.png",
+            "cool_coolapk_emotion_91": "coolapk_emotion_91.png",
+            "cool_coolapk_emotion_92": "coolapk_emotion_92.png",
+            "cool_coolapk_emotion_93": "coolapk_emotion_93.png",
+            "cool_coolapk_emotion_94": "coolapk_emotion_94.png",
+            "cool_coolapk_emotion_95_erhading": "coolapk_emotion_95_erhading.png",
+            "cool_coolapk_emotion_96_kuanlvmao": "coolapk_emotion_96_kuanlvmao.png",
+            "cool_coolapk_emotion_97_haixiu": "coolapk_emotion_97_haixiu.png",
+            "cool_coolapk_emotion_98_wunai": "coolapk_emotion_98_wunai.png",
+            "cool_coolapk_emotion_99_zhoumei": "coolapk_emotion_99_zhoumei.png",
+            "cool_coolapk_emotion_9_se": "coolapk_emotion_9_se.png",
+            "cool_c_coolb": "c_coolb.png",
+            "cool_c_fived": "c_fived.png",
+            "cool_c_fivef": "c_fivef.png",
+            "cool_c_fivem": "c_fivem.png",
+            "cool_c_fiveo": "c_fiveo.png",
+            "cool_c_fivey": "c_fivey.png",
+            "cool_c_fy": "c_fy.png",
+            "cool_c_oned": "c_oned.png",
+            "cool_c_onef": "c_onef.png",
+            "cool_c_onem": "c_onem.png",
+            "cool_c_oneo": "c_oneo.png",
+            "cool_c_oney": "c_oney.png",
+            "cool_c_oy": "c_oy.png",
+            "cool_c_teny": "c_teny.png",
+            "cool_c_twod": "c_twod.png",
+            "cool_c_twof": "c_twof.png",
+            "cool_c_twom": "c_twom.png",
+            "cool_c_twoo": "c_twoo.png",
+            "cool_c_twoy": "c_twoy.png",
+            "cool_c_ty": "c_ty.png",
+            // ... 更多表情
+        } 
+      });
+    }
+</script>
+
+<!-- <script>
+    document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+      }
+    });
+</script> -->
+<!-- <script>
+$(document).ready(function(){
+  $('.vemoji-btn').text('😀');
+	$("#vcomments").on('click', 'span.vat',function(){
+		$(this).parent('div.vmeta').next("div.vcontent").after($("div.vwrap"));
+		$('textarea#veditor').focus();
+	})
+})
+</script> -->
+<style>
+@keyframes valineBg{
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+#vcomments .vwrap{
+  padding: 20px 20px 44px;
+  background: linear-gradient(-45deg, rgba(255, 206, 255, .3), rgba(237, 156, 253 ,.3), rgba(173, 214, 251, .3), rgba(192, 255, 208, .3));
+  background-size: 400% 400%;
+  animation: valineBg 15s ease infinite;
+}
+#veditor{
+  background-image: url(https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/other/comment-bg.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+  background-color: rgba(255,255,255,0);
+  /* resize: vertical; */
+  resize:none;
+  min-height:7rem;
+}
+textarea[id='veditor']::placeholder{color:#b3b3b3;font-size:15px;text-align:center;line-height:6rem;}
+.v .vwrap .vheader{width: 80%;bottom:0;position: absolute;}
+.v .vinput{padding:10px 15px;border-bottom:0px;background-color: rgba(255, 0, 110, .1);}
+.v .vwrap .vedit .vctrl{margin-top:-44px;right:0;position:absolute;margin-right:-3px;}
+.v .vwrap .vcontrol{ position:absolute;right:0;bottom:0;width:20%;padding-top:0px;}
+.v .vwrap .vcol-30{
+  position: absolute;left: 4px;bottom: 5px;width: 20px !important;
+}
+.v .vwrap .vcontrol .col.col-80{width: 100%;}
+.v .vbtn.vsubmit{
+  padding: 0;
+  position:absolute; bottom: 0; right: 0; 
+  color: #fff; height: 42px; line-height: 42px; width:150px; text-align: center;
+  border: none;border-radius:22px;background:#fe1b73;
+}
+.v .vbtn.vsubmit:hover{box-shadow: 0 2px 12px #ff4e6a;}
+.v .vwrap .vedit .vctrl span{
+  margin-top: 30px;
+}
+.v .vwrap .vcontrol .col.col-20,.v .vlist .vcard .vhead .vsys{
+  display:none;
+}
+@media screen and (max-width: 520px){
+  .v .vwrap .vcol-30{display: none !important;}
+  textarea[id='veditor']::placeholder{color:#b3b3b3;font-size:14px;text-align:center;line-height: 1;}
+  .vemojis{margin-bottom: 100px;}
+  .v .vwrap .vheader .vinput{width: 33.33%;padding:10px 5px;}
+  .v .vbtn.vsubmit{bottom: 10px;left: 0;right: 0;margin: 0 auto;}
+}
+@media screen and (min-width: 520px;) (max-width: 750px){
+  /* #vcomments .vwrap{height: 400px;} */
+  .v .vwrap .vcol-30{display: none !important;}
+  .v .vwrap .item3{bottom: 60px;}
+  .vemojis{margin-bottom: 200px;}
+  textarea[id='veditor']::placeholder{color:#b3b3b3;font-size:14px;text-align:center;line-height: 1;}
+	.v .vwrap .vheader .vinput{width: 33.33%;padding:10px 5px;}
+  .v .vbtn.vsubmit{bottom: 10px;left: 0;right: 0;margin: 0 auto;}
+}
+.vcard .vhead .vsys:nth-of-type(1){
+  display: inline-block;
+  background-color: rgba(247, 210, 247, .5);
+}
+.vcard .vhead .vsys:nth-of-type(2){
+  display: inline-block;
+  background-color: rgba(224, 235, 247, .5);
+}
+</style>
+    <div style="text-align:center;font-size: 12px;color: #888;">
+            <div class="site-info">
+                
+             
+              <div class="footertext">
+                <p><a href="#" style="color: #b9b9b9;" >Blog wallleap</a>
+                  , Copyright &copy; 2019-2020 
+                  by Luwang All Rights Reserved.</p>
+              </div>
+
+              <!-- <a style="color: #b9b9b9;" href="//beian.miit.gov.cn" target="_blank">	
+                <img src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/logo/ICP.png" style="vertical-align: text-bottom; width: 17px;" />
+                赣ICP备20000895号-1
+              </a> -->
+              
+              <span style="padding-left: 20px;">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <span id="time" align="center">载入时间中...</span>
+                <script>
+                  var now = new Date(); 
+                  function createtime() { 
+                    var grt= new Date("08/08/2019 17:38:00");//在此处修改你的建站时间
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("time").innerHTML = "小站已经苟活 "+dnum+" 天 "+hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                 } 
+                 setInterval("createtime()",250);
+                </script>
+              <span style="padding-left: 20px;><i class="fa fa-cog fa-spin" aria-hidden="true"></i></span>
+                <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278079074'%3E%3C/span%3E%3Cscript src='https://s4.cnzz.com/z_stat.php%3Fid%3D1278079074%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+              </span>
+              
+              <div style="text-align:center; padding-top: 20px;">
+                <div class="github-badge">
+                  <a rel="license" href="https://hexo.io/" target="_blank" title="由Hexo强力驱动">
+                  <span class="badge-subject"><i class="fa fa-fire" aria-hidden="true"></i> Powered</span><span class="badge-value bg-blue">Hexo</span></a>
+                </div>
+                <div class="github-badge">
+                    <a rel="license" href="https://coding.net/" target="_blank" title="静态网页托管于CODING">
+                    <span class="badge-subject"><i class="fa fa-heart" aria-hidden="true"></i> Hosted</span>
+                    <span class="badge-value bg-gray">CODING</span></a>
+                  </div>
+                <div class="github-badge">
+                    <a rel="license" href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr提供CDN加速服务">
+                    <span class="badge-subject"><i class="fa fa-firefox fa-spin" aria-hidden="true"></i> CND</span><span class="badge-value bg-cdn">Github&jsDelivr</span></a>
+                </div>
+                <div class="github-badge">
+                    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">
+                    <span class="badge-subject"><i class="fa fa-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0</span></a>
+                </div>
+              </div>  
+          
+              
+            </div><!-- .site-info -->
+          </div>
+</section>
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js,gh/nexmoe/nexmoe.github.io@latest/js/app.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!--<script src="/js/app.js?v=1599833537226"></script>-->
+
+
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+ 
+<script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/shehuizhuyi.js"></script>
+<script> 
+!function(e,t,a){function n(){c(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"),o(),r()}function r(){for(var e=0;e<d.length;e++)d[e].alpha<=0?(t.body.removeChild(d[e].el),d.splice(e,1)):(d[e].y--,d[e].scale+=.004,d[e].alpha-=.013,d[e].el.style.cssText="left:"+d[e].x+"px;top:"+d[e].y+"px;opacity:"+d[e].alpha+";transform:scale("+d[e].scale+","+d[e].scale+") rotate(45deg);background:"+d[e].color+";z-index:99999");requestAnimationFrame(r)}function o(){var t="function"==typeof e.onclick&&e.onclick;e.onclick=function(e){t&&t(),i(e)}}function i(e){var a=t.createElement("div");a.className="heart",d.push({el:a,x:e.clientX-5,y:e.clientY-5,scale:1,alpha:1,color:s()}),t.body.appendChild(a)}function c(e){var a=t.createElement("style");a.type="text/css";try{a.appendChild(t.createTextNode(e))}catch(t){a.styleSheet.cssText=e}t.getElementsByTagName("head")[0].appendChild(a)}function s(){return"rgb("+~~(255*Math.random())+","+~~(255*Math.random())+","+~~(255*Math.random())+")"}var d=[];e.requestAnimationFrame=function(){return e.requestAnimationFrame||e.webkitRequestAnimationFrame||e.mozRequestAnimationFrame||e.oRequestAnimationFrame||e.msRequestAnimationFrame||function(e){setTimeout(e,1e3/60)}}(),n()}(window,document);
+</script>
+
+  
+
+
+
+
+
+</body>
+
+</html>

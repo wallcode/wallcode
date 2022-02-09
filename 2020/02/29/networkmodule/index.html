@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>两种主要的网络参考模型 - wallleap</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="luwang的博客，正在努力学习💪">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/favicon.png" type="image/png" />
+  <meta name="description" content="我本来只是想写下HCNA的内容的，可是发现还是得讲下计算机网络基础 先讲下两种网络参考模型吧">
+<meta property="og:type" content="article">
+<meta property="og:title" content="两种主要的网络参考模型">
+<meta property="og:url" content="https://blog.wallleap.cn/2020/02/29/networkmodule/index.html">
+<meta property="og:site_name" content="wallleap">
+<meta property="og:description" content="我本来只是想写下HCNA的内容的，可是发现还是得讲下计算机网络基础 先讲下两种网络参考模型吧">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/cover/(00).jpg">
+<meta property="article:published_time" content="2020-02-29T11:53:49.000Z">
+<meta property="article:modified_time" content="2020-03-29T14:39:29.330Z">
+<meta property="article:author" content="Luwang">
+<meta property="article:tag" content="HCNA">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/cover/(00).jpg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/gh/nexmoe/nexmoe.github.io@latest/css/style.css,npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css" crossorigin>
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1721693_jg94kndwhe.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1599833537441">
+
+   
+    <style>
+      .nexmoe-avatar img:hover {
+        -webkit-transform: rotateZ(360deg);
+        -moz-transform: rotateZ(360deg);
+        transform: rotateZ(360deg);
+      }	
+    </style>
+  
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<script src="https://cdn.jsdelivr.net/gh/wallleap/live2d-widget@latest/autoload.js"></script> 
+<script src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/js/busuanzi.pure.mini.js"></script>
+
+<link rel="stylesheet" href="/css/github-badge.css">
+<link rel="stylesheet" href="/css/tags_ca.css">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+  .pace .pace-progress {  background: rgb(254, 27, 115); /*进度条颜色*/
+  height: 3px;  }
+  .pace .pace-progress-inner {  box-shadow: 0 0 10px #ff0000, 0 0 5px     #ff0000; /*阴影颜色*/
+  }
+  .pace .pace-activity {  border-top-color: rgb(251, 30, 30);    /*上边框颜色*/
+  border-left-color: rgb(251, 30, 30);    /*左边框颜色*/
+}
+</style>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Luwang" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/custom/avatar.jpg" alt="Luwang"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Luwang">
+            <img src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/custom/avatar.jpg" alt="Luwang" alt="Luwang">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>54</div>
+        <div><span>标签</span>57</div>
+        <div><span>分类</span>25</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/categories" title="文章分类">
+            <i class="mdui-list-item-icon nexmoefont icon-appstore-fill"></i>
+            <div class="mdui-list-item-content">
+                文章分类
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friends.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:wallleap.cn" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://space.bilibili.com/157360395" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+            <!-- <i class="fa icon-bilibili"></i> -->
+        </a><a class="mdui-ripple" href="https://github.com/wallleap/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+            <!-- <i class="fa icon-github"></i> -->
+        </a><a class="mdui-ripple" href="https://github.com/wallleap/" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(0 , 0, 252);background-color: rgba(0, 0, 252, .15);">
+            <i class="nexmoefont icon-QQ"></i>
+            <!-- <i class="fa icon-QQ"></i> -->
+        </a><a class="mdui-ripple" href="https://github.com/wallleap/" target="_blank" mdui-tooltip="{content: '微信公众号'}" style="color: rgb(0, 229, 105);background-color: rgba(0, 229, 105, .15);">
+            <i class="nexmoefont icon-wechat-fill"></i>
+            <!-- <i class="fa icon-wechat-fill"></i> -->
+        </a><a class="mdui-ripple" href="https://github.com/wallleap/" target="_blank" mdui-tooltip="{content: '我的邮箱'}" style="color: rgb(245, 0, 0);background-color: rgba(245, 0, 0, .15);">
+            <i class="nexmoefont icon-mail-fill"></i>
+            <!-- <i class="fa icon-mail-fill"></i> -->
+        </a><a class="mdui-ripple" href="https://github.com/wallleap/" target="_blank" mdui-tooltip="{content: '我的微博'}" style="color: rgb(245, 0, 0);background-color: rgba(245, 0, 0, .15);">
+            <i class="nexmoefont icon-weibo"></i>
+            <!-- <i class="fa icon-weibo"></i> -->
+        </a><a class="mdui-ripple" href="https://github.com/wallleap/" target="_blank" mdui-tooltip="{content: 'RSS'}" style="color: rgb(252, 129, 0);background-color: rgba(252, 129, 0, .15);">
+            <i class="nexmoefont icon-rss"></i>
+            <!-- <i class="fa icon-rss"></i> -->
+        </a> 
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">标签云</h3>
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud">
+      <a href="/tags/ACL/" style="font-size: 10px;">ACL</a> <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/AngularJS/" style="font-size: 10px;">AngularJS</a> <a href="/tags/Blog/" style="font-size: 17.14px;">Blog</a> <a href="/tags/C-C/" style="font-size: 11.43px;">C/C++</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/ES/" style="font-size: 10px;">ES</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub/" style="font-size: 15.71px;">GitHub</a> <a href="/tags/HCL/" style="font-size: 15.71px;">HCL</a> <a href="/tags/HCNA/" style="font-size: 15.71px;">HCNA</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Hexo/" style="font-size: 17.14px;">Hexo</a> <a href="/tags/JavaScript/" style="font-size: 14.29px;">JavaScript</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/NAT/" style="font-size: 10px;">NAT</a> <a href="/tags/NodeJS/" style="font-size: 10px;">NodeJS</a> <a href="/tags/OSPF/" style="font-size: 10px;">OSPF</a> <a href="/tags/RIP/" style="font-size: 10px;">RIP</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/STP/" style="font-size: 10px;">STP</a> <a href="/tags/Sakura/" style="font-size: 10px;">Sakura</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/VLAN/" style="font-size: 10px;">VLAN</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/Win10/" style="font-size: 10px;">Win10</a> <a href="/tags/eNSP/" style="font-size: 15.71px;">eNSP</a> <a href="/tags/eNsp/" style="font-size: 11.43px;">eNsp</a> <a href="/tags/hackintosh/" style="font-size: 10px;">hackintosh</a> <a href="/tags/hexo/" style="font-size: 11.43px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/w650dc/" style="font-size: 10px;">w650dc</a> <a href="/tags/web/" style="font-size: 18.57px;">web</a> <a href="/tags/%E4%B8%BB%E9%A2%98/" style="font-size: 12.86px;">主题</a> <a href="/tags/%E4%BA%94%E7%AC%94/" style="font-size: 10px;">五笔</a> <a href="/tags/%E4%BA%A4%E6%8D%A2%E6%9C%BA/" style="font-size: 10px;">交换机</a> <a href="/tags/%E4%BC%81%E4%B8%9A%E7%BD%91/" style="font-size: 10px;">企业网</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E5%8D%8E%E4%B8%89/" style="font-size: 15.71px;">华三</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 17.14px;">博客</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 11.43px;">后端</a> <a href="/tags/%E5%9B%BE%E9%9B%86/" style="font-size: 10px;">图集</a> <a href="/tags/%E5%AE%89%E8%A3%85/" style="font-size: 10px;">安装</a> <a href="/tags/%E5%AE%9E%E9%AA%8C/" style="font-size: 12.86px;">实验</a> <a href="/tags/%E5%BE%AE%E4%BF%A1/" style="font-size: 10px;">微信</a> <a href="/tags/%E5%BE%AE%E4%BF%A1%E9%98%B2%E7%9B%97%E9%93%BE/" style="font-size: 10px;">微信防盗链</a> <a href="/tags/%E6%82%A6%E8%AF%BB/" style="font-size: 10px;">悦读</a> <a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 10px;">技术</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 11.43px;">数据结构</a> <a href="/tags/%E6%A1%86%E6%9E%B6/" style="font-size: 10px;">框架</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E5%8C%96/" style="font-size: 10px;">模块化</a> <a href="/tags/%E8%80%83%E7%A0%94/" style="font-size: 10px;">考研</a> <a href="/tags/%E8%8B%B1%E8%AF%AD/" style="font-size: 10px;">英语</a> <a href="/tags/%E9%80%86%E6%B0%B4%E5%AF%92/" style="font-size: 10px;">逆水寒</a> <a href="/tags/%E9%85%8D%E7%BD%AE/" style="font-size: 12.86px;">配置</a> <a href="/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/" style="font-size: 10px;">黑苹果</a>
+    </div>
+    
+      <script>
+        var maxTagcloud = parseInt(10);
+        var tags_length = parseInt(57);
+        var tags_arr = [];
+        for(var i = 0; i < tags_length; i++){
+          tags_arr.push(i);
+        }
+        tags_arr.sort(function (l, r) {
+          return Math.random() > 0.5 ? -1 : 1;
+        });
+        tags_arr = tags_arr.slice(0, maxTagcloud < tags_length ? tags_length - maxTagcloud : 0);
+        for(var tag_i = 0; tag_i < tags_arr.length; tag_i++){
+          document.getElementById("randomtagcloud").children[tags_arr[tag_i]].style.display = 'none';
+        }
+      </script>
+    
+  </div>
+
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">最新文章</h3>
+    <div class="nexmoe-widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/08/28/VUE/">Vue学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/20/AJAX/">Ajax学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/12/React/">React全家桶(技术栈)学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/04/Git/">Git学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/14/nodejs/">NodeJs学习笔记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+    <!-- <div class="nexmoe-copyright">
+        &copy; 2020 Luwang
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div> -->
+    <div style="text-align: center;">
+        <div class="github-badge">
+            <a rel="license" href="https://github.io/" target="_blank" title="静态网页托管于Github">
+            <span class="badge-subject">Hosted</span><span class="badge-value bg-brightgreen"><i class="fa fa-github" aria-hidden="true"></i> Github</span></a>
+        </div>
+        <div class="github-badge">
+            <a rel="license" href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank" title="站点使用 Sakura 主题，作者：Mashiro & Hojun">
+            <span class="badge-subject"><i class="fa fa-themeisle" aria-hidden="true"></i> Theme</span><span class="badge-value bg-theme">nexmoe</span></a>
+        </div><br />
+        <div class="github-badge">
+            <span class="badge-subject"><i class="fa fa-user" aria-hidden="true"></i> UV</span>
+            <span  class="badge-value bg-orange" id="busuanzi_value_site_uv"></span>
+        </div>
+        <div class="github-badge">
+            <span class="badge-subject"><i class="fa fa-eye" aria-hidden="true"></i> PV</span>
+            <span class="badge-value bg-brightgreen" id="busuanzi_value_site_pv"></span>
+        </div>
+    </div>
+    <div class="site-img" style="margin: 20px 0 20px 16px;">
+        <a href="#"><img width="200px" src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/wechat/wallleap.bmp"></a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 66.66666666666666%;"> 
+          <img data-src="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg" data-sizes="auto" alt="两种主要的网络参考模型" class="lazyload">
+          <h1>两种主要的网络参考模型</h1>
+      </div>
+  
+  
+  <link rel="stylesheet" href="/css/sharejs.css">
+  <input type="hidden" id="yelog_site_posts_number" value="54">
+  <input type="hidden" id="yelog_site_word_count" value="276.4k">
+<div class="nexmoe-post-meta" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2020年02月29日</a>
+    <a><i class="nexmoefont icon-areachart"></i>4.2k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 17 分钟</a>
+    <a><i class="nexmoefont icon-eye-fill"></i>阅读次数 <span id="busuanzi_value_page_pv"></span></a>
+</div>
+
+  <div class="nexmoe-post-right">
+    
+      <div class="nexmoe-fixed">
+        <div class="nexmoe-valign">
+            <div class="nexmoe-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#No-0-引言"><span class="toc-number">1.</span> <span class="toc-text">No.0)引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#No-1-功能"><span class="toc-number">2.</span> <span class="toc-text">No.1)功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#No-2-协议簇"><span class="toc-number">3.</span> <span class="toc-text">No.2)协议簇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#01-数据链路层"><span class="toc-number">3.1.</span> <span class="toc-text">01 数据链路层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#02-网络层"><span class="toc-number">3.2.</span> <span class="toc-text">02 网络层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#03-传输层"><span class="toc-number">3.3.</span> <span class="toc-text">03 传输层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#04-应用层"><span class="toc-number">3.4.</span> <span class="toc-text">04 应用层</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#No-3-结尾"><span class="toc-number">4.</span> <span class="toc-text">No.3)结尾</span></a></li></ol>
+            </div>
+        </div>
+      </div>
+    
+  </div>
+
+  <article>
+    <p>我本来只是想写下HCNA的内容的，可是发现还是得讲下<strong>计算机网络基础</strong></p>
+<p><strong>先讲下两种网络参考模型吧</strong></p>
+<a id="more"></a>
+
+<h2 id="No-0-引言"><a href="#No-0-引言" class="headerlink" title="No.0)引言"></a>No.0<img data-sizes="auto" data-src="https://mmbiz.qpic.cn/mmbiz_png/6aVaON9Kibf6ibic5RkMCpub0xbVCW5kH5xtxxWHmrrEzGXZpTKu3MSQlRq9VAvzSBTPmQmRJ3XzRrGib6qzGM5Eeg/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img" class="lazyload">)引言<img data-sizes="auto" data-src="https://mmbiz.qpic.cn/mmbiz_png/US10Gcd0tQGYLDQ4mkzRQRu3MPsRBxdl5IQicKIHJk3ySTIJotQ6RTEDdcfGGVBZrMicve2tNujEh6JZCouU984g/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img" class="lazyload"></h2><p>在计算机网络刚出现的时候，也就是两个主机使用一根网线相连，发展到后面，在一个计算机网络中，使用各自开发的技术，终端之间进行数据通信和资源共享。但是随着网络的扩张，需要有一个统一的协议(规则)，来实现不同网络之间的互联。</p>
+<p>国际标准化组织ISO制定了网络互连的七层框架的一个参考模型，称为<strong>开放系统互连参考模型</strong>，简称<strong>OSI/RM</strong>(Open System Internetwork Reference Model)。</p>
+<p>由于OSI模型和协议比较复杂，所以并没有得到广泛的应用。于是20世纪70年代中期美国国防部为ARPANET开发了<strong>TCP/IP</strong>网络体系结构, TCP/IP是一组用于实现网络互连的通信协议。Internet网络体系结构以TCP/IP为核心，基于TCP/IP的参考模型将协议分成四个层次和5个层次。而TCP/IP模型因其开放性和易用性在实践中得到了广泛的应用，TCP/IP协议栈也成为互联网的主流协议。</p>
+<p>OSI/RM法律上标准，TCP/IP工业网络体系标准。</p>
+<p><img data-sizes="auto" data-src="https://mmbiz.qpic.cn/mmbiz_jpg/bQicJnZn4LHTuxKwib3AibzSz7x7m55ia3yJkkayrgwLJj5teMia6LvgQCTSaVvwwc7u32vvy2qA4NN5y2cTSBtAsrg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img" class="lazyload"></p>
+<p>而我们主要使用的是介于4层和7层之间的TCP/IP 5层模型，由高至底为应用层、传输层、网络层、数据链路层和物理层。</p>
+<h2 id="No-1-功能"><a href="#No-1-功能" class="headerlink" title="No.1)功能"></a>No.1<img data-sizes="auto" data-src="https://mmbiz.qpic.cn/mmbiz_png/6aVaON9Kibf6ibic5RkMCpub0xbVCW5kH5xtxxWHmrrEzGXZpTKu3MSQlRq9VAvzSBTPmQmRJ3XzRrGib6qzGM5Eeg/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img" class="lazyload">)功能<img data-sizes="auto" data-src="https://mmbiz.qpic.cn/mmbiz_png/US10Gcd0tQGYLDQ4mkzRQRu3MPsRBxdl5IQicKIHJk3ySTIJotQ6RTEDdcfGGVBZrMicve2tNujEh6JZCouU984g/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img" class="lazyload"></h2><p>不同主机之间的相同层次被称为<strong>对等层(Peer)</strong>。</p>
+<p>对等层之间存在协议关系。即对等实体之间互相通信需要遵守一定的规则，如通信的内容、通信的方式等。这种对等实体之间交换数据或通信时必须遵守的规则称为<strong>对等层协议(Peer Protocol)</strong>。</p>
+<p><strong>网络协议的三要素：</strong><br>*&lt;1&gt;语法：数据与控制信息的结构或格式*<br>*&lt;2&gt;语义：需要发出何种控制信息，完成何种动作以及做出何种响应。*<br>*&lt;3&gt;同步：事情实现顺序的详细说明*</p>
+<p>除了物理层外，OSI模型中的其他6个对等层都存在对应的协议，如数据链路层协议、网络层协议等，对等实体利用对等协议进行通信以向高层提供<strong>服务</strong>。</p>
+<p>实际上，对等层之间的通信是虚拟通信，它们之间的通信是使用下一层提供的服务来实现的。同一网络中不同主机的对等层，要安装运行相同的网络协议，主机间才能进行有效通信。这可以概括为“协议是水平的”。</p>
+<p>在OSI分层结构模型中，每一层实体为相邻的上一层实体提供的通信功能称为<strong>服务</strong>。</p>
+<p><strong>服务类型：</strong></p>
+<p> *&lt;1&gt;面向连接服务：两个N层实体在数据交换前，必须先建立连接，即首先初始化状态信息。并且为N+1层实体的信息传输建立一个通道。在数据传输阶段，通过这些状态信息，第N层实体可以跟踪在它们之间的PDU交换及它们与更高层的SDU交换。当数据交换结束后应释放这个连接，即去除状态信息，释放建立连接时所分配的资源。* </p>
+<p><em>(2)无连接服务：两个N层实体通信前，不需要先建立一个连接，即不需要事先进行预定保留状态信息。同一个用户到相同目的地的信息块都独立发送，接收端无需返回确认信息。如果信息在传输中丢失，就不再重发。不可靠的无连接的服务通常被称为数据报服务。</em> </p>
+<p><strong>服务原语：</strong></p>
+<p>服务是通过一组服务原语(Primitive)来描述的，这些原语供用户和其他实体访问服务，通知服务提供者采取某些行动或报告某个对等实体的活动。</p>
+<p>*&lt;1&gt;请求(Request)：由服务用户发往服务提供者，请求它完成某项工作。*</p>
+<p>*&lt;2&gt;指示(Indication)：由服务提供者发往服务用户，指示发生了某些事件。*</p>
+<p>*&lt;3&gt;响应(Response)：由服务用户发往服务提供者，对前面发生的指示的响应。*</p>
+<p>*&lt;4&gt;证实(Confirmation)：由服务提供者发往服务用户，对前面发生的请求的证实。* </p>
+<p>N层实体利用N-1层实体所提供的服务，向N+I层实体提供功能更强大的服务。这可以概括为“服务是垂直的”。</p>
+<p>例如，传输层实体利用网络层实体的服务，向应用层实体提供网页传输服务。 </p>
+<p>N层实体使用N-1层实体所提供的服务时，不需要知道N-1层实体所提供的服务是如何实现的以及N-1层实体间的协议，而只需要知道下一层可以为自己提供哪些服务(是快速昂贵通信还是慢速低廉通信)，以及通过什么样的<strong>接口</strong>提供的。</p>
+<p>在OSI模型中，各层之间的接口都有统一的规则。N层的服务访问点SAP(Service Access Point)是N层实体提供服务给N+1层的地方，SAP可以理解为下层实体之间的逻辑传输通道。每一层的SAP都有一个唯一标明它的地址。一个N层可能存在多个SAP。</p>
+<p>PDU ：协议数据单元　　对等实体之间传送的数据单位SDU :  服务数据单元　　层与层之间交换的数据的单位IDU：  接口数据单元   在同一系统上下两层实体的交换信息中，经过SAP的信息单元<br>可以是多个SDU合成一个PDU,也可以是一个SDU划分为几个PDU。</p>
+<p><img data-sizes="auto" data-src="https://mmbiz.qpic.cn/mmbiz_jpg/bQicJnZn4LHTuxKwib3AibzSz7x7m55ia3yJllYIZd4HepVkvQfvbq8vfuiaX9nONm9ugvBlCKwgYX9Vu9cMr67vCvQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img" class="lazyload"></p>
+<p><strong>各层功能：</strong></p>
+<p>（1）物理层</p>
+<p><strong>物理层</strong>（Physical Layer）是OSI参考模型的最低层。</p>
+<p>物理层的主要任务就是透明地传送二进制比特流，即经过实际电路传送后的比特流没有发生变化。但是物理层并不关心比特流的实际意义和结构，只是负责接收和传送比特流。作为发送方，物理层通过传输介质发送数据；作为接收方，物理层通过传输介质接收数据。物理层的另一个任务就是定义网络硬件的特性，包括使用什么样的传输介质以及与传输介质连接的接头等物理特性。</p>
+<p>物理层定义的典型规范代表有EIA/TIA RS-232、EIA/TIA RS-449、V.35、RJ-45等。</p>
+<p>值得注意的是，传送信息利用的物理传输介质，如双绞线、同轴电缆、光纤等，并不在物理层之内，而是在物理层之下。</p>
+<p>（2）数据链路层</p>
+<p><strong>数据链路层</strong>（Data Link Layer）是OSI参考模型的第2层。</p>
+<p>数据链路层的主要任务是在两个相邻节点间的线路上无差错地传送以帧（Frame）为单位的数据，使数据链路层对网络层显现为一条无差错线路。由于物理层仅仅接收和传送比特流，并不关心比特流的意义和结构，所以数据链路层要产生和识别帧边界。另外，数据链路层还提供了差错控制与流量控制的方法，保证在物理线路上传送的数据无差错。广播式网络在数据链路层还要处理新的问题，即如何控制各个节点对共享信道的访问。</p>
+<p>数据链路层协议的代表有SDLC、HDLC、PPP、STP、帧中继等。</p>
+<p>（3）网络层</p>
+<p><strong>网络层</strong>（Network Layer）是OSI参考模型的第3层。</p>
+<p>在这一层，数据的单位为数据分组（Packet）（数据包）。网络层的关键问题是如何进行路由选择，以确定数据分组如何从发送端到达接收端。如果在子网中同时出现的数据分组太多，将会互相阻塞，影响数据的正常传输。因此，拥塞控制也是网络层的功能之一。</p>
+<p>另外，当数据分组需要经过另一个网络以到达目的地时，第二个网络的寻址方法、分组长度、网络协议可能与第一个网络不同，因此，网络层还要解决异构网络的互连问题。</p>
+<p>网络层协议的代表有IP、IPX、RIP、OSPF等。</p>
+<p>（4）传输层</p>
+<p><strong>传输层</strong>（Transport Layer）是OSI参考模型的第4层。</p>
+<p>传输层从会话层接收数据，形成报文（Message），并且在必要时将其分成若干个分组，然后交给网络层进行传输。</p>
+<p>传输层的主要功能是：为上一层进行通信的两个之间提供一个可靠的端到端服务，使传输层以上的各层看不见传输层以下的细节，传输层以上的各层不再关心信息传输的问题。端到端是指进行相互通信的两个节点不是直接通过传输介质连接起来的，相互之间有很多交换设备（如）。这样的两个节点之间的通信就称为端到端通信。</p>
+<p>传输层协议的代表有TCP、UDP、SPX等。</p>
+<p>（5）会话层</p>
+<p><strong>会话层</strong>（Session Layer）是OSI参考模型的第5层。</p>
+<p>会话层允许不同机器上的用户建立会话关系，主要是针对远程访问，主要任务包括会话管理、传输同步以及数据交换管理等。会话一般都是面向连接的，如当文件传输到中途时建立的连接突然断掉，是从文件的开始重传还是断点续传，这个任务由会话层来完成。</p>
+<p>会话层协议的代表有Net BIOS、ZIP（Apple Talk区域信息协议）等。</p>
+<p>（6）表示层</p>
+<p><strong>表示层</strong>（Presentation Layer）是OSI参考模型的第6层。</p>
+<p>表示层关心的是所传输的信息的语法和语义。表示层的主要功能是：用于处理在多个通信系统之间交换信息的表示方式，主要包括数据格式的转换、数据加密与解密、数据压缩与恢复等。</p>
+<p>表示层协议的代表有ASCII、ASN.1、JPEG、MPEG等。</p>
+<p>（7）应用层</p>
+<p><strong>应用层</strong>（Application Layer）是OSI参考模型的最高层。</p>
+<p>应用层为网络用户或应用程序提供各种服务，如文件传输、电子邮件、网络管理和远程登录等。</p>
+<p>应用层协议的代表有Telnet、FTP、HTTP、SNMP等。</p>
+<p><img data-sizes="auto" data-src="https://mmbiz.qpic.cn/mmbiz_jpg/bQicJnZn4LHTuxKwib3AibzSz7x7m55ia3yJbtDVGcia7bB7uHDIQiaHknAUZrMVS6VcKbVvIqbZlPoWO9iauicWo1LfkQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img" class="lazyload"></p>
+<p><strong>TCP/IP分层模型</strong>的四个协议层分别完成以下的<strong>功能</strong>：　　</p>
+<p>第一层<strong>网络接口层</strong>　　网络接口层定义了数据从网络传输的物理细节，即比特如何被与网络介质直接交互的硬件设备接口通过电子或光学方式发送。</p>
+<p>网络接口层包括用于协作IP数据在已有网络介质上传输的协议。实际上TCP/IP标准并不定义与ISO数据链路层和物理层相对应的功能，提供TCP/IP协议的数据结构和实际物理硬件之间的接口。　　</p>
+<p>第二层<strong>网际层</strong>　　网际层对应于OSI七层参考模型的网络层。</p>
+<p>本层包含IP协议、RIP协议(Routing Information Protocol，路由信息协议)，负责数据的包装、寻址和路由。同时还包含网间控制报文协议(Internet Control Message Protocol,ICMP)用来提供网络诊断信息。　　</p>
+<p>第三层传输层　　传输层对应于OSI七层参考模型的传输层，它提供两种端到端的通信服务。</p>
+<p>其中TCP协议(Transmission Control Protocol)提供可靠的数据流运输服务，UDP协议(Use Datagram Protocol)提供不可靠的用户数据报服务。　　</p>
+<p>第四层应用层　　应用层对应于OSI七层参考模型的应用层、表示层和会话层。</p>
+<p>因特网的应用层协议包括Finger、Whois、FTP(文件传输协议)、Gopher、HTTP(超文本传输协议)、Telent(远程终端协议)、SMTP(简单邮件传送协议)、IRC(因特网中继会话)、NNTP（网络新闻传输协议）等。</p>
+<p><img data-sizes="auto" data-src="https://mmbiz.qpic.cn/mmbiz_jpg/bQicJnZn4LHTuxKwib3AibzSz7x7m55ia3yJt8NxfuEAIB3QqslhFcCOwTSLU8xmCCFmia4w8hroNkHjQogVuXhmQvA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img" class="lazyload"></p>
+<h2 id="No-2-协议簇"><a href="#No-2-协议簇" class="headerlink" title="No.2)协议簇"></a>No.2<img data-sizes="auto" data-src="https://mmbiz.qpic.cn/mmbiz_png/6aVaON9Kibf6ibic5RkMCpub0xbVCW5kH5xtxxWHmrrEzGXZpTKu3MSQlRq9VAvzSBTPmQmRJ3XzRrGib6qzGM5Eeg/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img" class="lazyload">)协议簇<img data-sizes="auto" data-src="https://mmbiz.qpic.cn/mmbiz_png/US10Gcd0tQGYLDQ4mkzRQRu3MPsRBxdl5IQicKIHJk3ySTIJotQ6RTEDdcfGGVBZrMicve2tNujEh6JZCouU984g/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img" class="lazyload"></h2><p><strong>协议簇</strong>包括上百个各种功能的协议，TCP和IP协议仅是保证数据完整传输的两个基本的重要协议。通常说TCP/IP是Internet协议族。</p>
+<p>TCP/IP参考模型各层对应的协议已经得到广泛应用。</p>
+<p><img data-sizes="auto" data-src="https://mmbiz.qpic.cn/mmbiz_png/bQicJnZn4LHTuxKwib3AibzSz7x7m55ia3yJF6pPV1bRPicHiccoE7tYexiaC0Cr1COcWBqqwATxTTNj78foKic95EVf4Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img" class="lazyload"></p>
+<h3 id="01-数据链路层"><a href="#01-数据链路层" class="headerlink" title="01 数据链路层"></a>01 数据链路层</h3><p>数据链路层主要功能</p>
+<p>① 建立、维护和释放数据链路</p>
+<p>② 定界、同步、处理透明性问题：差错控制、顺序控制、流量控制</p>
+<p>③ 封装和成帧（分帧）：将比特流分成离散的帧，并计算每个帧的校验和</p>
+<p>④ 为网络层发送和接收IP数据报、发送ARP/RARP请求和接受ARP/RARP应答</p>
+<p>主要协议</p>
+<p>① 点对点信道</p>
+<p><strong>&gt;</strong> 面向字符型：IBM BSC、ISO BM、SLIP、PPP</p>
+<p><strong>&gt;</strong> 面向比特型：IBM SDLC、ANSI ADLC、ISO HDLC、X.25 LAPB</p>
+<p>② 广播信道</p>
+<p><strong>&gt;</strong> 逻辑链路控制子层：IEEE 802.2</p>
+<p><strong>&gt;</strong> 介质访问控制子层：IEEE 802.3、802.4、802.5</p>
+<p><em>TCP/IP用于不同网络的协议</em></p>
+<p>a) 有线局域网：以太网、令牌环、令牌总线网、FDDI等</p>
+<p>b) 无线局域网：IEEE802.11、802.15等</p>
+<p>c) 点到点广域网：PPP</p>
+<p>d) 交换广域网：X.25、帧中继、ATM等</p>
+<h3 id="02-网络层"><a href="#02-网络层" class="headerlink" title="02 网络层"></a>02 网络层</h3><p><strong>IP(Internet Protocol)网际协议</strong>：</p>
+<p>IPv4和IPv6分别使用点分十进制和冒分十六进制表示一个IP</p>
+<p><strong>ARP(Address Resolution Protocol)地址解析协议</strong>：</p>
+<p>网络层使用IP地址，物理网络中使用物理地址(MAC地址)，两套地址之间的转换过程叫做<strong>地址解析</strong></p>
+<p>① 静态映射：采用地址映射表来实现IP地址和物理地址之间的映射，即在主机中利用地址映射表来记录网络上其他主机或网络设备的IP地址和物理地址对应关系</p>
+<p>② 动态映射：在因特网上需要获得地址映射关系时，利用网络通信协议直接从其他主机上获得IP地址和物理地址的映射关系，包括地址解析协议(ARP)和反向地址解析协议(RARP)</p>
+<p>IP地址——ARP——&gt;MAC地址</p>
+<p>MAC地址——RARP——&gt;IP地址</p>
+<p><strong>IP路由选择协议</strong>：</p>
+<p>使得在互联网中的路由器能够彼此互相通知路由变化信息的一些规则和过程的集合</p>
+<ul>
+<li>距离矢量路由选择协议：RIPv1、RIPv2</li>
+<li>链路状态路由选择协议：OSPF</li>
+<li>路径向量路由选择协议：BGP</li>
+</ul>
+<p><strong>ICMP(Internet Control Message Protocol)网际控制报文协议</strong>：</p>
+<p>IP是不可靠、无连接的传输协议，尽力而为的点到点数据传输服务，不能保证数据报成功从信源到达信宿，ICMP能够传递网络控制信息、提供差错报告，功能包括IP层差错报告、拥塞控制、路径控制以及路由器或主机信息的获取，主要用于ping、tracert</p>
+<p><strong>IGMP(Internet Group Management Protocol)网际组管理协议</strong>：</p>
+<p>多播路由器和主机之间进行群组关系的管理，运行与主机和多播路由器间</p>
+<h3 id="03-传输层"><a href="#03-传输层" class="headerlink" title="03 传输层"></a>03 传输层</h3><p><strong>UDP(User Data Protocol)用户数据协议</strong>：</p>
+<p>传送数据前不需先建立连接，对方收到 UDP 报文后不需确认。不提供可靠交付，在某些情况下最有效的方式</p>
+<p><strong>TCP(Transmission Control Protocol)传输控制协议</strong>：</p>
+<p>可靠地、面向连接的传输服务，不提供广播或多播服务。增加了开销，协议数据单元首部增大，占用处理机资源</p>
+<h3 id="04-应用层"><a href="#04-应用层" class="headerlink" title="04 应用层"></a>04 应用层</h3><p>应用层支撑协议包括域名解析协议(DNS)、简单网络管理协议(SNMP)等</p>
+<p>典型应用包括Web浏览、电子邮件、文件传输访问、远程登录等</p>
+<p>与应用相关的协议包括超文本传输协议(HTTP)、简单邮件传输协议(SMTP)、邮局协议(POP3)、文件传输协议(FTP)、简单文件传输协议(TFTP)和远程登录(Telnet)等</p>
+<h2 id="No-3-结尾"><a href="#No-3-结尾" class="headerlink" title="No.3)结尾"></a>No.3<img data-sizes="auto" data-src="https://mmbiz.qpic.cn/mmbiz_png/6aVaON9Kibf6ibic5RkMCpub0xbVCW5kH5xtxxWHmrrEzGXZpTKu3MSQlRq9VAvzSBTPmQmRJ3XzRrGib6qzGM5Eeg/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img" class="lazyload">)结尾<img data-sizes="auto" data-src="https://mmbiz.qpic.cn/mmbiz_png/US10Gcd0tQGYLDQ4mkzRQRu3MPsRBxdl5IQicKIHJk3ySTIJotQ6RTEDdcfGGVBZrMicve2tNujEh6JZCouU984g/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img" class="lazyload"></h2><p>暂时不知道该讲些什么了，以后想起来了再修改吧</p>
+<p>拖了挺久了，可能文章写的不太好，如果发现错误欢迎大家指正</p>
+<p>图片和部分文字参考百度百科、CSDN和其他博客，如有侵权，可联系删除</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
+  </article>
+
+  <div class="nexmoe-post-meta">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a><a class="nexmoefont icon-appstore-fill -link" href="/categories/%E7%BD%91%E7%BB%9C/%E5%9F%BA%E7%A1%80/">基础</a>
+    
+    
+        <a class="nexmoefont icon-tag-fill -link" href="/tags/HCNA/" rel="tag">HCNA</a>
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+      <!-- 
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Luwang<br>
+    <strong>本文链接：</strong><a href="https://blog.wallleap.cn/2020/02/29/networkmodule/" title="https:&#x2F;&#x2F;blog.wallleap.cn&#x2F;2020&#x2F;02&#x2F;29&#x2F;networkmodule&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;blog.wallleap.cn&#x2F;2020&#x2F;02&#x2F;29&#x2F;networkmodule&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+ -->
+
+  <div class="my_post_copyright">
+    <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script> 
+    <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <p><span>本文标题:</span>两种主要的网络参考模型</a></p>
+    <p><span>文章作者:</span><a href="/" title="访问 {{ theme.author }} 的个人博客">luwang</a></p>
+    <p><span>发布时间:</span>2020年02月29日 - 19:02</p>
+    <p><span>最后更新:</span>2020年03月29日 - 22:03</p>
+    <p><span>原始链接:</span><a href="/2020/02/29/networkmodule/" title="两种主要的网络参考模型">https://blog.wallleap.cn/2020/02/29/networkmodule/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.wallleap.cn/2020/02/29/networkmodule/"  aria-label="复制成功！"></i></span>
+    </p>
+    <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+  </div>
+  <script> 
+      var clipboard = new Clipboard('.fa-clipboard');
+        $(".fa-clipboard").click(function(){
+        clipboard.on('success', function(){
+          swal({   
+            title: "",   
+            text: '复制成功',
+            icon: "success", 
+            showConfirmButton: true
+            });
+          });
+      });  
+    </script>
+  
+
+  
+    
+    <!-- <div style="text-align:center;color: #ccc;font-size:14px;margin-top: 46px;">-------------喜欢就分享<i class="fa fa-paw"></i>疼爱就打赏-------------</div>
+    <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+    <footer class="post-footer">
+        <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+        <div class="post-tags">
+        </div>
+        <div class="post-share">
+          <div class="social-share sharehidden share-component"></div>
+          <i class="iconfont show-share icon-forward"></i>
+        </div>
+      </footer>.entry-footer -->
+    
+      <style>
+/* .list, .list li, .list-left li {
+	list-style: none;
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+} 
+.pos-f {
+	position: fixed;
+} 
+*/
+
+.left-100 {
+	width: 100%;
+    height: 100%;
+    float: left;
+}
+.blur {
+	-webkit-filter: blur(3px);
+	filter: blur(3px);
+}
+.tr3, .list li {
+	transition: all .3s;
+}
+.hidden {
+    display: none;
+}
+.click-cursor, .icon-donate, .list li {
+    cursor: pointer;
+}
+#drinks-box .opacity-show {
+    opacity: 1;
+}
+#drinks-box {
+    width: 320px;
+    height: 240px;
+    margin: 0 auto;
+	text-align: center;
+	/* left: calc(50% - 160px);
+	top: calc(50% - 120px);
+    position: fixed; */
+    position: relative;
+    top:0;
+    left: 0;
+}
+#drinks-icons {
+    background: no-repeat center center url(https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/images/donate/drinks/text.png);
+}
+.drinks-button>div {
+    position: absolute;
+    top: 0;
+    left: 0;
+	transition: all 0.3s;
+	transform-style: preserve-3d;
+    transform-origin: center center;
+}
+.icon-donate {
+    width: 64px;
+    height: 64px;
+    position: absolute;
+	left: calc(50% - 32px);
+	top: calc(50% - 32px);
+}
+.icon-donate img {
+    max-width: 64px;
+    max-height: 64px;
+}
+#drinks-button-box {
+    display: none;
+    opacity: 0;
+    transform: scale(1.3,1.3);
+}
+#drinks-button-bg {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    height: 100px;
+    opacity: 0;
+}
+#donate-buttons {
+    position: absolute;
+    overflow: hidden;
+    top: calc(50% - 14px);
+    left: 20px;
+    height: 28px;
+    border-radius: 6px;
+    background-color: #ff006e;
+    box-shadow: 0 10px 20px 1px rgba(255, 0, 110, 0.5);
+}
+#donate-buttons a, #github-box a {
+    display: block;
+}
+li[id$="_donate"] {
+    position: relative;
+    float: left;
+    width: 70px;
+    height: 28px;
+    line-height: 600px;
+    overflow: hidden;
+	cursor: pointer;
+	background: no-repeat center center;
+    background-size: 45px;
+    text-align: center;
+}
+li[id$="_donate"]::after {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: calc(50% - 5px);
+    height: 0;
+    width: 0;
+    opacity: 0;
+	border: 5px solid #fff;
+	border-color: #fff transparent transparent transparent;
+    transition: all .3s;
+}
+li[id$="_donate"]:hover::after {
+    opacity: 1;
+    top: 0px;
+}
+#github-box {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: calc(50% - 16px);
+    background: no-repeat center center url(https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/images/donate/drinks/github.svg);
+    background-size: contain;
+    right: 72px;
+    line-height: 600px;
+    overflow: hidden;
+    transform: rotatez(20deg );
+    opacity: 0;
+    transition: all .3s ease-out;
+}
+#drinks-button-box:hover #github-box, #drinks-button-box.Mobile #github-box {
+    top: calc(50% - 40px);
+    right: 64px;
+    transform: rotatez(5deg );
+    opacity: 0.8;
+}
+#paypal_donate {
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMy4wLjIsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iUGF5UGFsIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgdmlld0JveD0iMCAwIDUxMiAxNDUiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiAxNDU7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiNGRkZGRkY7fQ0KPC9zdHlsZT4NCjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik00OS41LDcyLjljLTMuNywwLTcuMywwLTExLDBjLTEuOCwwLTMuMSwwLjctMy42LDIuNmMtMS4yLDQuMi02LjMsMjIuOS03LjYsMjguMWMtMC43LDIuNy0yLjEsMy44LTQuOSwzLjgNCgljLTUuNywwLTExLjUsMC0xNy4yLDBjLTMuMSwwLTQuNC0xLjQtMy45LTQuNGMwLjQtMi42LDE1LjQtNjcuMiwyMi4zLTk2LjlDMjQuNiwyLjMsMjYuMiwxLDMwLjIsMWMxMC43LDAsNDMuNCwwLjIsNDkuMSwwLjINCglDOTMuNywxLjMsMTA1LjUsMTIuNywxMDYsMjdjMC4zLDkuNi0xLjUsMTguNy02LjksMjYuOGMtNS4zLDcuOS0xMi44LDEyLjgtMjEuNywxNS43QzY4LjMsNzIuNSw1OSw3My40LDQ5LjUsNzIuOXogTTUwLjIsNTMNCgljMi42LTAuMiw0LjctMC4zLDYuOC0wLjVjNS4zLTAuNiwxMC40LTIsMTQuOC01LjNjNS0zLjgsNi43LTksNS43LTE1LjFjLTAuOS01LjYtNC42LTguNi05LjctMTAuM0M2Mi42LDIwLDU3LjIsMjAsNTEuOCwyMC40DQoJYy0yLjcsMC4yLTQuNSwxLjctNS4yLDQuNWMtMC42LDIuNi0xLjUsNS4yLTIuMSw3LjhjLTEuMSw0LjgtMi4yLDkuNy0zLjEsMTQuNmMtMC42LDMuMSwwLjUsNC43LDMuNSw1LjINCglDNDYuOCw1Mi45LDQ4LjcsNTIuOSw1MC4yLDUzeiIvPg0KPHBhdGggY2xhc3M9InN0MCIgZD0iTTIwMywxNDMuNmMzLjEsMCw2LjItMC4xLDkuMywwYzIsMC4xLDMuNS0wLjUsNC43LTIuMmMxLjktMi44LDYzLjQtMTAyLjksNjguNS0xMTEuN2MxLjMtMi4yLDAuNS00LTEuOS00DQoJYy02LjctMC4xLTEzLjUsMC0yMC4yLDAuMWMtMS43LDAtMywwLjktNCwyLjVjLTQuOCw3LjgtMjQuMywzOS4yLTI5LjMsNDcuMmMtMC4zLDAuNS0xLjEsMS0xLjUsMC45Yy0wLjYtMC4xLTEuMS0wLjgtMS41LTEuMw0KCWMtMC4yLTAuMy0wLjItMC43LTAuMy0xLjFjLTAuNy0zLjgtNS4zLTMyLjEtNy00Mi40Yy0wLjctNC40LTIuOS02LjEtNy4zLTYuMWMtNC42LDAtOS4yLDAuMi0xMy44LDAuM2MtMy42LDAuMS01LjYsMi40LTUuMSw1LjkNCgljMC4zLDEuOSwxMi40LDY2LjcsMTQuNSw3Ny40YzAuMSwwLjUsMC4yLDEsMC4xLDEuNGMtMC41LDEuNC0wLjksMi44LTEuNiw0Yy00LjcsNy41LTkuNSwxNS0xNC4yLDIyLjVjLTAuNCwwLjctMC45LDEuNC0xLjEsMi4xDQoJYy0wLjYsMi41LTAuOCw0LjIsMi45LDQuMkMxOTcsMTQzLjMsMjAzLDE0My41LDIwMywxNDMuNnoiLz4NCjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xNDkuOCw5OS4yYy0xLjYsMC45LTIuOCwxLjUtMy45LDIuMWMtMi45LDEuNi01LjcsMy4xLTguNiw0LjhjLTUuNCwzLjItMTEuMywzLjktMTcuMywzLjcNCgljLTMuMS0wLjEtNi4yLTAuNC05LjEtMS4yYy03LjctMi0xMi4zLTctMTMuMi0xNS4xYy0wLjgtNi42LTAuMS0xMy4xLDMuMy0xOWMzLjgtNi43LDkuOS0xMC4zLDE2LjktMTIuNmM2LjMtMi4xLDEyLjktMi42LDE5LjUtMi43DQoJYzUuMi0wLjEsMTAuNC0wLjMsMTUuNy0wLjRjMC42LDAsMS4yLTAuMiwxLjgtMC4xYzIuNSwwLjEsMy42LTEuNSw0LTMuNmMwLjMtMS43LDAuNi0zLjYsMC40LTUuM2MtMC40LTMuNS0yLjMtNS43LTUuOC02DQoJYy00LjMtMC41LTguNi0wLjctMTIuOS0wLjZjLTYuMywwLjItMTIuNSwxLTE4LjUsMi44Yy0wLjksMC4zLTEuOCwwLjctMi44LDEuMWMtMi40LDEtNC42LTAuMi00LjQtMi43YzAuMy00LjEsMC44LTguMiwxLjctMTIuMg0KCWMwLjUtMi4yLDIuNC0zLjYsNC43LTRjNy44LTEuNiwxNS43LTIuNCwyMy43LTIuN2M2LjUtMC4yLDEyLjksMCwxOS4yLDEuNWM1LjgsMS4zLDEwLjYsNC4zLDE0LjcsOC41YzQuNCw0LjYsNS45LDEwLjIsNC44LDE2LjMNCgljLTIuMSwxMS4zLTkuNCw0NS41LTEwLjcsNTEuNGMtMC42LDIuOS0yLjMsNC40LTUuMyw0LjVjLTUuNSwwLjItMTEsMC4yLTE2LjUsMC4zYy0xLjYsMC0yLjEtMC42LTItMi4yDQoJQzE0OS41LDEwMy41LDE0OS43LDEwMS42LDE0OS44LDk5LjJ6IE0xNDcuNyw3MC4xYzAsMCwwLDAuMSwwLDAuMWMtMi41LDAuMi00LjksMC4zLTcuNCwwLjVjLTQuMSwwLjQtOC4xLDEuMS0xMS44LDIuOQ0KCWMtNC45LDIuNC02LjksNS44LTYuNiwxMS4zYzAuMyw0LjksMy4zLDguMSw4LjIsOC43YzQsMC41LDcuOSwwLjEsMTEuNy0wLjdjMy4xLTAuNiw1LjktMiw3LjktNC41YzMuOC00LjcsNS0xMC4yLDUtMTYuMQ0KCWMwLTEuNC0wLjktMi4xLTIuMy0yLjJDMTUwLjksNzAuMSwxNDkuMyw3MC4xLDE0Ny43LDcwLjF6Ii8+DQo8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzI1LjksNzIuOWMtMy42LDAtNy4zLDAtMTEsMGMtMS44LDAtMy4xLDAuNy0zLjYsMi42Yy0xLjIsNC4yLTYuMywyMi45LTcuNiwyOC4xYy0wLjcsMi43LTIuMSwzLjgtNC45LDMuOA0KCWMtNS43LDAtMTEuNSwwLTE3LjIsMGMtMy4xLDAtNC40LTEuNC0zLjktNC40YzAuNC0yLjYsMTUuNC02Ny4yLDIyLjMtOTYuOWMwLjktMy45LDIuNi01LjIsNi42LTUuMmMxMC43LDAsNDMuNCwwLjIsNDkuMSwwLjINCglDMzcwLDEuMywzODEuOCwxMi43LDM4Mi4zLDI3YzAuMyw5LjYtMS41LDE4LjctNi45LDI2LjhjLTUuMyw3LjktMTIuOCwxMi44LTIxLjcsMTUuN0MzNDQuNiw3Mi41LDMzNS4zLDczLjQsMzI1LjksNzIuOXogTTMyNi41LDUzDQoJYzIuNi0wLjIsNC43LTAuMyw2LjgtMC41YzUuMy0wLjYsMTAuNC0yLDE0LjgtNS4zYzUtMy44LDYuNy05LDUuNy0xNS4xYy0wLjktNS42LTQuNi04LjYtOS43LTEwLjNjLTUuMi0xLjctMTAuNi0xLjgtMTYuMS0xLjMNCgljLTIuNywwLjItNC41LDEuNy01LjIsNC41Yy0wLjYsMi42LTEuNSw1LjItMi4xLDcuOGMtMS4xLDQuOC0yLjIsOS43LTMuMSwxNC42Yy0wLjYsMy4xLDAuNSw0LjcsMy41LDUuMg0KCUMzMjMuMSw1Mi45LDMyNSw1Mi45LDMyNi41LDUzeiIvPg0KPHBhdGggY2xhc3M9InN0MCIgZD0iTTQyNS41LDk5LjJjLTEsMC40LTEuNiwwLjYtMi4yLDAuOWMtNC41LDIuNC05LjEsNC44LTEzLjYsNy4yYy00LjQsMi4zLTkuMiwyLjYtMTQsMi42Yy00LDAtOC0wLjUtMTEuOC0yLjENCgljLTYuNi0yLjgtMTAtNy45LTEwLjctMTQuOWMtMC41LTQuOS0wLjEtOS44LDEuNi0xNC40YzIuOC03LjksOC44LTEyLjcsMTYuNC0xNS43YzYuOS0yLjYsMTQtMy40LDIxLjMtMy41DQoJYzUuNi0wLjEsMTEuMy0wLjMsMTYuOS0wLjVjMy41LTAuMSw0LjMtMC43LDUuMS00LjFjMC40LTEuNywwLjUtMy41LDAuNC01LjJjLTAuMy0zLjItMi4zLTUuNC01LjctNS45Yy0zLjctMC41LTcuNS0wLjgtMTEuMi0wLjcNCgljLTcsMC4yLTEzLjksMS0yMC42LDIuOWMtMC44LDAuMi0xLjYsMC42LTIuNCwxYy0yLjYsMS4yLTQuOCwwLTQuNS0yLjhjMC4zLTMuOCwwLjgtNy42LDEuNS0xMS40YzAuNC0yLjMsMi0zLjksNC40LTQuMw0KCWM0LjgtMC44LDkuNi0xLjgsMTQuNS0yLjFjNi4xLTAuNSwxMi4zLTAuNywxOC41LTAuNmM4LDAuMiwxNS42LDEuNywyMi4xLDdjMy45LDMuMiw2LjksNi45LDcuOCwxMmMwLjYsMy42LDAuMiw3LjItMC41LDEwLjcNCgljLTMuMywxNS41LTYuNiwzMS05LjksNDYuNWMtMC45LDQuMS0yLjMsNS40LTYuNCw1LjVjLTUuMSwwLjItMTAuMiwwLjItMTUuMiwwLjNjLTEuOCwwLTIuMi0wLjQtMi4xLTIuMg0KCUM0MjUuMywxMDMuNSw0MjUuNCwxMDEuNiw0MjUuNSw5OS4yeiBNNDI1LjgsNzAuMWMtMy4yLDAuMi02LjcsMC4zLTEwLjIsMC43Yy00LDAuNC03LjksMS4yLTExLjQsMy4xYy0zLjMsMS43LTUuNiw0LjMtNiw4LjENCgljLTAuNiw1LjMsMS4yLDEwLjksOC40LDExLjdjNC4zLDAuNSw4LjQsMC4xLDEyLjUtMC45YzMuOC0wLjksNi44LTMuMiw4LjctNi42YzIuMy00LDMuMi04LjQsMy40LTEyLjljMC4xLTIuMy0wLjktMy4xLTMuMi0zLjINCglDNDI3LjQsNzAsNDI2LjcsNzAuMSw0MjUuOCw3MC4xeiIvPg0KPHBhdGggY2xhc3M9InN0MCIgZD0iTTQ4NC40LDEwNy40YzIuMy0wLjEsMi44LTAuNSwzLjMtMi41YzIuMS04LjcsMTcuNS03NC4xLDIzLjItOTguMWMwLjYtMi42LTEuMi00LjktNC00LjkNCgljLTUuNCwwLTEwLjgtMC4xLTE2LjItMC4xYy0zLjMsMC00LjksMS4yLTUuNiw0LjRjLTEuMiw0LjgtMjAuNyw5My45LTIxLjMsOThjLTAuMywyLDAuOCwyLjksMi45LDIuOQ0KCUM0NjkuNSwxMDcuMiw0ODIuOSwxMDcuNCw0ODQuNCwxMDcuNHoiLz4NCjwvc3ZnPg0K);
+}
+#btc_donate{
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMy4wLjIsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAxMzAzLjYgMjc0LjYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDEzMDMuNiAyNzQuNjsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4NCgkuc3Qwe2ZpbGw6I0ZGRkZGRjt9DQo8L3N0eWxlPg0KPGc+DQoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTEzNi42LDkzLjZsLTcuNSwzMC4xYzguNSwyLjEsMzQuNywxMC44LDM5LTYuMkMxNzIuNSw5OS43LDE0NS4xLDk1LjcsMTM2LjYsOTMuNnoiLz4NCgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTcwLjUsNC4xQzk3LTE0LjIsMjIuNSwzMC41LDQuMiwxMDQuMWMtMTguMyw3My41LDI2LjQsMTQ4LDk5LjksMTY2LjNjNzMuNiwxOC4zLDE0OC0yNi40LDE2Ni40LTk5LjkNCgkJQzI4OC44LDk2LjksMjQ0LDIyLjQsMTcwLjUsNC4xeiBNMTk3LjgsMTE3LjdjLTIsMTMuNC05LjQsMTkuOC0xOS4yLDIyLjFjMTMuNSw3LDIwLjQsMTcuOCwxMy44LDM2LjUNCgkJYy04LjEsMjMuMi0yNy40LDI1LjItNTMuMSwyMC4zbC02LjIsMjVsLTE1LjEtMy44bDYuMS0yNC42Yy0zLjktMS03LjktMi0xMi0zLjFsLTYuMiwyNC44bC0xNS0zLjhsNi4yLTI1DQoJCWMtMy41LTAuOS03LjEtMS45LTEwLjctMi44bC0xOS42LTQuOWw3LjUtMTcuMmMwLDAsMTEuMSwyLjksMTAuOSwyLjdjNC4zLDEuMSw2LjItMS43LDYuOS0zLjZsOS45LTM5LjVjMC42LDAuMSwxLjEsMC4zLDEuNiwwLjQNCgkJYy0wLjYtMC4yLTEuMS0wLjQtMS42LTAuNWw3LTI4LjJjMC4yLTMuMi0wLjktNy4yLTctOC44YzAuMi0wLjItMTAuOS0yLjctMTAuOS0yLjdsNC0xNi4xbDIwLjgsNS4ydjAuMWMzLjEsMC44LDYuMywxLjUsOS42LDIuMw0KCQlsNi4yLTI0LjdsMTUuMSwzLjhsLTYsMjQuM2M0LDAuOSw4LjEsMS45LDEyLjEsMi44bDYtMjQuMWwxNS4xLDMuOEwxNjcuNiw4M0MxODYuNiw4OS42LDIwMC41LDk5LjQsMTk3LjgsMTE3Ljd6Ii8+DQoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTEyOTQuMiwxMDcuMmMtMTAuMy0xNS43LTI4LjktMjMuNS01NS45LTIzLjVjLTkuMiwwLTE3LjUsMC40LTI0LjcsMS4yYy03LjMsMC44LTEzLjksMS44LTE5LjcsMy4xDQoJCWMtNS45LDEuMi0xMS4yLDIuNi0xNS45LDQuMWMtNC43LDEuNS05LjEsMi45LTEyLjksNGwtNDEuOSwxNzMuNmg1MS41bDMzLjYtMTQwLjdjNi45LTEuNCwxMy43LTIuMSwyMC40LTIuMWM2LjksMCwxMiwxLjMsMTUuNCw0DQoJCWMzLjMsMi43LDUuNSw2LjIsNi40LDEwLjRjMSw0LjMsMSw5LjIsMC4yLDE0LjlzLTEuOSwxMS41LTMuMywxNy41bC0yMi44LDk2LjFoNTEuNWwyMy41LTk4LjINCgkJQzEzMDYuMywxNDQuNCwxMzA0LjUsMTIyLjksMTI5NC4yLDEwNy4yeiIvPg0KCTxwb2x5Z29uIGNsYXNzPSJzdDAiIHBvaW50cz0iMTA3Ni42LDg3LjkgMTAzMy40LDI2OS44IDEwODQuNiwyNjkuOCAxMTI4LjIsODcuOSAJIi8+DQoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTEwOTAuMiw1OS4zYzUuNyw0LjMsMTIuMiw2LjQsMTkuMyw2LjRjNC45LDAsOS40LTAuOSwxMy43LTIuOGM0LjMtMS44LDgtNC4zLDExLjItNy40DQoJCWMzLjItMy4xLDUuOC02LjgsNy44LTExLjFjMS45LTQuMywzLTguOCwzLTEzLjdjMC04LjctMi45LTE1LjMtOC43LTE5LjVjLTUuOC00LjMtMTIuMi02LjQtMTkuNC02LjRjLTQuOCwwLTkuNCwwLjktMTMuNiwyLjgNCgkJcy04LDQuMy0xMS4yLDcuNHMtNS44LDYuOC03LjgsMTEuMXMtMi45LDguOC0yLjksMTMuNkMxMDgxLjUsNDguNiwxMDg0LjQsNTUuMSwxMDkwLjIsNTkuM3oiLz4NCgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNTIwLjYsNTkuM2M1LjcsNC4zLDEyLjIsNi40LDE5LjQsNi40YzQuOCwwLDkuNC0wLjksMTMuNy0yLjhjNC4yLTEuOCw4LTQuMywxMS4yLTcuNA0KCQljMy4yLTMuMSw1LjgtNi44LDcuOC0xMS4xczIuOS04LjgsMi45LTEzLjdjMC04LjctMi45LTE1LjMtOC42LTE5LjVjLTUuOC00LjMtMTIuMi02LjQtMTkuMy02LjRjLTQuOSwwLTkuNCwwLjktMTMuNywyLjgNCgkJcy04LDQuMy0xMS4yLDcuNHMtNS44LDYuOC03LjgsMTEuMWMtMiw0LjMtMyw4LjktMywxMy43QzUxMiw0OC42LDUxNC45LDU1LjEsNTIwLjYsNTkuM3oiLz4NCgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTI1LjMsMTM4LjhMMTE3LDE3MmMxMC4yLDIuNSw0MS43LDEyLjcsNDYuNC02LjFDMTY4LjIsMTQ2LjQsMTM1LjUsMTQxLjQsMTI1LjMsMTM4Ljh6Ii8+DQoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTgwOC4xLDEyNi42YzcuMiwwLDEzLjIsMC43LDE4LjIsMi4zYzUsMS41LDkuNywzLjEsMTQuNCw1bDE3LjctNDAuMWMtNi43LTMuMi0xNC4xLTUuOC0yMi4zLTcuOA0KCQlzLTE3LjQtMy0yNy44LTNjLTE2LjYsMC0zMS43LDMtNDUuMSw5Yy0xMy41LDYtMjUsMTQuMi0zNC40LDI0LjVjLTkuNSwxMC40LTE2LjcsMjIuNS0yMS44LDM2LjNjLTUuMSwxMy44LTcuNiwyOC42LTcuNiw0NC4zDQoJCWMwLDEwLjQsMS41LDIwLjMsNC4zLDI5LjdjMi45LDkuNSw3LjUsMTcuNywxNCwyNC43YzYuNSw3LDE0LjYsMTIuNiwyNC41LDE2LjhjOS45LDQuMSwyMiw2LjIsMzYuMyw2LjJjMTAuOCwwLDIwLjItMSwyOC0yLjkNCgkJYzcuOC0yLDE1LTQuMywyMS40LTYuOGwtMy44LTQxLjFjLTQuOSwyLjEtMTAuNCwzLjgtMTYuNiw1LjJjLTYuMiwxLjQtMTIuNywyLjEtMTkuNCwyLjFjLTEzLjYsMC0yMi45LTMuNi0yOC0xMC45DQoJCWMtNS4xLTcuMy03LjYtMTYuOC03LjYtMjguNWMwLTE5LjgsNS0zNS42LDE1LjEtNDcuNEM3NzcuNSwxMzIuNSw3OTEsMTI2LjYsODA4LjEsMTI2LjZ6Ii8+DQoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTEwMTEuMSwxMDQuMWMtNS45LTYuNy0xMy40LTExLjktMjIuNS0xNS42cy0xOS43LTUuNi0zMS43LTUuNmMtMTYuMywwLTMwLjksMy41LTQzLjUsMTAuNQ0KCQljLTEyLjcsNy4xLTIzLjQsMTYuMS0zMi4xLDI3LjJjLTguOCwxMS4xLTE1LjQsMjMuNS0xOS45LDM3LjNzLTYuNywyNy43LTYuNyw0MS41YzAsMTEsMS41LDIxLjEsNC41LDMwLjJjMyw5LjEsNy40LDE3LDEzLjMsMjMuNw0KCQljNS45LDYuNywxMy4zLDExLjksMjIuMywxNS42YzksMy43LDE5LjYsNS41LDMxLjgsNS41YzE2LjgsMCwzMS43LTMuNSw0NC40LTEwLjZjMTIuOC03LDIzLjUtMTYuMSwzMi0yNy4xDQoJCWM4LjUtMTEuMSwxNS0yMy41LDE5LjQtMzcuM2M0LjQtMTMuOSw2LjYtMjcuNyw2LjYtNDEuNWMwLTExLjEtMS41LTIxLjItNC41LTMwLjJDMTAyMS40LDExOC43LDEwMTYuOSwxMTAuOCwxMDExLjEsMTA0LjF6DQoJCSBNOTc0LjgsMTg1LjljLTIsOC00LjksMTUuMy04LjgsMjJjLTMuOSw2LjctOC44LDEyLjItMTQuNSwxNi42Yy01LjgsNC40LTEyLjQsNi42LTIwLjEsNi42Yy05LjcsMC0xNi40LTMuMi0yMC4xLTkuNw0KCQljLTMuNy02LjUtNS41LTE1LjUtNS41LTI3YzAtNy4yLDEtMTQuNywyLjktMjIuNmMyLTcuOSw0LjktMTUuMyw4LjgtMjJjMy45LTYuNyw4LjctMTIuMiwxNC41LTE2LjZjNS43LTQuNCwxMi40LTYuNiwyMC02LjYNCgkJYzkuNywwLDE2LjQsMy4yLDIwLjEsOS43YzMuNyw2LjUsNS42LDE1LjUsNS42LDI3Qzk3Ny43LDE3MC40LDk3Ni43LDE3OCw5NzQuOCwxODUuOXoiLz4NCgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNjE4LjgsMTkzLjdsMTUuMi02My42aDU3bDEwLjQtNDIuMkg2NDRsMTMuMi01My42bC01My42LDguM2wtMzMuOSwxNDMuMmMtMi44LDExLjgtNC40LDIyLjktNC44LDMzLjUNCgkJYy0wLjUsMTAuNiwxLjIsMjAsNC44LDI4LjJjMy43LDguMiw5LjksMTQuNywxOC43LDE5LjRjOC44LDQuNywyMS4xLDcuMSwzNyw3LjFjMTEuMSwwLDIwLjYtMC45LDI4LjctMi44YzguMS0xLjgsMTUuNi00LDIyLjUtNi42DQoJCWwtMy44LTM5LjRjLTUuMywxLjktMTAuNSwzLjMtMTUuNyw0LjNzLTEwLjYsMS42LTE2LjEsMS42Yy02LjcsMC0xMS44LTAuOS0xNS40LTIuOGMtMy42LTEuOC02LjEtNC40LTcuNC03LjgNCgkJYy0xLjQtMy4zLTItNy4zLTEuNy0xMS45QzYxNi42LDIwMy45LDYxNy40LDE5OSw2MTguOCwxOTMuN3oiLz4NCgk8cG9seWdvbiBjbGFzcz0ic3QwIiBwb2ludHM9IjQ2My45LDI2OS44IDUxNS4xLDI2OS44IDU1OC43LDg3LjkgNTA3LjEsODcuOSAJIi8+DQoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTQ0NCwxMDUuOGMtNS40LTYuNy0xMi0xMi0yMC4xLTE1LjljLTgtMy45LTE3LjYtNS45LTI4LjctNS45Yy01LjMsMC0xMC4yLDAuNi0xNC45LDEuNw0KCQljLTQuNiwxLjItOS4yLDIuOC0xMy44LDQuOGwyMS40LTg5LjJsLTUzLjYsOC4zTDI3NC41LDI2MWM2LjcsMy4yLDEzLjgsNS44LDIxLjMsNy42YzcuNSwxLjksMTQuNiwzLjIsMjEuMyw0LjINCgkJYzYuNywwLjksMTIuNiwxLjQsMTcuOCwxLjVjNS4yLDAuMSw4LjgsMC4yLDEwLjksMC4yYzE2LjEsMCwzMS4xLTMuMSw0NC45LTkuMnMyNS44LTE0LjQsMzYtMjQuOXMxOC4yLTIyLjgsMjQtMzcNCgkJYzUuOS0xNC4yLDguOC0yOS4yLDguOC00NS4xYzAtMTAuNC0xLjMtMjAtMy44LTI5QzQ1My4yLDEyMC40LDQ0OS4zLDExMi41LDQ0NCwxMDUuOHogTTQwMy45LDE4OC4xYy0zLDguMy03LjEsMTUuNy0xMi4zLDIyLjMNCgkJYy01LjIsNi42LTExLjQsMTEuOC0xOC41LDE1LjdzLTE0LjcsNS45LTIyLjgsNS45Yy0yLjUsMC00LjYsMC02LjIsMHMtMy0wLjEtNC4yLTAuMmMtMS4xLTAuMS0yLjItMC4zLTMuMy0wLjUNCgkJYy0xLTAuMi0yLjMtMC40LTMuNi0wLjdsMjIuOC05NC43YzQuMi0zLjcsOC44LTYuMSwxNC03LjNjNS4yLTEuMSw5LjQtMS43LDEyLjYtMS43YzkuOSwwLDE2LjcsMy4xLDIwLjQsOS4zDQoJCWMzLjcsNi4yLDUuNSwxNC45LDUuNSwyNS45QzQwOC40LDE3MS4yLDQwNi45LDE3OS44LDQwMy45LDE4OC4xeiIvPg0KPC9nPg0KPC9zdmc+DQo=);
+}
+#alipay_donate{
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMy4wLjIsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgdmlld0JveD0iMCAwIDQ0OC41IDE0NS41IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0NDguNSAxNDUuNTsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4NCgkuc3Qwe2VuYWJsZS1iYWNrZ3JvdW5kOm5ldyAgICA7fQ0KCS5zdDF7ZmlsbC1ydWxlOmV2ZW5vZGQ7Y2xpcC1ydWxlOmV2ZW5vZGQ7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8ZyBpZD0i5Zu+5bGCXzIiPg0KPC9nPg0KPGcgaWQ9IuWbvuWxgl8xIj4NCgk8ZyBpZD0i5qSt5ZyGXzJfMV8iIGNsYXNzPSJzdDAiPg0KCQk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNMTA1LjYsMEg4MS44djE4LjdoLTQ4djkuOGg0OHYxOEg0OC4xdjExLjFoNjcuNGMwLDAsMCwxNS45LTIwLjMsMzcuNlM2Ny40LDEyMC4yLDU3LjgsMTIzcy0yNiwyLjQtMzEuNS0xLjUNCgkJCXMtMTEuOC04LjktMTEuMy0xOFMyNi45LDg0LjEsMzMuOSw4M2MwLDAtMjAtMi4yLTI0LjUsMTguMWMtMy41LDE1LjYsNi42LDIzLjMsMTIuNCwyNy4yczE4LjIsOC41LDI2LjMsOXMyNS44LTAuNiw0Mi43LTEyLjgNCgkJCWMxNi44LTEyLjIsMzcuMy0zNi43LDQzLjUtNTEuOHM4LjktMjEuMyw5LjgtMjYuMmgtMzguNHYtMThoNTAuMnYtOS44aC01MC4yVjAiLz4NCgkJPHBhdGggY2xhc3M9InN0MSIgZD0iTTE4NiwwYzAsMC0yLjUsMjEuNS0zMy44LDQ1bDMuNiw1LjNjMCwwLDEzLjktNS41LDE3LjQtOC4zdjgwLjNIMTk4VjI1LjVjMCwwLDEyLTEyLjUsMTItMjUuNQ0KCQkJQzIxMCwwLDE4NiwwLDE4NiwweiIvPg0KCQk8cG9seWdvbiBjbGFzcz0ic3QxIiBwb2ludHM9IjI0NiwwIDI0NiwyNyAyMDIuNSwyNyAyMDIuNSwzNi4xIDI0NiwzNi4xIDI0NiwxMjEuNSAyNzAuMSwxMjEuNSAyNzAuMSwzNi4xIDI4MS4zLDM2LjEgMjgxLjMsMjcgDQoJCQkyNzAuMSwyNyAyNzAuMSwwIAkJIi8+DQoJCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0zNjQuNSwwdjExLjJINDExdjcuNWMwLDIyLjEtMTQuMiwyNC44LTE0LjIsMjQuOGgtMzIuM1Y2M2gzMi4zdjkuOGgtMzIuM3Y0NS44aC0yNC43VjcyLjhoLTM0LjZWNjNoMzQuNg0KCQkJVjQzLjVoLTQ5LjVWOC4zaDIzLjF2M2gyNi40VjBIMzY0LjV6IE0zMTMuMywyMS41djEzaDc3LjR2LTEzSDMxMy4zeiIvPg0KCTwvZz4NCgk8ZyBpZD0i5qSt5ZyGXzFfMV8iIGNsYXNzPSJzdDAiPg0KCQk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNNDQuMSwxMzYuN2MwLDAtMjIuNS0zLjctMzIuMS0yMC41Yy0zLjctNi40LTQtMTkuMyw2LTI3LjhjOC40LTcuMSwxOS41LTYuNiwzMy44LTNzMjQuNCw4LjEsNDIuOCwxNy4zDQoJCQljMTguNSw5LjMsNDQuOSwyMi41LDc4LjcsMjkuNmMzMy43LDcuMSw1Mi4zLDkuNCw3Mi44LDEwLjljMzUuNCwyLjYsMTQ5LjQtMi40LDE2NS02bDM3LjUtMzljMCwwLTExMi45LDE3LjQtMTgzLjgsMTgNCgkJCWMtNzAuOCwwLjYtNzguOC0zLjctOTUuMy02LjhTMTA5LjYsOTIuMyw5Ni44LDg3Yy02LjMtMi42LTQxLjctMTYuMy02My0xNC4zUzEuMiw4NCwwLjgsOTguM1M1LjgsMTMyLjIsNDQuMSwxMzYuN3oiLz4NCgkJDQoJCQk8cmVjdCB4PSIyMDYuNiIgeT0iNDYuNyIgdHJhbnNmb3JtPSJtYXRyaXgoMC43MDcxIC0wLjcwNzEgMC43MDcxIDAuNzA3MSAyMS4zNjgzIDE3NC42Mzk3KSIgY2xhc3M9InN0MSIgd2lkdGg9IjI5LjciIGhlaWdodD0iMjkuNyIvPg0KCQkNCgkJCTxyZWN0IHg9IjM3OC40IiB5PSI3OC45IiB0cmFuc2Zvcm09Im1hdHJpeCgwLjcwNzEgLTAuNzA3MSAwLjcwNzEgMC43MDcxIDUwLjc0MDMgMzAxLjE0OTEpIiBjbGFzcz0ic3QxIiB3aWR0aD0iMjAuOSIgaGVpZ2h0PSIyMC45Ii8+DQoJPC9nPg0KPC9nPg0KPC9zdmc+DQo=);
+}
+#wechat_donate{
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMy4wLjIsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0i5Zu+5bGCXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgNTMxLjIgMTYxLjciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUzMS4yIDE2MS43OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8Zz4NCgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNjguNiwwQzMxLjEtMC42LDAsMjcsMCw1OS41YzAsMTguOCw4LjgsMzUsMjUuOSw0N2MwLDAtNi4zLDIwLjctNi4yLDIxLjFjMC4xLDAuNCwxLjUsMS4yLDEuOSwxDQoJCWMwLjQtMC4yLDIyLjYtMTMuNSwyMi42LTEzLjVjMTcsNS44LDI2LjksMy45LDI3LjQsMy45Yy0xLjctNS0yLjgtMTIuNy0xLjUtMjBjNi42LTM4LjEsNDUuNi01MCw2Ny00Ny45DQoJCUMxMzEuMiwyMy40LDEwNS42LDAuNSw2OC42LDB6IE00Mi41LDQ5LjFjLTQuOSwwLTguOS00LTguOS04LjlzNC04LjksOC45LTguOXM4LjksNCw4LjksOC45UzQ3LjQsNDkuMSw0Mi41LDQ5LjF6IE05Ni40LDQ5LjENCgkJYy00LjksMC04LjktNC04LjktOC45czQtOC45LDguOS04LjlzOC45LDQsOC45LDguOVMxMDEuNCw0OS4xLDk2LjQsNDkuMXoiLz4NCgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTkyLDEwNC43YzAtMjcuOC0yNi45LTQ5LjItNTguMS00OS4yYy0zMy4xLDAtNTkuNCwyMS44LTU5LjQsNDkuNmMwLDI3LjksMjUuMSw1MSw1OS41LDUxLjINCgkJYzYuOSwwLDE3LjItMS43LDI0LjItNC42YzAsMCwxNi42LDEwLjEsMTcuNSwxMHMxLjQtMC44LDEuNC0xLjRzLTUuMy0xNi40LTUuMy0xNi40QzE4NiwxMzIuNywxOTIsMTIwLjQsMTkyLDEwNC43eiBNMTEyLjEsOTQuNA0KCQljLTQuNCwwLTcuOS0zLjUtNy45LTcuOXMzLjUtNy45LDcuOS03LjlzNy45LDMuNSw3LjksNy45UzExNi40LDk0LjQsMTEyLjEsOTQuNHogTTE1NC4yLDk0LjRjLTQuNCwwLTcuOS0zLjUtNy45LTcuOQ0KCQlzMy41LTcuOSw3LjktNy45czcuOSwzLjUsNy45LDcuOVMxNTguNiw5NC40LDE1NC4yLDk0LjR6Ii8+DQo8L2c+DQo8Zz4NCgk8Zz4NCgkJPHBvbHlnb24gY2xhc3M9InN0MCIgcG9pbnRzPSIyNzcuNiw2Ni41IDI2NS43LDExNS41IDI1NS43LDY2LjUgMjQwLjUsNjYuNSAyMzAuNSwxMTUuNSAyMTguNiw2Ni41IDIwMy44LDY2LjUgMjIzLjcsMTM2IA0KCQkJMjM3LjIsMTM2IDI0OCw4Mi44IDI1OC44LDEzNiAyNzIuNCwxMzYgMjkyLjMsNjYuNSAJCSIvPg0KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzI4LjMsODkuOGMtNC4zLTQuNy0xMC4zLTcuMS0xOC4yLTcuMWMtNy40LDAtMTMuMiwyLjUtMTcuNSw3LjNjLTQuMyw0LjktNi40LDExLjUtNi40LDE5LjkNCgkJCWMwLDguNiwyLjIsMTUuMyw2LjUsMjAuM3MxMC4yLDcuNSwxNy42LDcuNWM2LDAsMTEuMS0xLjUsMTUuMy00LjZjNC4yLTMuMSw3LTcuMyw4LjQtMTIuN2gtMTMuNmMtMC45LDEuOS0yLjEsMy40LTMuNiw0LjENCgkJCWMtMS41LDAuOS0zLjQsMS40LTUuOCwxLjRjLTMuNCwwLTUuOS0xLjEtNy43LTMuMWMtMS43LTItMi43LTUuMS0yLjktOS4xaDM0LjJjMC0wLjQsMC4xLTAuOSwwLjEtMS40czAtMS4yLDAtMi4yDQoJCQlDMzM0LjcsMTAxLjMsMzMyLjYsOTQuNSwzMjguMyw4OS44eiBNMzAwLjQsMTA0LjljMC4zLTMuNCwxLjMtNiwzLTcuOWMxLjctMS44LDQtMi43LDctMi43YzMuMiwwLDUuNywwLjksNy40LDIuNw0KCQkJYzEuOCwxLjgsMi43LDQuNCwyLjgsNy45SDMwMC40eiIvPg0KCTwvZz4NCgk8Zz4NCgkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTQwMi43LDExMi4yTDQwMi43LDExMi4yQzQwMi43LDExMi4xLDQwMi43LDExMi4yLDQwMi43LDExMi4yTDQwMi43LDExMi4yeiIvPg0KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzgzLjQsMTIxLjdjLTIuOCwyLjItNi40LDMuMy0xMC43LDMuM2MtNiwwLTEwLjYtMi4xLTEzLjktNi4ycy00LjktMTAtNC45LTE3LjVjMC03LjgsMS42LTEzLjcsNC45LTE3LjgNCgkJCWMzLjItNC4xLDgtNi4xLDE0LjMtNi4xYzQuNSwwLDgsMSwxMC42LDMuMXM0LjIsNS4xLDQuOCw5aDE0LjFjLTAuNS03LjktMy40LTE0LTguNS0xOC4zcy0xMi4xLTYuNS0yMS02LjUNCgkJCWMtMTAuOSwwLTE5LjMsMy4xLTI1LjEsOS40cy04LjcsMTUuNC04LjcsMjcuMmMwLDExLjYsMi45LDIwLjYsOC42LDI3czEzLjcsOS42LDI0LDkuNmM4LjksMCwxNi4yLTIuMywyMS43LTcNCgkJCWM1LjUtNC42LDguNi0xMC44LDkuMS0xOC43aC0xMy45QzM4OCwxMTYuMywzODYuMiwxMTkuNSwzODMuNCwxMjEuN3oiLz4NCgkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTQ0OC41LDg5LjNjLTEuNS0xLjktMy41LTMuNC01LjktNC40Yy0yLjUtMS4xLTUuMi0xLjYtOC4yLTEuNmMtMy4yLDAtNi4xLDAuNi04LjYsMS44DQoJCQljLTIuNSwxLjItNC43LDMtNi42LDUuM1Y2Ni41aC0xMy42djY5LjNoMTMuNnYtMzAuNGMwLTMuMywwLjktNiwyLjgtNy45czQuNS0yLjksNy43LTIuOWMzLDAsNS4yLDAuNyw2LjMsMi40DQoJCQljMS4xLDEuNywxLjcsNS43LDEuNywxMnYyNi44aDEzLjZ2LTMzLjJ2LTAuOWMwLTMuNy0wLjItNi4zLTAuNi04QzQ1MC4zLDkyLjEsNDQ5LjUsOTAuNiw0NDguNSw4OS4zeiIvPg0KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNTAwLjcsMTMxLjRjLTAuNS0xLjEtMC43LTIuNy0wLjctNC44Vjk3LjVjMC00LjctMS45LTguMy01LjctMTAuOFM0ODUsODMsNDc3LjgsODMNCgkJCWMtNi42LDAtMTEuNywxLjUtMTUuNCw0LjVzLTUuNiw3LjEtNS42LDEyLjR2MC45aDEyLjhWMTAwYzAtMiwwLjctMy42LDIuMi00LjdzMy42LTEuNyw2LjQtMS43YzMuMSwwLDUuMiwwLjQsNi41LDEuMw0KCQkJczEuOSwyLjQsMS45LDQuNWMwLDIuNi0yLjksNC4yLTguNyw1Yy0yLjMsMC4zLTQuMiwwLjYtNS42LDAuOGMtNi4yLDAuOS0xMC42LDIuNy0xMy4zLDUuMmMtMi43LDIuNi00LDYuMy00LDExLjENCgkJCWMwLDUuMiwxLjMsOS4zLDQsMTIuMWMyLjcsMi44LDYuNSw0LjIsMTEuNSw0LjJjMy43LDAsNy0wLjcsOS44LTIuMXM1LjEtMy40LDYuOC02LjFjMCwxLjIsMC4yLDIuNCwwLjQsMy42YzAuMywxLDAuNiwyLDEuMSwyLjkNCgkJCWgxNC4zdi0yLjNDNTAxLjksMTMzLjIsNTAxLjEsMTMyLjUsNTAwLjcsMTMxLjR6IE00ODYuOSwxMTUuNmMwLDMuNy0xLjEsNi41LTMuMiw4LjZzLTUsMy4xLTguNywzLjFjLTIuMSwwLTMuOC0wLjYtNS0xLjcNCgkJCXMtMS44LTIuNi0xLjgtNC41YzAtMS44LDAuNC0zLjMsMS40LTQuM3MyLjctMS45LDUuMS0yLjZjMC4xLDAsMS42LTAuNCw0LjUtMXM1LjUtMS41LDcuNy0yLjVWMTE1LjZ6Ii8+DQoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01MzEuMiw5NC40di05LjZoLTcuOXYtMTRoLTEzLjZ2MTRoLTYuOHY5LjZoNi44djI3LjdjMCw1LjgsMSw5LjYsMi45LDExLjZjMiwxLjksNS41LDIuOSwxMC44LDIuOQ0KCQkJYzAuNCwwLDEuNiwwLDMuMy0wLjFjMS43LTAuMSwzLjItMC4yLDQuNS0wLjJsMCwwdi0xMC4yaC0zLjNjLTEuOSwwLTMuMS0wLjItMy43LTAuNmMtMC42LTAuNS0wLjktMS4zLTAuOS0yLjdWOTQuNEw1MzEuMiw5NC40DQoJCQlMNTMxLjIsOTQuNHoiLz4NCgk8L2c+DQo8L2c+DQo8L3N2Zz4NCg==);
+}
+#drinks-qrcodes {
+    display: none;
+}
+#drinks-qrcode {
+    position: absolute;
+    top: calc(50% - 90px);
+    left: calc(50% - 90px);
+    width: 180px;
+    height: 180px;
+	background: #fff no-repeat center center url(https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/images/donate/WeChatSQ.png);
+    background-size: 160px;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(255, 0, 110, 0.5);
+}
+
+/* 动画 */
+#drinks-icons, #drinks-button-box {filter: blur(0px);}
+.donate-animation-1>#drinks-icons, .donate-animation-4>#drinks-icons,.donate-animation-3>#drinks-button-box {
+    transform: scale(0.7,0.7);
+    filter: blur(2px);
+    display: block;
+    opacity: 1;
+}
+.donate-animation-1>#drinks-button-box,.donate-animation-4>#drinks-button-box,.donate-animation-3>#drinks-qrcodes {
+    display: block;
+    opacity: 1;
+    transform: scale(1,1);
+}
+.donate-animation-2>#drinks-button-box,.donate-animation-4>#drinks-qrcodes, .hideBox {
+    display: block;
+    transform: scale(1,1);
+    animation-name:hideBox;
+    animation-duration:0.3s;
+    animation-timing-function:ease-in-out;
+    animation-iteration-count:1;
+    animation-fill-mode:forwards;
+}
+
+.donate-animation-3>#drinks-icons {
+    transform: scale(0.4,0.4);
+    filter: blur(2px);
+}
+.showBox {
+    animation-name:showBox;
+    animation-duration:0.3s;
+    animation-timing-function:ease-in-out;
+    animation-iteration-count:1;
+    animation-fill-mode:forwards;
+}
+@keyframes showBox {
+	from {
+        opacity: 0;
+        transform: scale(1.3,1.3);
+	}
+	to {
+        opacity: 1;
+        transform: scale(1,1);
+	}
+}
+@keyframes hideBox {
+	from {
+        opacity: 1;
+        transform: scale(1,1);
+	}
+	to {
+        opacity: 0;
+        transform: scale(1.3,1.3);
+	}
+}
+</style>
+<section id="drinks-box">
+    <section id="drinks-box-s" class="drinks-button left-100">
+        <div id="drinks-icons" class="left-100 tr3">
+            <div id="coffee-donate" class="icon-donate"><img src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/images/donate/drinks/coffee.png" alt="coffee" data-creative
+                ="https://www.zcool.com.cn/work/ZMjQ3NTE2MA==.html"></div>
+        </div>
+        <div id="drinks-button-box" class="tr3 left-100">
+            <div id="drinks-button-bg" class="left-100"></div>
+            <div id="github-box"><a href="https://github.com/Kaiyuan/donate-page/" target="_blank">Github</a></div>
+            <ul id="donate-buttons" class="list tr3">
+                <li id="paypal_donate"><a href="https://www.paypal.me/wallleap" target="_blank">Paypal</a></li>
+                <!-- <li id="btc_donate" class="donate-button">Bitcoin</li> -->
+                <li id="alipay_donate" class="donate-button">AliPay</li>
+                <li id="wechat_donate" class="donate-button">WeChat</li>
+            </ul>
+        </div>
+        <div id="drinks-qrcodes" class="left-100 tr3">
+            <div id="drinks-qrcode"></div>
+        </div>
+    </section>
+</section>
+
+<script>
+jQuery(document).ready(function () {
+
+    var thisPage = $('body');
+    var drink_box = $('#donate-box');
+    var drink_box_s = $('#drinks-box-s');
+    var icon_donate = $('.icon-donate');
+    var donate_button = $('.donate-button');
+    var donate_buttons = $('#drinks-button-box');
+    var donate_button_bg = $('#drinks-button-bg');
+    var drinks_qrcodes = $('#drinks-qrcodes');
+    var drinks_qrcode = $('#drinks-qrcode');
+    var isMobile = /Android|webOS|iPhone|iPad|BlackBerry/i.test(navigator.userAgent);
+    
+    var GithubLink  =   "https://github.com/wallleap/sponsor-page/";
+    var PayPalLink  =   "https://www.paypal.me/wallleap";
+    $('#paypal-donate>a').href = PayPalLink;
+    $('#github-box>a').href = GithubLink;
+    var qrcodes = {
+        // 'btc_donate'	:	'https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/images/BTCQR.png',	// 二维码路径
+        'alipay_donate'	:	'https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/custom/donate/AliPayQR.jpg',	// 支付宝二维码
+        // 'alipay_donate_link'   :   'https://qr.alipay.com/3272611934645308',   // 支付宝二维码上的链接，必须换成自己的连接！！！手机点击会自动跳转到支付宝。
+        'wechat_donate'	:	'https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/custom/donate/WeChatSQ.jpg'
+    };
+    
+    var drinks_an = new Object();
+    // 动画有 4 种状态，不同状态给对应 DOM 添加 css 动画
+    drinks_an[0] = function(){
+        drink_box_s.removeClass('donate-animation-2 donate-animation-3').addClass('donate-animation-1');
+        donate_buttons.addClass('showBox');
+        setTimeout(() => {
+            donate_buttons.removeClass('showBox');
+        }, 300);
+        // console.log('donate-animation-1');
+    }
+    drinks_an[1] = function(){
+        drink_box_s.removeClass('donate-animation-1 donate-animation-3').addClass('donate-animation-2');
+        setTimeout(() => {
+            drink_box_s.removeClass('donate-animation-2');
+        }, 300);
+        // console.log('donate-animation-2');
+    }
+    drinks_an[2] = function(){
+        drink_box_s.removeClass('donate-animation-2 donate-animation-1').addClass('donate-animation-3');
+        drinks_qrcodes.addClass('showBox');
+        setTimeout(() => {
+            drinks_qrcodes.removeClass('showBox');
+        }, 300);
+        // console.log('donate-animation-3');
+    }
+    drinks_an[3] = function(){
+        drink_box_s.removeClass('donate-animation-3 donate-animation-2').addClass('donate-animation-4');
+        setTimeout(() => {
+            drink_box_s.removeClass('donate-animation-4');
+            drink_box_s.addClass('donate-animation-1');
+        }, 300);
+        // console.log('donate-animation-4');
+    }
+    
+    if (isMobile) {
+        donate_buttons.addClass('Mobile');
+    }
+    
+    icon_donate.on('click',drinks_an[0]); // drinks 图标点击
+    
+    donate_button_bg.on('click',drinks_an[1]); // 隐藏 donate box
+    
+    donate_button.on('click',function(){
+        var thisID = $(this).attr("id");
+        if (isMobile && thisID === 'alipay_donate') {
+            // 当前网页在手机端打开跳转到支付宝 App
+            window.open(qrcodes['alipay_donate_link']);
+        } else {
+            // 当前网页在PC端打开
+        drinks_qrcode.css({'background-image' : 'url('+qrcodes[thisID]+')'});
+        drinks_an[2]();
+        // 显示二维码
+        }
+    });
+    
+    drinks_qrcode.on('click',drinks_an[3]); // 隐藏二维码
+    //
+    })
+</script>
+    
+    <section class="nexmoe-comment">
+    <div class="valine" id="vcomments"></div>
+<!-- <script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script> -->
+<script type="text/javascript">
+    loadComments();
+    function loadComments() {
+      if (typeof Valine === 'undefined') {
+        var getScript = (options) => {
+          var script = document.createElement('script');
+          script.defer = true;
+          script.crossOrigin = 'anonymous';
+          Object.keys(options).forEach((key) => {
+              script[key] = options[key];
+          });
+          document.body.appendChild(script);
+        };
+        getScript({
+          src: '//unpkg.com/valine/dist/Valine.min.js',
+          onload: () => {
+            newValine();
+          }
+        });
+      } else {
+        newValine();
+      }
+    }
+    function newValine() {
+      new Valine({
+        el: '.valine',
+        appId: 'GOPlqD10uwQGshDFcsr8Cxik-gzGzoHsz',
+        appKey: 'vpzGg4wzHHLRPNOlPHf0UEDS',
+        placeholder: '欢迎访问本站，评论一下留个足迹👣呗',
+        notify: false,
+        verify: true,
+        avatar: 'mp',
+        meta: ['nick','mail','link'],
+        pageSize: 10,
+        recordIP: true,
+        enableQQ: true,
+        // 设置Bilibili表情包地址
+        emojiCDN: '//cdn.jsdelivr.net/gh/wallleap/cdn@latest/emote/cool/', 
+        // 表情title和图片映射
+        emojiMaps: {
+            "cool_coolapk_emotion_100_qqdoge": "coolapk_emotion_100_qqdoge.png",
+            "cool_coolapk_emotion_1010": "coolapk_emotion_1010.png",
+            "cool_coolapk_emotion_1011": "coolapk_emotion_1011.png",
+            "cool_coolapk_emotion_1012": "coolapk_emotion_1012.png",
+            "cool_coolapk_emotion_1013": "coolapk_emotion_1013.png",
+            "cool_coolapk_emotion_1014": "coolapk_emotion_1014.png",
+            "cool_coolapk_emotion_1015": "coolapk_emotion_1015.png",
+            "cool_coolapk_emotion_1016": "coolapk_emotion_1016.png",
+            "cool_coolapk_emotion_1017": "coolapk_emotion_1017.png",
+            "cool_coolapk_emotion_1018": "coolapk_emotion_1018.png",
+            "cool_coolapk_emotion_1019": "coolapk_emotion_1019.png",
+            "cool_coolapk_emotion_101_pyjiaoyi": "coolapk_emotion_101_pyjiaoyi.png",
+            "cool_coolapk_emotion_1020": "coolapk_emotion_1020.png",
+            "cool_coolapk_emotion_1021": "coolapk_emotion_1021.png",
+            "cool_coolapk_emotion_102_fadai": "coolapk_emotion_102_fadai.png",
+            "cool_coolapk_emotion_103_nb": "coolapk_emotion_103_nb.png",
+            "cool_coolapk_emotion_104": "coolapk_emotion_104.png",
+            "cool_coolapk_emotion_105": "coolapk_emotion_105.png",
+            "cool_coolapk_emotion_106": "coolapk_emotion_106.png",
+            "cool_coolapk_emotion_107": "coolapk_emotion_107.png",
+            "cool_coolapk_emotion_108": "coolapk_emotion_108.png",
+            "cool_coolapk_emotion_109": "coolapk_emotion_109.png",
+            "cool_coolapk_emotion_10_aoman": "coolapk_emotion_10_aoman.png",
+            "cool_coolapk_emotion_11_yiwen": "coolapk_emotion_11_yiwen.png",
+            "cool_coolapk_emotion_12_wuyu": "coolapk_emotion_12_wuyu.png",
+            "cool_coolapk_emotion_13_huaixiao": "coolapk_emotion_13_huaixiao.png",
+            "cool_coolapk_emotion_14_bishi": "coolapk_emotion_14_bishi.png",
+            "cool_coolapk_emotion_15_fanu": "coolapk_emotion_15_fanu.png",
+            "cool_coolapk_emotion_16_tuosai": "coolapk_emotion_16_tuosai.png",
+            "cool_coolapk_emotion_17_tushe": "coolapk_emotion_17_tushe.png",
+            "cool_coolapk_emotion_18_han": "coolapk_emotion_18_han.png",
+            "cool_coolapk_emotion_19_koubi": "coolapk_emotion_19_koubi.png",
+            "cool_coolapk_emotion_1_hahaha": "coolapk_emotion_1_hahaha.png",
+            "cool_coolapk_emotion_20_qinqin": "coolapk_emotion_20_qinqin.png",
+            "cool_coolapk_emotion_21_penxue": "coolapk_emotion_21_penxue.png",
+            "cool_coolapk_emotion_22_xiaoyan": "coolapk_emotion_22_xiaoyan.png",
+            "cool_coolapk_emotion_23_shui": "coolapk_emotion_23_shui.png",
+            "cool_coolapk_emotion_24_wuzuixiao": "coolapk_emotion_24_wuzuixiao.png",
+            "cool_coolapk_emotion_25_zaijian": "coolapk_emotion_25_zaijian.png",
+            "cool_coolapk_emotion_26_kelian": "coolapk_emotion_26_kelian.png",
+            "cool_coolapk_emotion_27_qiang": "coolapk_emotion_27_qiang.png",
+            "cool_coolapk_emotion_28_ruo": "coolapk_emotion_28_ruo.png",
+            "cool_coolapk_emotion_29_baoquan": "coolapk_emotion_29_baoquan.png",
+            "cool_coolapk_emotion_2_jingya": "coolapk_emotion_2_jingya.png",
+            "cool_coolapk_emotion_30_ok": "coolapk_emotion_30_ok.png",
+            "cool_coolapk_emotion_31_xiaoku": "coolapk_emotion_31_xiaoku.png",
+            "cool_coolapk_emotion_32_heiha": "coolapk_emotion_32_heiha.png",
+            "cool_coolapk_emotion_33_wulian": "coolapk_emotion_33_wulian.png",
+            "cool_coolapk_emotion_34_jizhi": "coolapk_emotion_34_jizhi.png",
+            "cool_coolapk_emotion_35_ye": "coolapk_emotion_35_ye.png",
+            "cool_coolapk_emotion_36_ku": "coolapk_emotion_36_ku.png",
+            "cool_coolapk_emotion_37_doge": "coolapk_emotion_37_doge.png",
+            "cool_coolapk_emotion_38_wozuimei": "coolapk_emotion_38_wozuimei.png",
+            "cool_coolapk_emotion_39_caidao": "coolapk_emotion_39_caidao.png",
+            "cool_coolapk_emotion_3_ciya": "coolapk_emotion_3_ciya.png",
+            "cool_coolapk_emotion_40_aixin": "coolapk_emotion_40_aixin.png",
+            "cool_coolapk_emotion_41_meigui": "coolapk_emotion_41_meigui.png",
+            "cool_coolapk_emotion_42_diaoxie": "coolapk_emotion_42_diaoxie.png",
+            "cool_coolapk_emotion_43_heixian": "coolapk_emotion_43_heixian.png",
+            "cool_coolapk_emotion_44_pen": "coolapk_emotion_44_pen.png",
+            "cool_coolapk_emotion_45_yinxian": "coolapk_emotion_45_yinxian.png",
+            "cool_coolapk_emotion_46_nanguo": "coolapk_emotion_46_nanguo.png",
+            "cool_coolapk_emotion_47_weiqu": "coolapk_emotion_47_weiqu.png",
+            "cool_coolapk_emotion_48_weiweiyixiao": "coolapk_emotion_48_weiweiyixiao.png",
+            "cool_coolapk_emotion_49_huanhu": "coolapk_emotion_49_huanhu.png",
+            "cool_coolapk_emotion_4_liulei": "coolapk_emotion_4_liulei.png",
+            "cool_coolapk_emotion_50_xinsui": "coolapk_emotion_50_xinsui.png",
+            "cool_coolapk_emotion_51_chigua": "coolapk_emotion_51_chigua.png",
+            "cool_coolapk_emotion_52_hejiu": "coolapk_emotion_52_hejiu.png",
+            "cool_coolapk_emotion_53_pu": "coolapk_emotion_53_pu.png",
+            "cool_coolapk_emotion_54_hongyaowan": "coolapk_emotion_54_hongyaowan.png",
+            "cool_coolapk_emotion_55_lvyaowan": "coolapk_emotion_55_lvyaowan.png",
+            "cool_coolapk_emotion_56_dogexiaoku": "coolapk_emotion_56_dogexiaoku.png",
+            "cool_coolapk_emotion_57_dogehechi": "coolapk_emotion_57_dogehechi.png",
+            "cool_coolapk_emotion_58_dogeyuanliangta": "coolapk_emotion_58_dogeyuanliangta.png",
+            "cool_coolapk_emotion_59_erha": "coolapk_emotion_59_erha.png",
+            "cool_coolapk_emotion_5_keai": "coolapk_emotion_5_keai.png",
+            "cool_coolapk_emotion_61_lvmao": "coolapk_emotion_61_lvmao.png",
+            "cool_coolapk_emotion_62_huaji": "coolapk_emotion_62_huaji.png",
+            "cool_coolapk_emotion_60_kuan": "coolapk_emotion_60_kuan.png",
+            "cool_coolapk_emotion_63_liuhanhuaji": "coolapk_emotion_63_liuhanhuaji.png",
+            "cool_coolapk_emotion_64_shounuehuaji": "coolapk_emotion_64_shounuehuaji.png",
+            "cool_coolapk_emotion_65_coshuaji": "coolapk_emotion_65_coshuaji.png",
+            "cool_coolapk_emotion_66_doujiyanhuaji": "coolapk_emotion_66_doujiyanhuaji.png",
+            "cool_coolapk_emotion_67_mojinghuaji": "coolapk_emotion_67_mojinghuaji.png",
+            "cool_coolapk_emotion_68": "coolapk_emotion_68.png",
+            "cool_coolapk_emotion_69": "coolapk_emotion_69.png",
+            "cool_coolapk_emotion_6_weixiao": "coolapk_emotion_6_weixiao.png",
+            "cool_coolapk_emotion_70": "coolapk_emotion_70.png",
+            "cool_coolapk_emotion_71": "coolapk_emotion_71.png",
+            "cool_coolapk_emotion_72": "coolapk_emotion_72.png",
+            "cool_coolapk_emotion_73": "coolapk_emotion_73.png",
+            "cool_coolapk_emotion_74": "coolapk_emotion_74.png",
+            "cool_coolapk_emotion_75": "coolapk_emotion_75.png",
+            "cool_coolapk_emotion_76": "coolapk_emotion_76.png",
+            "cool_coolapk_emotion_77": "coolapk_emotion_77.png",
+            "cool_coolapk_emotion_78": "coolapk_emotion_78.png",
+            "cool_coolapk_emotion_79": "coolapk_emotion_79.png",
+            "cool_coolapk_emotion_7_hehe": "coolapk_emotion_7_hehe.png",
+            "cool_coolapk_emotion_80": "coolapk_emotion_80.png",
+            "cool_coolapk_emotion_81_naikezui": "coolapk_emotion_81_naikezui.png",
+            "cool_coolapk_emotion_82_miaomiao": "coolapk_emotion_82_miaomiao.png",
+            "cool_coolapk_emotion_83_huoba": "coolapk_emotion_83_huoba.png",
+            "cool_coolapk_emotion_84_baiyan": "coolapk_emotion_84_baiyan.png",
+            "cool_coolapk_emotion_85": "coolapk_emotion_85.png",
+            "cool_coolapk_emotion_86": "coolapk_emotion_86.png",
+            "cool_coolapk_emotion_87": "coolapk_emotion_87.png",
+            "cool_coolapk_emotion_88": "coolapk_emotion_88.png",
+            "cool_coolapk_emotion_89": "coolapk_emotion_89.png",
+            "cool_coolapk_emotion_8_piezui": "coolapk_emotion_8_piezui.png",
+            "cool_coolapk_emotion_90": "coolapk_emotion_90.png",
+            "cool_coolapk_emotion_91": "coolapk_emotion_91.png",
+            "cool_coolapk_emotion_92": "coolapk_emotion_92.png",
+            "cool_coolapk_emotion_93": "coolapk_emotion_93.png",
+            "cool_coolapk_emotion_94": "coolapk_emotion_94.png",
+            "cool_coolapk_emotion_95_erhading": "coolapk_emotion_95_erhading.png",
+            "cool_coolapk_emotion_96_kuanlvmao": "coolapk_emotion_96_kuanlvmao.png",
+            "cool_coolapk_emotion_97_haixiu": "coolapk_emotion_97_haixiu.png",
+            "cool_coolapk_emotion_98_wunai": "coolapk_emotion_98_wunai.png",
+            "cool_coolapk_emotion_99_zhoumei": "coolapk_emotion_99_zhoumei.png",
+            "cool_coolapk_emotion_9_se": "coolapk_emotion_9_se.png",
+            "cool_c_coolb": "c_coolb.png",
+            "cool_c_fived": "c_fived.png",
+            "cool_c_fivef": "c_fivef.png",
+            "cool_c_fivem": "c_fivem.png",
+            "cool_c_fiveo": "c_fiveo.png",
+            "cool_c_fivey": "c_fivey.png",
+            "cool_c_fy": "c_fy.png",
+            "cool_c_oned": "c_oned.png",
+            "cool_c_onef": "c_onef.png",
+            "cool_c_onem": "c_onem.png",
+            "cool_c_oneo": "c_oneo.png",
+            "cool_c_oney": "c_oney.png",
+            "cool_c_oy": "c_oy.png",
+            "cool_c_teny": "c_teny.png",
+            "cool_c_twod": "c_twod.png",
+            "cool_c_twof": "c_twof.png",
+            "cool_c_twom": "c_twom.png",
+            "cool_c_twoo": "c_twoo.png",
+            "cool_c_twoy": "c_twoy.png",
+            "cool_c_ty": "c_ty.png",
+            // ... 更多表情
+        } 
+      });
+    }
+</script>
+
+<!-- <script>
+    document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+      }
+    });
+</script> -->
+<!-- <script>
+$(document).ready(function(){
+  $('.vemoji-btn').text('😀');
+	$("#vcomments").on('click', 'span.vat',function(){
+		$(this).parent('div.vmeta').next("div.vcontent").after($("div.vwrap"));
+		$('textarea#veditor').focus();
+	})
+})
+</script> -->
+<style>
+@keyframes valineBg{
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+#vcomments .vwrap{
+  padding: 20px 20px 44px;
+  background: linear-gradient(-45deg, rgba(255, 206, 255, .3), rgba(237, 156, 253 ,.3), rgba(173, 214, 251, .3), rgba(192, 255, 208, .3));
+  background-size: 400% 400%;
+  animation: valineBg 15s ease infinite;
+}
+#veditor{
+  background-image: url(https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/other/comment-bg.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+  background-color: rgba(255,255,255,0);
+  /* resize: vertical; */
+  resize:none;
+  min-height:7rem;
+}
+textarea[id='veditor']::placeholder{color:#b3b3b3;font-size:15px;text-align:center;line-height:6rem;}
+.v .vwrap .vheader{width: 80%;bottom:0;position: absolute;}
+.v .vinput{padding:10px 15px;border-bottom:0px;background-color: rgba(255, 0, 110, .1);}
+.v .vwrap .vedit .vctrl{margin-top:-44px;right:0;position:absolute;margin-right:-3px;}
+.v .vwrap .vcontrol{ position:absolute;right:0;bottom:0;width:20%;padding-top:0px;}
+.v .vwrap .vcol-30{
+  position: absolute;left: 4px;bottom: 5px;width: 20px !important;
+}
+.v .vwrap .vcontrol .col.col-80{width: 100%;}
+.v .vbtn.vsubmit{
+  padding: 0;
+  position:absolute; bottom: 0; right: 0; 
+  color: #fff; height: 42px; line-height: 42px; width:150px; text-align: center;
+  border: none;border-radius:22px;background:#fe1b73;
+}
+.v .vbtn.vsubmit:hover{box-shadow: 0 2px 12px #ff4e6a;}
+.v .vwrap .vedit .vctrl span{
+  margin-top: 30px;
+}
+.v .vwrap .vcontrol .col.col-20,.v .vlist .vcard .vhead .vsys{
+  display:none;
+}
+@media screen and (max-width: 520px){
+  .v .vwrap .vcol-30{display: none !important;}
+  textarea[id='veditor']::placeholder{color:#b3b3b3;font-size:14px;text-align:center;line-height: 1;}
+  .vemojis{margin-bottom: 100px;}
+  .v .vwrap .vheader .vinput{width: 33.33%;padding:10px 5px;}
+  .v .vbtn.vsubmit{bottom: 10px;left: 0;right: 0;margin: 0 auto;}
+}
+@media screen and (min-width: 520px;) (max-width: 750px){
+  /* #vcomments .vwrap{height: 400px;} */
+  .v .vwrap .vcol-30{display: none !important;}
+  .v .vwrap .item3{bottom: 60px;}
+  .vemojis{margin-bottom: 200px;}
+  textarea[id='veditor']::placeholder{color:#b3b3b3;font-size:14px;text-align:center;line-height: 1;}
+	.v .vwrap .vheader .vinput{width: 33.33%;padding:10px 5px;}
+  .v .vbtn.vsubmit{bottom: 10px;left: 0;right: 0;margin: 0 auto;}
+}
+.vcard .vhead .vsys:nth-of-type(1){
+  display: inline-block;
+  background-color: rgba(247, 210, 247, .5);
+}
+.vcard .vhead .vsys:nth-of-type(2){
+  display: inline-block;
+  background-color: rgba(224, 235, 247, .5);
+}
+</style>
+    <div style="text-align:center;font-size: 12px;color: #888;">
+            <div class="site-info">
+                
+             
+              <div class="footertext">
+                <p><a href="#" style="color: #b9b9b9;" >Blog wallleap</a>
+                  , Copyright &copy; 2019-2020 
+                  by Luwang All Rights Reserved.</p>
+              </div>
+
+              <!-- <a style="color: #b9b9b9;" href="//beian.miit.gov.cn" target="_blank">	
+                <img src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/logo/ICP.png" style="vertical-align: text-bottom; width: 17px;" />
+                赣ICP备20000895号-1
+              </a> -->
+              
+              <span style="padding-left: 20px;">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <span id="time" align="center">载入时间中...</span>
+                <script>
+                  var now = new Date(); 
+                  function createtime() { 
+                    var grt= new Date("08/08/2019 17:38:00");//在此处修改你的建站时间
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("time").innerHTML = "小站已经苟活 "+dnum+" 天 "+hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                 } 
+                 setInterval("createtime()",250);
+                </script>
+              <span style="padding-left: 20px;><i class="fa fa-cog fa-spin" aria-hidden="true"></i></span>
+                <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278079074'%3E%3C/span%3E%3Cscript src='https://s4.cnzz.com/z_stat.php%3Fid%3D1278079074%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+              </span>
+              
+              <div style="text-align:center; padding-top: 20px;">
+                <div class="github-badge">
+                  <a rel="license" href="https://hexo.io/" target="_blank" title="由Hexo强力驱动">
+                  <span class="badge-subject"><i class="fa fa-fire" aria-hidden="true"></i> Powered</span><span class="badge-value bg-blue">Hexo</span></a>
+                </div>
+                <div class="github-badge">
+                    <a rel="license" href="https://coding.net/" target="_blank" title="静态网页托管于CODING">
+                    <span class="badge-subject"><i class="fa fa-heart" aria-hidden="true"></i> Hosted</span>
+                    <span class="badge-value bg-gray">CODING</span></a>
+                  </div>
+                <div class="github-badge">
+                    <a rel="license" href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr提供CDN加速服务">
+                    <span class="badge-subject"><i class="fa fa-firefox fa-spin" aria-hidden="true"></i> CND</span><span class="badge-value bg-cdn">Github&jsDelivr</span></a>
+                </div>
+                <div class="github-badge">
+                    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">
+                    <span class="badge-subject"><i class="fa fa-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0</span></a>
+                </div>
+              </div>  
+          
+              
+            </div><!-- .site-info -->
+          </div>
+</section>
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js,gh/nexmoe/nexmoe.github.io@latest/js/app.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!--<script src="/js/app.js?v=1599833537447"></script>-->
+
+
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+ 
+<script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/shehuizhuyi.js"></script>
+<script> 
+!function(e,t,a){function n(){c(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"),o(),r()}function r(){for(var e=0;e<d.length;e++)d[e].alpha<=0?(t.body.removeChild(d[e].el),d.splice(e,1)):(d[e].y--,d[e].scale+=.004,d[e].alpha-=.013,d[e].el.style.cssText="left:"+d[e].x+"px;top:"+d[e].y+"px;opacity:"+d[e].alpha+";transform:scale("+d[e].scale+","+d[e].scale+") rotate(45deg);background:"+d[e].color+";z-index:99999");requestAnimationFrame(r)}function o(){var t="function"==typeof e.onclick&&e.onclick;e.onclick=function(e){t&&t(),i(e)}}function i(e){var a=t.createElement("div");a.className="heart",d.push({el:a,x:e.clientX-5,y:e.clientY-5,scale:1,alpha:1,color:s()}),t.body.appendChild(a)}function c(e){var a=t.createElement("style");a.type="text/css";try{a.appendChild(t.createTextNode(e))}catch(t){a.styleSheet.cssText=e}t.getElementsByTagName("head")[0].appendChild(a)}function s(){return"rgb("+~~(255*Math.random())+","+~~(255*Math.random())+","+~~(255*Math.random())+")"}var d=[];e.requestAnimationFrame=function(){return e.requestAnimationFrame||e.webkitRequestAnimationFrame||e.mozRequestAnimationFrame||e.oRequestAnimationFrame||e.msRequestAnimationFrame||function(e){setTimeout(e,1e3/60)}}(),n()}(window,document);
+</script>
+
+  
+
+
+
+
+
+</body>
+
+</html>

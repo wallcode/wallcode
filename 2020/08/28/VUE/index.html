@@ -1,0 +1,2625 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>Vue学习笔记 - wallleap</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="luwang的博客，正在努力学习💪">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/favicon.png" type="image/png" />
+  <meta name="description" content="一、Vue概述1.1 前言1.1.1 前端开发模式的发展 静态页面   最初的网页以HTML为主，是纯静态的网页。网页是只读的，信息流只能从服务端到客户端单向流通。开发人员也只关心页面的样式和内容。   异步刷新，操作DOM   1995年，网景工程师Brendan Eich花了10天时间设计了JavaScript语言。 随着JavaScript的诞生，我们可以操作页面的DOM元素及样式，页面有了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue学习笔记">
+<meta property="og:url" content="https://blog.wallleap.cn/2020/08/28/VUE/index.html">
+<meta property="og:site_name" content="wallleap">
+<meta property="og:description" content="一、Vue概述1.1 前言1.1.1 前端开发模式的发展 静态页面   最初的网页以HTML为主，是纯静态的网页。网页是只读的，信息流只能从服务端到客户端单向流通。开发人员也只关心页面的样式和内容。   异步刷新，操作DOM   1995年，网景工程师Brendan Eich花了10天时间设计了JavaScript语言。 随着JavaScript的诞生，我们可以操作页面的DOM元素及样式，页面有了">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/cover/(00).jpg">
+<meta property="article:published_time" content="2020-08-28T04:33:14.000Z">
+<meta property="article:modified_time" content="2020-09-11T13:59:26.000Z">
+<meta property="article:author" content="Luwang">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content=" web">
+<meta property="article:tag" content=" Vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/cover/(00).jpg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/gh/nexmoe/nexmoe.github.io@latest/css/style.css,npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css" crossorigin>
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1721693_jg94kndwhe.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1599833537146">
+
+   
+    <style>
+      .nexmoe-avatar img:hover {
+        -webkit-transform: rotateZ(360deg);
+        -moz-transform: rotateZ(360deg);
+        transform: rotateZ(360deg);
+      }	
+    </style>
+  
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<script src="https://cdn.jsdelivr.net/gh/wallleap/live2d-widget@latest/autoload.js"></script> 
+<script src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/js/busuanzi.pure.mini.js"></script>
+
+<link rel="stylesheet" href="/css/github-badge.css">
+<link rel="stylesheet" href="/css/tags_ca.css">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+  .pace .pace-progress {  background: rgb(254, 27, 115); /*进度条颜色*/
+  height: 3px;  }
+  .pace .pace-progress-inner {  box-shadow: 0 0 10px #ff0000, 0 0 5px     #ff0000; /*阴影颜色*/
+  }
+  .pace .pace-activity {  border-top-color: rgb(251, 30, 30);    /*上边框颜色*/
+  border-left-color: rgb(251, 30, 30);    /*左边框颜色*/
+}
+</style>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Luwang" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/custom/avatar.jpg" alt="Luwang"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Luwang">
+            <img src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/custom/avatar.jpg" alt="Luwang" alt="Luwang">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>54</div>
+        <div><span>标签</span>57</div>
+        <div><span>分类</span>25</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/categories" title="文章分类">
+            <i class="mdui-list-item-icon nexmoefont icon-appstore-fill"></i>
+            <div class="mdui-list-item-content">
+                文章分类
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friends.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:wallleap.cn" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://space.bilibili.com/157360395" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+            <!-- <i class="fa icon-bilibili"></i> -->
+        </a><a class="mdui-ripple" href="https://github.com/wallleap/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+            <!-- <i class="fa icon-github"></i> -->
+        </a><a class="mdui-ripple" href="https://github.com/wallleap/" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(0 , 0, 252);background-color: rgba(0, 0, 252, .15);">
+            <i class="nexmoefont icon-QQ"></i>
+            <!-- <i class="fa icon-QQ"></i> -->
+        </a><a class="mdui-ripple" href="https://github.com/wallleap/" target="_blank" mdui-tooltip="{content: '微信公众号'}" style="color: rgb(0, 229, 105);background-color: rgba(0, 229, 105, .15);">
+            <i class="nexmoefont icon-wechat-fill"></i>
+            <!-- <i class="fa icon-wechat-fill"></i> -->
+        </a><a class="mdui-ripple" href="https://github.com/wallleap/" target="_blank" mdui-tooltip="{content: '我的邮箱'}" style="color: rgb(245, 0, 0);background-color: rgba(245, 0, 0, .15);">
+            <i class="nexmoefont icon-mail-fill"></i>
+            <!-- <i class="fa icon-mail-fill"></i> -->
+        </a><a class="mdui-ripple" href="https://github.com/wallleap/" target="_blank" mdui-tooltip="{content: '我的微博'}" style="color: rgb(245, 0, 0);background-color: rgba(245, 0, 0, .15);">
+            <i class="nexmoefont icon-weibo"></i>
+            <!-- <i class="fa icon-weibo"></i> -->
+        </a><a class="mdui-ripple" href="https://github.com/wallleap/" target="_blank" mdui-tooltip="{content: 'RSS'}" style="color: rgb(252, 129, 0);background-color: rgba(252, 129, 0, .15);">
+            <i class="nexmoefont icon-rss"></i>
+            <!-- <i class="fa icon-rss"></i> -->
+        </a> 
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">标签云</h3>
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud">
+      <a href="/tags/ACL/" style="font-size: 10px;">ACL</a> <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/AngularJS/" style="font-size: 10px;">AngularJS</a> <a href="/tags/Blog/" style="font-size: 17.14px;">Blog</a> <a href="/tags/C-C/" style="font-size: 11.43px;">C/C++</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/ES/" style="font-size: 10px;">ES</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub/" style="font-size: 15.71px;">GitHub</a> <a href="/tags/HCL/" style="font-size: 15.71px;">HCL</a> <a href="/tags/HCNA/" style="font-size: 15.71px;">HCNA</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Hexo/" style="font-size: 17.14px;">Hexo</a> <a href="/tags/JavaScript/" style="font-size: 14.29px;">JavaScript</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/NAT/" style="font-size: 10px;">NAT</a> <a href="/tags/NodeJS/" style="font-size: 10px;">NodeJS</a> <a href="/tags/OSPF/" style="font-size: 10px;">OSPF</a> <a href="/tags/RIP/" style="font-size: 10px;">RIP</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/STP/" style="font-size: 10px;">STP</a> <a href="/tags/Sakura/" style="font-size: 10px;">Sakura</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/VLAN/" style="font-size: 10px;">VLAN</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/Win10/" style="font-size: 10px;">Win10</a> <a href="/tags/eNSP/" style="font-size: 15.71px;">eNSP</a> <a href="/tags/eNsp/" style="font-size: 11.43px;">eNsp</a> <a href="/tags/hackintosh/" style="font-size: 10px;">hackintosh</a> <a href="/tags/hexo/" style="font-size: 11.43px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/w650dc/" style="font-size: 10px;">w650dc</a> <a href="/tags/web/" style="font-size: 18.57px;">web</a> <a href="/tags/%E4%B8%BB%E9%A2%98/" style="font-size: 12.86px;">主题</a> <a href="/tags/%E4%BA%94%E7%AC%94/" style="font-size: 10px;">五笔</a> <a href="/tags/%E4%BA%A4%E6%8D%A2%E6%9C%BA/" style="font-size: 10px;">交换机</a> <a href="/tags/%E4%BC%81%E4%B8%9A%E7%BD%91/" style="font-size: 10px;">企业网</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E5%8D%8E%E4%B8%89/" style="font-size: 15.71px;">华三</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 17.14px;">博客</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 11.43px;">后端</a> <a href="/tags/%E5%9B%BE%E9%9B%86/" style="font-size: 10px;">图集</a> <a href="/tags/%E5%AE%89%E8%A3%85/" style="font-size: 10px;">安装</a> <a href="/tags/%E5%AE%9E%E9%AA%8C/" style="font-size: 12.86px;">实验</a> <a href="/tags/%E5%BE%AE%E4%BF%A1/" style="font-size: 10px;">微信</a> <a href="/tags/%E5%BE%AE%E4%BF%A1%E9%98%B2%E7%9B%97%E9%93%BE/" style="font-size: 10px;">微信防盗链</a> <a href="/tags/%E6%82%A6%E8%AF%BB/" style="font-size: 10px;">悦读</a> <a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 10px;">技术</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 11.43px;">数据结构</a> <a href="/tags/%E6%A1%86%E6%9E%B6/" style="font-size: 10px;">框架</a> <a href="/tags/%E6%A8%A1%E5%9D%97%E5%8C%96/" style="font-size: 10px;">模块化</a> <a href="/tags/%E8%80%83%E7%A0%94/" style="font-size: 10px;">考研</a> <a href="/tags/%E8%8B%B1%E8%AF%AD/" style="font-size: 10px;">英语</a> <a href="/tags/%E9%80%86%E6%B0%B4%E5%AF%92/" style="font-size: 10px;">逆水寒</a> <a href="/tags/%E9%85%8D%E7%BD%AE/" style="font-size: 12.86px;">配置</a> <a href="/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/" style="font-size: 10px;">黑苹果</a>
+    </div>
+    
+      <script>
+        var maxTagcloud = parseInt(10);
+        var tags_length = parseInt(57);
+        var tags_arr = [];
+        for(var i = 0; i < tags_length; i++){
+          tags_arr.push(i);
+        }
+        tags_arr.sort(function (l, r) {
+          return Math.random() > 0.5 ? -1 : 1;
+        });
+        tags_arr = tags_arr.slice(0, maxTagcloud < tags_length ? tags_length - maxTagcloud : 0);
+        for(var tag_i = 0; tag_i < tags_arr.length; tag_i++){
+          document.getElementById("randomtagcloud").children[tags_arr[tag_i]].style.display = 'none';
+        }
+      </script>
+    
+  </div>
+
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">最新文章</h3>
+    <div class="nexmoe-widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/08/28/VUE/">Vue学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/20/AJAX/">Ajax学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/12/React/">React全家桶(技术栈)学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/04/Git/">Git学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/14/nodejs/">NodeJs学习笔记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+    <!-- <div class="nexmoe-copyright">
+        &copy; 2020 Luwang
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div> -->
+    <div style="text-align: center;">
+        <div class="github-badge">
+            <a rel="license" href="https://github.io/" target="_blank" title="静态网页托管于Github">
+            <span class="badge-subject">Hosted</span><span class="badge-value bg-brightgreen"><i class="fa fa-github" aria-hidden="true"></i> Github</span></a>
+        </div>
+        <div class="github-badge">
+            <a rel="license" href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank" title="站点使用 Sakura 主题，作者：Mashiro & Hojun">
+            <span class="badge-subject"><i class="fa fa-themeisle" aria-hidden="true"></i> Theme</span><span class="badge-value bg-theme">nexmoe</span></a>
+        </div><br />
+        <div class="github-badge">
+            <span class="badge-subject"><i class="fa fa-user" aria-hidden="true"></i> UV</span>
+            <span  class="badge-value bg-orange" id="busuanzi_value_site_uv"></span>
+        </div>
+        <div class="github-badge">
+            <span class="badge-subject"><i class="fa fa-eye" aria-hidden="true"></i> PV</span>
+            <span class="badge-value bg-brightgreen" id="busuanzi_value_site_pv"></span>
+        </div>
+    </div>
+    <div class="site-img" style="margin: 20px 0 20px 16px;">
+        <a href="#"><img width="200px" src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/wechat/wallleap.bmp"></a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 66.66666666666666%;"> 
+          <img data-src="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg" data-sizes="auto" alt="Vue学习笔记" class="lazyload">
+          <h1>Vue学习笔记</h1>
+      </div>
+  
+  
+  <link rel="stylesheet" href="/css/sharejs.css">
+  <input type="hidden" id="yelog_site_posts_number" value="54">
+  <input type="hidden" id="yelog_site_word_count" value="276.4k">
+<div class="nexmoe-post-meta" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2020年08月28日</a>
+    <a><i class="nexmoefont icon-areachart"></i>13.9k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 69 分钟</a>
+    <a><i class="nexmoefont icon-eye-fill"></i>阅读次数 <span id="busuanzi_value_page_pv"></span></a>
+</div>
+
+  <div class="nexmoe-post-right">
+    
+      <div class="nexmoe-fixed">
+        <div class="nexmoe-valign">
+            <div class="nexmoe-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、Vue概述"><span class="toc-number">1.</span> <span class="toc-text">一、Vue概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-前言"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 前言</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-1-前端开发模式的发展"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1.1 前端开发模式的发展</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-2-MVVM模式"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.1.2 MVVM模式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-认识Vue"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 认识Vue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-与其它前端JS框架的关联"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 与其它前端JS框架的关联</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-Vue扩展插件"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 Vue扩展插件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、快速入门"><span class="toc-number">2.</span> <span class="toc-text">二、快速入门</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1创建工程"><span class="toc-number">2.1.</span> <span class="toc-text">2.1创建工程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-引入Vue"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 引入Vue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3、演示双向绑定与事件处理"><span class="toc-number">2.3.</span> <span class="toc-text">2.3、演示双向绑定与事件处理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、Vue实例"><span class="toc-number">3.</span> <span class="toc-text">三、Vue实例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-创建Vue实例"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 创建Vue实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-模板或元素"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 模板或元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-数据"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-方法"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-声明周期及钩子函数"><span class="toc-number">3.5.</span> <span class="toc-text">3.5 声明周期及钩子函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-1-声明周期"><span class="toc-number">3.5.1.</span> <span class="toc-text">3.5.1 声明周期</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-2-钩子函数"><span class="toc-number">3.5.2.</span> <span class="toc-text">3.5.2 钩子函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-3-this"><span class="toc-number">3.5.3.</span> <span class="toc-text">3.5.3 this</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、指令"><span class="toc-number">4.</span> <span class="toc-text">四、指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-插值表达式"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 插值表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-1-大括号"><span class="toc-number">4.1.1.</span> <span class="toc-text">4.1.1 大括号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-2-插值闪烁"><span class="toc-number">4.1.2.</span> <span class="toc-text">4.1.2 插值闪烁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-3-v-text和v-html"><span class="toc-number">4.1.3.</span> <span class="toc-text">4.1.3 v-text和v-html</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-v-model"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 v-model</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-v-on"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 v-on</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-1-基本用法"><span class="toc-number">4.3.1.</span> <span class="toc-text">4.3.1 基本用法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-2-事件修饰符"><span class="toc-number">4.3.2.</span> <span class="toc-text">4.3.2 事件修饰符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-3-按键修饰符"><span class="toc-number">4.3.3.</span> <span class="toc-text">4.3.3 按键修饰符</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-v-for"><span class="toc-number">4.4.</span> <span class="toc-text">4.4 v-for</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-1-遍历数组"><span class="toc-number">4.4.1.</span> <span class="toc-text">4.4.1 遍历数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-2-数组角标"><span class="toc-number">4.4.2.</span> <span class="toc-text">4.4.2 数组角标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-3-遍历对象"><span class="toc-number">4.4.3.</span> <span class="toc-text">4.4.3 遍历对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-4-key"><span class="toc-number">4.4.4.</span> <span class="toc-text">4.4.4 key</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-v-if和v-show"><span class="toc-number">4.5.</span> <span class="toc-text">4.5 v-if和v-show</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5-1-基本使用"><span class="toc-number">4.5.1.</span> <span class="toc-text">4.5.1 基本使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5-2-与v-for结合"><span class="toc-number">4.5.2.</span> <span class="toc-text">4.5.2 与v-for结合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5-3-v-else"><span class="toc-number">4.5.3.</span> <span class="toc-text">4.5.3 v-else</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5-4-v-show"><span class="toc-number">4.5.4.</span> <span class="toc-text">4.5.4 v-show</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6-v-bind"><span class="toc-number">4.6.</span> <span class="toc-text">4.6 v-bind</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-6-1-属性上使用vue数据"><span class="toc-number">4.6.1.</span> <span class="toc-text">4.6.1 属性上使用vue数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-6-2-class属性的特殊用法"><span class="toc-number">4.6.2.</span> <span class="toc-text">4.6.2 class属性的特殊用法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-7-计算属性"><span class="toc-number">4.7.</span> <span class="toc-text">4.7 计算属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-8-watch"><span class="toc-number">4.8.</span> <span class="toc-text">4.8 watch</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-8-1-监控"><span class="toc-number">4.8.1.</span> <span class="toc-text">4.8.1 监控</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-8-2-深度监控"><span class="toc-number">4.8.2.</span> <span class="toc-text">4.8.2 深度监控</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、组件化"><span class="toc-number">5.</span> <span class="toc-text">五、组件化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-定义全局组件"><span class="toc-number">5.1.</span> <span class="toc-text">5.1 定义全局组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-组件的复用"><span class="toc-number">5.2.</span> <span class="toc-text">5.2 组件的复用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-局部注册"><span class="toc-number">5.3.</span> <span class="toc-text">5.3 局部注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-组件通信"><span class="toc-number">5.4.</span> <span class="toc-text">5.4 组件通信</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-1-父向子传递-props"><span class="toc-number">5.4.1.</span> <span class="toc-text">5.4.1 父向子传递 props</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-2-传递复杂数据"><span class="toc-number">5.4.2.</span> <span class="toc-text">5.4.2 传递复杂数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-3-子向父的通信"><span class="toc-number">5.4.3.</span> <span class="toc-text">5.4.3 子向父的通信</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、Vuejs-ajax"><span class="toc-number">6.</span> <span class="toc-text">六、Vuejs ajax</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-vue-resource"><span class="toc-number">6.1.</span> <span class="toc-text">6.1 vue-resource</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-axios简介"><span class="toc-number">6.2.</span> <span class="toc-text">6.2 axios简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-axios应用"><span class="toc-number">6.3.</span> <span class="toc-text">6.3 axios应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-1-方法说明"><span class="toc-number">6.3.1.</span> <span class="toc-text">6.3.1 方法说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-2-axios方法示例"><span class="toc-number">6.3.2.</span> <span class="toc-text">6.3.2 axios方法示例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-3-get方法示例"><span class="toc-number">6.3.3.</span> <span class="toc-text">6.3.3 get方法示例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-4-post方法示例"><span class="toc-number">6.3.4.</span> <span class="toc-text">6.3.4 post方法示例</span></a></li></ol></li></ol></li></ol>
+            </div>
+        </div>
+      </div>
+    
+  </div>
+
+  <article>
+    <h2 id="一、Vue概述"><a href="#一、Vue概述" class="headerlink" title="一、Vue概述"></a>一、Vue概述</h2><h3 id="1-1-前言"><a href="#1-1-前言" class="headerlink" title="1.1 前言"></a>1.1 前言</h3><h4 id="1-1-1-前端开发模式的发展"><a href="#1-1-1-前端开发模式的发展" class="headerlink" title="1.1.1 前端开发模式的发展"></a>1.1.1 前端开发模式的发展</h4><ol>
+<li>静态页面</li>
+</ol>
+<ul>
+<li>最初的网页以HTML为主，是纯静态的网页。网页是只读的，信息流只能从服务端到客户端单向流通。开发人员也只关心页面的样式和内容。</li>
+</ul>
+<ol start="2">
+<li>异步刷新，操作DOM</li>
+</ol>
+<ul>
+<li>1995年，网景工程师Brendan Eich花了10天时间设计了JavaScript语言。<ul>
+<li>随着JavaScript的诞生，我们可以操作页面的DOM元素及样式，页面有了一些动态地效果，但是依然是以静态为主。</li>
+</ul>
+</li>
+<li>ajax盛行：<ul>
+<li>2005年开始，ajax逐渐被前端开发人员所重视，因为不用刷新页面就可以更新页面的数据和渲染效果。</li>
+<li>此时的开发人员不仅需要编写HTML样式，还要动ajax与后端交互，然后通过js操作DOM元素来实现页面动态效果。比较流行的框架如jQuery就是典型代表。</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li>MVVM，关注模型和视图</li>
+</ol>
+<ul>
+<li>2008年，Google的Chrome发布，随后就以极快的速度占领市场，超过IE称为浏览器市场的主导者。</li>
+<li>2009年，Ryan Dahl在谷歌的Chrome V8引擎基础上，打造了基于事件循环的异步IO框架：Node.js。<ul>
+<li>基于事件循环的异步IO</li>
+<li>单线程运行，避免多线程的变量同步问题</li>
+<li>js可以编写后台diamante，前后台统一编程语言</li>
+</ul>
+</li>
+<li>Node.js的伟大之处不在于让js迈向了后端开发，而是构建了一个庞大的生态系统。</li>
+<li>2010年，NPM作为node.js的包管理系统首次发布，开发人员可以遵循CommonJS规范来编写Node.js模块，然后发布到NPM上供其他开发人员使用。目前已经是世界上最大的包模块管理系统。</li>
+<li>随后，在Node的基础上，涌现了一大批的前端框架：</li>
+</ul>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/pic/illustrtion/20200827092819.png" alt="image-20200827092403465" class="lazyload"></p>
+<h4 id="1-1-2-MVVM模式"><a href="#1-1-2-MVVM模式" class="headerlink" title="1.1.2 MVVM模式"></a>1.1.2 MVVM模式</h4><p>M：Model，模型，包括数据和一些基本操作</p>
+<p>V：View，视图，页面渲染结果</p>
+<p>VM：View-Model，模型与视图间的双向操作(无需开发人员干涉)</p>
+<p>在MVVM之前，开发人员从后端获取需要的数据模型，然后要通过DOM操作Model渲染到View中。而后当用户操作视图，我们还需要通过DOM获取View中的数据，然后同步到Model中。</p>
+<p>而MVVM中的VM要做的事情就是把DOM操作完全封装起来，开发人员不用再关心Model和View之间是如何相互影响的：</p>
+<ul>
+<li>只要Model发生了改变，View上自然就会表现出来。</li>
+<li>当用户修改了View，Model中的数据也会跟着改变。</li>
+</ul>
+<p>把开发人员从繁琐的DOM操作中解放出来，把关注点放在如何操作Model上。</p>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/pic/illustrtion/20200827093743.png" alt="" class="lazyload"></p>
+<p>MVVM通过<strong>视图</strong>与<strong>模型</strong>的<strong>双向绑定</strong>，简化前端操作。</p>
+<p>Vue就是一款MVVM模式的框架</p>
+<h3 id="1-2-认识Vue"><a href="#1-2-认识Vue" class="headerlink" title="1.2 认识Vue"></a>1.2 认识Vue</h3><blockquote>
+<p>Vue (读音 /vjuː/，类似于 <strong>view</strong>) 是一套用于构建用户界面的<strong>渐进式框架</strong>。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与<a href="https://cn.vuejs.org/v2/guide/single-file-components.html" target="_blank" rel="noopener">现代化的工具链</a>以及各种<a href="https://github.com/vuejs/awesome-vue#libraries--plugins" target="_blank" rel="noopener">支持类库</a>结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。</p>
+</blockquote>
+<ul>
+<li>前端框架三巨头：Vue.js、React.js、Angular.js，Vue.js以其轻量易用著称，Vue.js和React.js发展速度最快。</li>
+<li>遵循 MVVM 模式  </li>
+<li>渐进式 JavaScript 框架  <ul>
+<li>渐进式：可以<strong>选择性</strong>地使用该框架的一个或一些组件，这些组件的使用也不需要将框架全部组件都应用，而且用了这些组件也不要求你的系统全部都使用该框架。</li>
+</ul>
+</li>
+<li>中文官网：<a href="https://cn.vuejs.org/" target="_blank" rel="noopener">https://cn.vuejs.org/</a></li>
+<li>英文官网：<a href="https://vuejs.org/" target="_blank" rel="noopener">https://vuejs.org/</a></li>
+<li>参考：<a href="https://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">https://cn.vuejs.org/v2/guide/</a></li>
+<li>作用: 动态构建用户界面  </li>
+<li>特点：<ul>
+<li>易用</li>
+<li>灵活</li>
+<li>高效</li>
+</ul>
+</li>
+<li>编码简洁, 体积小, 运行效率高, 适合移动/PC 端开发  </li>
+<li>它本身只关注 UI, 可以轻松引入 vue 插件或其它第三库开发项目  </li>
+<li>GitHub地址：<a href="https://github.com/vuejs" target="_blank" rel="noopener">https://github.com/vuejs</a></li>
+<li>作者：<a href="https://github.com/yyx990803" target="_blank" rel="noopener">尤雨溪</a>(一位华裔前 Google 工程师)，Vue.js创作者，Vue Technology创始人，致力于Vue的研究开发。</li>
+</ul>
+<h3 id="1-3-与其它前端JS框架的关联"><a href="#1-3-与其它前端JS框架的关联" class="headerlink" title="1.3 与其它前端JS框架的关联"></a>1.3 与其它前端JS框架的关联</h3><ul>
+<li>借鉴 angular 的<strong>模板</strong>和<strong>数据绑定</strong>技术</li>
+<li>借鉴 react 的<strong>组件化</strong>和<strong>虚拟 DOM</strong> 技术  </li>
+</ul>
+<h3 id="1-4-Vue扩展插件"><a href="#1-4-Vue扩展插件" class="headerlink" title="1.4 Vue扩展插件"></a>1.4 Vue扩展插件</h3><ul>
+<li>vue-cli: vue 脚手架</li>
+<li>vue-resource(axios): ajax 请求</li>
+<li>vue-router: 路由</li>
+<li>vuex: 状态管理</li>
+<li>vue-lazyload: 图片懒加载</li>
+<li>vue-scroller: 页面滑动相关</li>
+<li>mint-ui: 基于 vue 的 UI 组件库(移动端)</li>
+<li>element-ui: 基于 vue 的 UI 组件库(PC 端)  </li>
+</ul>
+<h2 id="二、快速入门"><a href="#二、快速入门" class="headerlink" title="二、快速入门"></a>二、快速入门</h2><p>搭建示例工程</p>
+<h3 id="2-1创建工程"><a href="#2-1创建工程" class="headerlink" title="2.1创建工程"></a>2.1创建工程</h3><p>创建一个目录，例如：<code>testVue</code></p>
+<h3 id="2-2-引入Vue"><a href="#2-2-引入Vue" class="headerlink" title="2.2 引入Vue"></a>2.2 引入Vue</h3><ul>
+<li><p>使用CDN(使用jsdelivr，也可以到bootcdn中找)</p>
+<ul>
+<li>开发版(包含了有帮助的命令行警告)：<a href="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" target="_blank" rel="noopener">https://cdn.jsdelivr.net/npm/vue/dist/vue.js</a></li>
+<li>生产版(压缩了，优化了尺寸和速度)：<a href="https://cdn.jsdelivr.net/npm/vue" target="_blank" rel="noopener">https://cdn.jsdelivr.net/npm/vue</a></li>
+</ul>
+<pre><code class="html">&lt;!-- 引入 --&gt;
+&lt;script src=&quot;https://……&quot;&gt;&lt;/script&gt;</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>下载到本地</p>
+<ul>
+<li>下载地址：<a href="https://github.com/vuejs/vue" target="_blank" rel="noopener">https://github.com/vuejs/vue</a></li>
+<li>下载release版：<a href="https://github.com/vuejs/vue/archive/v2.6.11.zip，解压之后在`dist`目录中可以看到`vue.js`文件" target="_blank" rel="noopener">https://github.com/vuejs/vue/archive/v2.6.11.zip，解压之后在`dist`目录中可以看到`vue.js`文件</a></li>
+</ul>
+<pre><code class="html">&lt;!-- 引入 --&gt;
+&lt;script src=&quot;vue.js&quot;&gt;&lt;/script&gt;</code></pre>
+</li>
+</ul>
+<ul>
+<li><p><strong>npm安装</strong>(推荐)</p>
+<ul>
+<li>进入工程目录：<code>cd testVue</code></li>
+<li>初始化项目：<code>npm init -y</code></li>
+<li>下载安装Vue：<code>npm install vue --save</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="2-3、演示双向绑定与事件处理"><a href="#2-3、演示双向绑定与事件处理" class="headerlink" title="2.3、演示双向绑定与事件处理"></a>2.3、演示双向绑定与事件处理</h3><p>需求：创建testVue.html页面并初始化Vue实例，通过console修改Vue数据实现双向绑定效果和创建按钮实现点击自增效果。</p>
+<ul>
+<li>创建页面，初始化Vue</li>
+<li><code>{ {} }</code>获取显示数据</li>
+<li><code>v-model</code>实现<strong>双向绑定</strong></li>
+<li><code>v-on</code>演示<strong>事件处理</strong></li>
+</ul>
+<p>在刚刚<code>testVue</code>目录中新建<code>testVue.html</code>文件，书写代码，测试初始化Vue实例、<code>{ {} }</code>使用</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js测试&lt;/title&gt;
+    &lt;!-- 引入vue.js
+        1. cdn
+        2. 下载后本地引入
+        3. npm安装后从node_modules中引入(项目中import引入)
+    --&gt;
+    &lt;script src=&quot;node_modules/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;h2&gt;{{name}}&lt;/h2&gt;  &lt;!-- 插值 --&gt;
+        &lt;p&gt;渐进式JavaScript框架&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        /* 创建Vue实例，在里面可以指定一些vue的参数 */
+        var app = new Vue({ // 键值对
+            el: &quot;#app&quot;, // 指定需要渲染的元素
+            data:{ // 指定数据
+                name: &quot;Vue.js&quot;
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>在控制台输入命令：</p>
+<pre><code class="javascript">app.name=&quot;Vue&quot;</code></pre>
+<p>Vue.js也会变成Vue</p>
+<p>测试<code>v-model</code></p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;input type=&quot;text&quot; v-model=&quot;num&quot;&gt; &lt;!-- 模型 --&gt;
+        &lt;h2&gt;{{name}} 创建 {{num}} 年了&lt;/h2&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var app = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                name: &quot;Vue.js&quot;,
+                num: 5
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>修改文本框中的值，下面的xx年也会变(模型改变，视图也改变；视图改变也会影响对应的模型)，控制台中也能修改</p>
+<p>上面的演示的是双向绑定，下面接着演示事件处理</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;input type=&quot;text&quot; v-model=&quot;num&quot;&gt; &lt;!-- 模型 --&gt;
+        &lt;h2&gt;{{name}} 创建 {{num}} 年了&lt;/h2&gt;
+        &lt;button v-on:click=&quot;num++&quot;&gt;num+1&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var app = new Vue({ 
+            el: &quot;#app&quot;,
+            data:{
+                name: &quot;Vue.js&quot;,
+                num: 5
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>点击按钮，num会自增</p>
+<h2 id="三、Vue实例"><a href="#三、Vue实例" class="headerlink" title="三、Vue实例"></a>三、Vue实例</h2><p>在创建Vue实例的时候可以指定模板id、数据和方法；而如果要在实例化、模板渲染的过程中需要执行一些其他操作的话，那么可以使用生命周期钩子函数</p>
+<h3 id="3-1-创建Vue实例"><a href="#3-1-创建Vue实例" class="headerlink" title="3.1 创建Vue实例"></a>3.1 创建Vue实例</h3><p>每个Vue应用都是通过用<code>Vue</code>函数创建一个新的<strong>Vue实例</strong>开始的(常用变量vm——ViewModel接收)</p>
+<pre><code class="javascript">var vm = new Vue({ // 传入的参数——对象
+  // 选项
+})</code></pre>
+<p>在构造函数中传入一个对象，并且在对象中声明各种Vue需要的数据和方法，包括：</p>
+<ul>
+<li><p>el：指定一个页面元素，受Vue实例的管理，只有被Vue实例管理的元素内部才能使用Vue的语法。</p>
+</li>
+<li><p>data：定义Vue实例中使用到的数据，本身就是一个对象，里面的键值对可以随意写。使用时可以直接<code>vm.msg</code>使用这个数据(不需要<code>vm.data.msg</code>)，在声明周期钩子函数中使用<code>this.msg</code>。</p>
+</li>
+<li><p>methods：定义Vue实例的一些函数</p>
+</li>
+<li><p>computed：计算属性，可以将一些属性数据经过方法处理之后返回。</p>
+</li>
+<li><p>watch：监控属性，可以指定一些方法，监控指定的值的变化。</p>
+<ul>
+<li><p>监控简单数据：定义一个和监控的变量名称一致的函数即可，函数的参数为新值和旧值。例如，要监控data中的message，在watch中<code>message(newValue,oldValue){}</code></p>
+</li>
+<li><p>监控对象中的数据——深度监控：定义一个和监控的对象名称一致的属性，值是一个对象。内部设置deep属性为true代表深度监控开启，回调函数为handler，会传过来新的对象，例如：</p>
+<pre><code class="javascript">watch:{
+  person: {
+    /* 开启深度监控，监控对象中的属性值变化 */
+    deep: true,
+    // 可以获取到最新的对象属性数据
+    handler(obj){
+     console.log(&quot;姓名：&quot; + obj.name + &quot;,年龄：&quot; + obj.age)
+  }
+}</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>template</p>
+</li>
+<li><p>声明周期钩子函数名(ES6语法<code>created: function(){}</code>简化为<code>created(){}</code>)，本质仍是键值对</p>
+</li>
+<li><p>…</p>
+</li>
+</ul>
+<h3 id="3-2-模板或元素"><a href="#3-2-模板或元素" class="headerlink" title="3.2 模板或元素"></a>3.2 模板或元素</h3><p>每个Vue实例都需要关联一段HTML模板，Vue会基于此模板进行视图渲染；可以通过el属性来指定。</p>
+<p>例如一段HTML模板：</p>
+<pre><code class="html">&lt;div id=&quot;app&quot;&gt;
+
+&lt;/div&gt;</code></pre>
+<p>然后创建Vue实例，关联这个div</p>
+<pre><code class="javascript">var vm = new Vue({
+  el: &quot;#app&quot;
+})</code></pre>
+<p>这样，Vue就可以基于id为app的div元素作为模板进行渲染了，在这个div范围以外的部分是无法使用vue特性的。</p>
+<h3 id="3-3-数据"><a href="#3-3-数据" class="headerlink" title="3.3 数据"></a>3.3 数据</h3><p>当Vue实例被创建时，它会尝试获取在data中定义的所有属性，用于视图的渲染，并且<strong>监视</strong>data中的属性变化，当data发生改变，所有相关的视图都将重新渲染，这就是“响应式”系统。</p>
+<p>例如在HTML中模型指定name</p>
+<pre><code class="html">&lt;div id=&quot;app&quot;&gt;
+  &lt;input type=&quot;text&quot; v-model=&quot;name&quot; /&gt;
+&lt;/div&gt;</code></pre>
+<p>js中vue的data属性设置一个name</p>
+<pre><code class="javascript">var vm = new Vue({
+  el: &quot;#app&quot;,
+  data:{
+    name: &quot;Vue.js&quot;
+  }
+})</code></pre>
+<ul>
+<li>name的变化会影响到input的值</li>
+<li>input中输入的值，也会导致vm中的name发生改变</li>
+</ul>
+<h3 id="3-4-方法"><a href="#3-4-方法" class="headerlink" title="3.4 方法"></a>3.4 方法</h3><p>Vue实例中除了可以定义data属性，也可以定义方法，并且在Vue的作用范围内使用。</p>
+<p>例如HTML模板中指定v-on事件click之后执行的代码(可以是一个语句也可以是个函数)</p>
+<pre><code class="html">&lt;div id=&quot;app&quot;&gt;
+  &lt;button v-on:click=&quot;add&quot;&gt;add&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+<p>在创建实例时到methods属性中定义add方法</p>
+<pre><code class="javascript">var vm = new Vue({
+  el: &quot;#app&quot;,
+  data:{},
+  methods:{
+    add: function(){
+      console.log(&quot;add被点击了&quot;)
+    }
+  }
+})</code></pre>
+<h3 id="3-5-声明周期及钩子函数"><a href="#3-5-声明周期及钩子函数" class="headerlink" title="3.5 声明周期及钩子函数"></a>3.5 声明周期及钩子函数</h3><h4 id="3-5-1-声明周期"><a href="#3-5-1-声明周期" class="headerlink" title="3.5.1 声明周期"></a>3.5.1 声明周期</h4><blockquote>
+<p>每个Vue实例在被创建时都要经过一系列的初始化过程——创建实例、装载模板、渲染模板等，Vue为生命周期中的每个状态都设置了钩子函数(监听函数)，每当Vue实例处于不同的声明周期时，对应的函数就会被触发调用。</p>
+</blockquote>
+<p>所有的生命周期钩子自动绑定<code>this</code>上下文到实例中，因此你可以访问数据，对属性和方法进行运算。这意味着你<strong>不能使用箭头函数来定义一个声明周期方法</strong>(比如 <code>created: () =&gt; console.log(this.a)</code> 或 <code>vm.$watch(&#39;a&#39;, newValue =&gt; this.myMethod())</code>)，因为箭头函数的 <code>this</code>与你期待的Vue实例不同，<code>this</code> 会作为变量一直向上级词法作用域查找，直至找到为止，经常导致 <code>Uncaught TypeError: Cannot read property of undefined</code> 或 <code>Uncaught TypeError: this.myMethod is not a function</code> 之类的错误。</p>
+<p>声明周期：</p>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/pic/illustrtion/20200827121350.png" alt="" class="lazyload"></p>
+<p>实例化——&gt;挂载——&gt;销毁    (如果使用构建步骤，模板编译会提前执行，例如单文件组件)</p>
+<p>钩子函数会在Vue实例的各个声明周期阶段自动调用，具体有：</p>
+<p>(1) 初始化显示：</p>
+<ul>
+<li><code>beforeCreate</code>：在实例初始化之后，数据观测(data observer)和event/watcher事件配置之前被调用。</li>
+<li><strong><code>created</code></strong>：在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测(data observer)，属性和方法的运算，watch/event事件回调。然而，挂载阶段还没开始，$el属性目前不可见。</li>
+<li><code>beforeMount</code>：在挂载开始之前被调用。相关的render函数首次被调用。</li>
+<li><strong><code>mounted</code></strong>：el被新创建的<code>vm.$el</code>替换，并挂载到实例上去之后调用该钩子。如果root实例挂载了一个文档内元素。当mounted被调用时<code>vm.$el</code>也在文档内。[vm.$el：Vue实例使用的根DOM元素]</li>
+</ul>
+<p>(2) 更新状态：(<code>this.xxx=value</code>)</p>
+<ul>
+<li><code>beforeUpdate</code>：数据更新时调用，发生在虚拟DOM打补丁之前，这里适合在更新之前访问现有的DOM，比如手动移除已添加的事件监听器。</li>
+<li><code>updated</code>：由于数据更改导致的虚拟DOM重新渲染和打补丁，在这之后会调用该钩子。当这个 钩子被调用时，组件DOM已经更新，所以此时可以执行依赖于DOM的操作。然而在大多数情况下，应该避免在此期间更改状态，如果要相应状态改变，通常最好使用计算属性或watcher取而代之。</li>
+</ul>
+<p>(3) 销毁Vue实例：(<code>vm.$destory()</code>)</p>
+<ul>
+<li><strong><code>beforeDestroy</code></strong>：实例在销毁之前调用。在这一步，实例仍然完全可用。</li>
+<li><code>destroyed</code>：Vue实例销毁后调用。调用后，Vue实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。</li>
+</ul>
+<p>[vm.$root：当前组件树的根Vue实例，如果当前实例没有父实例，此实例将会是其自己]</p>
+<h4 id="3-5-2-钩子函数"><a href="#3-5-2-钩子函数" class="headerlink" title="3.5.2 钩子函数"></a>3.5.2 钩子函数</h4><p>例如：created代表在Vue实例创建后</p>
+<p>可以在Vue中定义一个created函数，代表这个时期的构造函数：</p>
+<p>创建页面<code>vueLifCycle.html</code></p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js声明周期钩子created测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;h2&gt;{{msg}}&lt;/h2&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                msg: &quot;&quot;
+            },
+            // 钩子函数
+            created(){
+                this.msg = &quot;Hello Vue.js created&quot;
+                console.log(this)
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>created常用于<strong>数据的初始化</strong>，即发送ajax，获取后台数据，给data属性中的数据进行赋值，接着在模板中应用数据，视图也会发生改变，从而实现数据的异步加载。</p>
+<p>mounted发送 ajax 请求, 启动定时器等异步任务  </p>
+<p>beforeDestory做收尾工作, 如: 清除定时器  </p>
+<h4 id="3-5-3-this"><a href="#3-5-3-this" class="headerlink" title="3.5.3 this"></a>3.5.3 this</h4><p>打印的this(这个Vue实例对象)如下：</p>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/pic/illustrtion/20200827155040.png" alt="image-20200827155038198" class="lazyload"></p>
+<h2 id="四、指令"><a href="#四、指令" class="headerlink" title="四、指令"></a>四、指令</h2><p>指令(Directives)是带有<code>v-</code>前缀的特殊属性。例如在入门案例中的v-model，代表双向绑定。</p>
+<h3 id="4-1-插值表达式"><a href="#4-1-插值表达式" class="headerlink" title="4.1 插值表达式"></a>4.1 插值表达式</h3><h4 id="4-1-1-大括号"><a href="#4-1-1-大括号" class="headerlink" title="4.1.1 大括号"></a>4.1.1 大括号</h4><ul>
+<li><p>格式：<code></code></p>
+</li>
+<li><p>说明：</p>
+<ul>
+<li>该表达式支持<strong>JS语法</strong>，可以调用js内置函数(必须有<strong>返回值</strong>)</li>
+<li>表达式必须有返回结果。例如<code>1+1</code>，没有结果的表达式不允许使用，如<code>var a = 1 + 1</code></li>
+<li>可以直接获取Vue实例data中定义的<strong>数据或函数</strong></li>
+<li>可以直接写<code>&quot;&quot;</code></li>
+</ul>
+</li>
+<li><p>示例：</p>
+</li>
+</ul>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js插值表达式测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;h2&gt;{{msg}}&lt;/h2&gt;
+    &lt;h2&gt;{{"说的没错"}}&lt;/h2&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                msg: &quot;Vue.js 轻便好用&quot;
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h4 id="4-1-2-插值闪烁"><a href="#4-1-2-插值闪烁" class="headerlink" title="4.1.2 插值闪烁"></a>4.1.2 <del>插值闪烁</del></h4><p>使用<code>{ {} }</code>方式在网速较慢的时候会出现问题，在数据未加载完成时，页面会显示出原始的<code></code>，加载完毕后才显示正确数据，这种情况称为插值闪烁(在最新的Vue中几乎没有这个问题)。</p>
+<p>在以前版本中，出现插值闪烁，可以使用v-text、v-html解决。</p>
+<h4 id="4-1-3-v-text和v-html"><a href="#4-1-3-v-text和v-html" class="headerlink" title="4.1.3 v-text和v-html"></a>4.1.3 v-text和v-html</h4><ul>
+<li><p>使用v-text和v-html指令来代替<code>{ {} }</code></p>
+</li>
+<li><p>说明：</p>
+<ul>
+<li><code>v-text</code>：将数据输出到元素内部，如果输出的数据有HTML代码，会作为普通文本输出</li>
+<li><code>v-html</code>：将数据输出到元素内部，如果输出的数据有HTML代码，会被渲染</li>
+</ul>
+</li>
+<li><p>示例：</p>
+</li>
+</ul>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js v-html/v-text测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;h2 v-text=&quot;msg&quot;&gt;&lt;/h2&gt;
+        &lt;h2 v-html=&quot;msg&quot;&gt;&lt;/h2&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                msg: &quot;&lt;span style=&#39;color: red;&#39;&gt;Vue.js 很好用&lt;/span&gt;&quot;
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/pic/illustrtion/20200827164955.png" alt="image-20200827164954008" class="lazyload"></p>
+<p><strong>插值</strong>可以使用在需要显示Vue实例数据的地方，可以在插值表达式中调用实例的属性和函数。</p>
+<p>v-text和v-html的作用：可以将数据在模板中进行显示；区别：<strong>v-html</strong>会对内容中出现的HTML标签进行渲染，而<strong>v-text</strong>会将内容当作普通文本输出到元素里面。(有点像js中的innerHTML和innerText)</p>
+<h3 id="4-2-v-model"><a href="#4-2-v-model" class="headerlink" title="4.2 v-model"></a>4.2 v-model</h3><p>刚才的v-text和v-html可以看做是<strong>单向绑定</strong>，数据影响了视图渲染，但是反过来就不行。接下来的v-model就是<strong>双向绑定</strong>的了，视图(View)和模型(Model)之间会相互影响。</p>
+<p>既然是双向绑定，一定是在视图中可以修改数据，这样就限定了视图的元素类型。目前v-model可以使用的元素有：</p>
+<ul>
+<li>input</li>
+<li>select</li>
+<li>textarea</li>
+<li>checkbox</li>
+<li>radio</li>
+<li>components(Vue中的自定义组件)</li>
+</ul>
+<p>基本上除了最后一项，其它都是表单的输入项。</p>
+<p>示例：</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js v-model测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;label&gt;&lt;input type=&quot;checkbox&quot; value=&quot;C/C++&quot; v-model=&quot;language&quot; /&gt;C/C++ &lt;/label&gt;&lt;br&gt;
+        &lt;label&gt;&lt;input type=&quot;checkbox&quot; value=&quot;Java&quot; v-model=&quot;language&quot; /&gt;Java &lt;/label&gt;&lt;br&gt;
+        &lt;label&gt;&lt;input type=&quot;checkbox&quot; value=&quot;PHP&quot; v-model=&quot;language&quot; /&gt;PHP &lt;/label&gt;&lt;br&gt;
+        &lt;h2&gt;你选择了：{{language.join(", ")}}&lt;/h2&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                language: []
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/pic/illustrtion/20200827182301.gif" alt="demo" class="lazyload"></p>
+<ul>
+<li>多个<code>checkbox</code>对应一个model时，model的类型是一个<strong>数组</strong>，单个checkbox值是<strong>boolean类型</strong></li>
+<li><code>radio</code>对应的值是input的<strong>value值</strong></li>
+<li><code>input</code>和<code>textarea</code>默认对应的model是<strong>字符串</strong></li>
+<li><code>select</code>单选对应<strong>字符串</strong>，多选对应也是<strong>数组</strong></li>
+</ul>
+<p>补充：插件Vue.js devtools</p>
+<p><a href="https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?utm_source=chrome-ntp-icon" target="_blank" rel="noopener">https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?utm_source=chrome-ntp-icon</a></p>
+<h3 id="4-3-v-on"><a href="#4-3-v-on" class="headerlink" title="4.3 v-on"></a>4.3 v-on</h3><h4 id="4-3-1-基本用法"><a href="#4-3-1-基本用法" class="headerlink" title="4.3.1 基本用法"></a>4.3.1 基本用法</h4><p>在没有使用Vue之前，页面标签可以通过设置onXXX响应事件；在Vue中可以通过v-on指令响应事件(<strong>给页面元素绑定事件</strong>)。</p>
+<p>语法：<code>v-on:事件名=&quot;js片段或函数名&quot;</code></p>
+<p>简写语法：<code>@事件名=&quot;js片段或函数名&quot;</code></p>
+<p>例如<code>v-on:click=&quot;add&quot;</code>可以简写为<code>@click=&quot;add&quot;</code></p>
+<p>示例：</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js v-on测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;button v-on:click=&quot;num++&quot;&gt;增加&lt;/button&gt;
+        &lt;button @click=&quot;decrement&quot;&gt;减少&lt;/button&gt;
+        &lt;h2&gt;num的数值为 {{num}}&lt;/h2&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                num: 1
+            },
+            methods: {
+                decrement: function(){
+                    this.num--
+                }
+            },
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/pic/illustrtion/20200827184155.gif" alt="on" class="lazyload"></p>
+<p>默认事件形参: <code>event</code><br>隐含属性对象: <code>$event</code></p>
+<h4 id="4-3-2-事件修饰符"><a href="#4-3-2-事件修饰符" class="headerlink" title="4.3.2 事件修饰符"></a>4.3.2 事件修饰符</h4><p>在事件处理程序中调用<code>event.preventDefault()</code>或<code>event.stopPropagation()</code>是非常常见的需求(阻止默认事件)。尽管我们可以在方法中轻松实现这点，但方法只有纯粹的数据逻辑，而不是去处理DOM事件细节。</p>
+<p>为了解决这个问题，Vue.js为<code>v-on</code>提供了<strong>事件修饰符</strong>。修饰符是由点开头的指令后缀来表示的。</p>
+<p>语法：<code>v-on:事件名.修饰符=&quot;js片段或函数名&quot;</code> 或 <code>@事件名.修饰符=&quot;js片段或函数名&quot;</code></p>
+<p>常用修饰符：</p>
+<ul>
+<li><strong><code>.stop</code></strong>：阻止事件冒泡<ul>
+<li>事件冒泡：默认情况下，在某个页面元素上触发的事件，在当前元素处理完之后会自动传递给祖先元素，祖先的相同事件也会执行</li>
+</ul>
+</li>
+<li><strong><code>.prevent</code></strong>：阻止默认事件发生<ul>
+<li>浏览器默认的一些事件行为，例如：<ul>
+<li>获取焦点事件会把光标放入输入框</li>
+<li>表单提交事件会提交数据到action指定的url</li>
+<li>点击a标签会跳转到href指定的地址</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>.capture</code>：使用事件捕获模式<ul>
+<li>相当于和冒泡相反，父元素先于子元素获取事件</li>
+</ul>
+</li>
+<li><code>.self</code>：只有元素自身触发事件才执行(冒泡或捕获的都不执行)</li>
+<li><code>.once</code>：只执行一次</li>
+</ul>
+<p>冒泡测试：</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;h2&gt;事件冒泡测试&lt;/h2&gt;
+        &lt;div v-on:click=&quot;print(&#39;点击了div&#39;)&quot; style=&quot;background: skyblue; width: 400px; height: 400px;&quot;&gt;
+            &lt;button @click=&quot;print(&#39;点击了button&#39;)&quot;&gt;按钮&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                num: 1
+            },
+            methods: {
+                print(str){
+                    console.log(str)
+                }
+            },
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/pic/illustrtion/20200827190036.gif" alt="bubble" class="lazyload"></p>
+<p>阻止冒泡：</p>
+<pre><code class="html">&lt;div id=&quot;app&quot;&gt;
+    &lt;h2&gt;阻止事件冒泡测试&lt;/h2&gt;
+    &lt;div v-on:click=&quot;print(&#39;点击了div&#39;)&quot; style=&quot;background: skyblue; width: 400px; height: 400px;&quot;&gt;
+        &lt;button @click.stop=&quot;print(&#39;点击了button&#39;)&quot;&gt;按钮&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/pic/illustrtion/20200827190024.gif" alt="stopbubble" class="lazyload"></p>
+<p>阻止默认事件：点击超链接不会跳转</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;h2&gt;阻止默认事件&lt;/h2&gt;
+        &lt;a href=&quot;https://www.baidu.com&quot; @click.prevent=&quot;print(&#39;点击了a&#39;)&quot;&gt;百度&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                num: 1
+            },
+            methods: {
+                print(str){
+                    console.log(str)
+                }
+            },
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h4 id="4-3-3-按键修饰符"><a href="#4-3-3-按键修饰符" class="headerlink" title="4.3.3 按键修饰符"></a>4.3.3 按键修饰符</h4><ul>
+<li><code>.keycode</code> : 操作的是某个 keycode 值的键</li>
+<li><code>.keyName</code> : 操作的某个按键名的键(少部分)  </li>
+</ul>
+<pre><code class="html">&lt;h2&gt;3. 按键修饰符&lt;/h2&gt;
+&lt;input @keyup.8=&quot;test&quot;&gt; &lt;!-- 按键8 --&gt;
+&lt;input @keyup.enter=&quot;test&quot;&gt; &lt;!-- 按键enter --&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;../js/vue.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+new Vue({
+  el: &#39;#example&#39;,
+  data: {
+      name: &#39;Vue.js&#39;
+  },
+  methods: {
+    test(event) {
+          alert(event.keyCode + &#39;---&#39; + event.target.value)
+      }
+  }
+})
+&lt;/script&gt;</code></pre>
+<h3 id="4-4-v-for"><a href="#4-4-v-for" class="headerlink" title="4.4 v-for"></a>4.4 v-for</h3><p>可以在Vue实例化的时候指定要遍历的数据，然后通过v-for指令在模板中遍历显示数据。一般情况下，要遍历的数据可以通过钩子函数created发送异步请求获取数据。</p>
+<h4 id="4-4-1-遍历数组"><a href="#4-4-1-遍历数组" class="headerlink" title="4.4.1 遍历数组"></a>4.4.1 遍历数组</h4><ul>
+<li>语法：<code>v-for=&quot;item in items&quot;</code><ul>
+<li>items：要遍历的数组名或对象名，需要在Vue的data中定义好。</li>
+<li>item：循环遍历</li>
+</ul>
+</li>
+<li>示例：</li>
+</ul>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;ul&gt;
+            &lt;li v-for=&quot;user in users&quot;&gt;
+                我是{{user.name}}，今年{{user.age}}岁了，性别{{user.gender}}
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                users:[
+                    {&quot;name&quot;:&quot;唐僧&quot;,&quot;age&quot;:24,&quot;gender&quot;:&quot;男&quot;},
+                    {&quot;name&quot;:&quot;孙悟空&quot;,&quot;age&quot;:26,&quot;gender&quot;:&quot;男&quot;},
+                    {&quot;name&quot;:&quot;猪八戒&quot;,&quot;age&quot;:30,&quot;gender&quot;:&quot;男&quot;},
+                    {&quot;name&quot;:&quot;沙和尚&quot;,&quot;age&quot;:32,&quot;gender&quot;:&quot;男&quot;},
+                    {&quot;name&quot;:&quot;蜘蛛精&quot;,&quot;age&quot;:18,&quot;gender&quot;:&quot;女&quot;}
+                ]
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/pic/illustrtion/20200827200312.png" alt="image-20200827200311325" class="lazyload"></p>
+<h4 id="4-4-2-数组角标"><a href="#4-4-2-数组角标" class="headerlink" title="4.4.2 数组角标"></a>4.4.2 数组角标</h4><p>在遍历的过程中，如果需要知道数组角标/索引号，可以指定第二个参数</p>
+<ul>
+<li>语法：<code>v-for=&quot;(item,index) in items&quot;</code><ul>
+<li>items：要遍历的数组</li>
+<li>item：遍历得到的数组元素别名</li>
+<li>index：遍历到的当前元素索引，从0开始</li>
+</ul>
+</li>
+<li>示例：</li>
+</ul>
+<pre><code class="html">&lt;div id=&quot;app&quot;&gt;
+    &lt;ul&gt;
+        &lt;li v-for=&quot;(user, index) in users&quot;&gt;
+            {{index}}：我是{{user.name}}，今年{{user.age}}岁了，性别{{user.gender}}
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/pic/illustrtion/20200827200728.png" alt="image-20200827200727402" class="lazyload"></p>
+<h4 id="4-4-3-遍历对象"><a href="#4-4-3-遍历对象" class="headerlink" title="4.4.3 遍历对象"></a>4.4.3 遍历对象</h4><p>v-for除了可以迭代数组，也可以迭代对象，语法基本类似</p>
+<p>语法：</p>
+<pre><code>v-for=&quot;value in object&quot;
+v-for=&quot;(value,key) in object&quot;
+v-for=&quot;(value,key,index) in object&quot;</code></pre><ul>
+<li>1个参数时，得到的是对象的值</li>
+<li>2个参数时，第一个是值，第二个是键</li>
+<li>3个参数时，第三个是索引，从0开始</li>
+</ul>
+<p>示例：</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;ul&gt;
+            &lt;li v-for=&quot;(value, key, index) in person&quot;&gt;
+                {{index}}——{{key}}——{{value}}
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                person:{&quot;name&quot;:&quot;孙悟空&quot;,&quot;age&quot;:26,&quot;gender&quot;:&quot;男&quot;,&quot;address&quot;:&quot;花果山&quot;}
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/pic/illustrtion/20200827201526.png" alt="image-20200827201525393" class="lazyload"></p>
+<h4 id="4-4-4-key"><a href="#4-4-4-key" class="headerlink" title="4.4.4 key"></a>4.4.4 key</h4><p>当Vue.js用<code>v-for</code>正在更新已渲染过的元素列表时，它默认用”就地复用”策略。如果数据项的顺序被改变,，Vue 将不会移动DOM元素来匹配数据项的顺序，而是简单复用此处每个元，并且确保它在特定索引下显示已被渲染过的每个元素。<br>如果使用key这个功能可以有效的提高渲染的效率; key一般使用在遍历完后，还要增、减集合元素的时候更有意义。<br>但是要实现这个功能，你需要给Vue-些提示，以便它能跟踪每个节点的身份，从而重用和重新排序现有元素，你需要为每项提供一个唯一key 属性。理想的<code>key</code>值是每项都有的且唯一的id。也就是key是该项的唯一标识。</p>
+<p>示例：</p>
+<pre><code class="html">    &lt;ul&gt;
+        &lt;li v-for=&quot;(user, index) in users&quot; :key=&quot;index&quot;&gt;
+            {{index}}：我是{{user.name}}，今年{{user.age}}岁了，性别{{user.gender}}
+        &lt;/li&gt;
+    &lt;/ul&gt;</code></pre>
+<p>这里使用了一个特殊的语法：<code>:key=&quot;&quot;</code>，它可以读取Vue中的属性，并赋值给key属性</p>
+<p>这里绑定的key是数组的索引，是唯一的(以后可以加其他的唯一的数据，例如user.id)</p>
+<h3 id="4-5-v-if和v-show"><a href="#4-5-v-if和v-show" class="headerlink" title="4.5 v-if和v-show"></a>4.5 v-if和v-show</h3><h4 id="4-5-1-基本使用"><a href="#4-5-1-基本使用" class="headerlink" title="4.5.1 基本使用"></a>4.5.1 基本使用</h4><p>v-if，条件判断，当得到的结果为true时，所在的元素才会被渲染。</p>
+<p>语法：<code>v-if=&quot;布尔表达式&quot;</code></p>
+<p>示例：</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;button @click=&quot;show=!show&quot;&gt;按钮&lt;/button&gt;
+        &lt;h2 v-if=&quot;show&quot;&gt;Hello Vue.js&lt;/h2&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                show: true
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h4 id="4-5-2-与v-for结合"><a href="#4-5-2-与v-for结合" class="headerlink" title="4.5.2 与v-for结合"></a>4.5.2 与v-for结合</h4><p>当v-if和v-for一起出现的时候，v-for优先级更高，即会先遍历，再判断条件。</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;h2&gt;女性人物&lt;/h2&gt;
+        &lt;ul&gt;
+            &lt;li v-for=&quot;(user, index) in users&quot; v-if=&quot;user.gender==&#39;女&#39;&quot;&gt;
+                {{index}}：我是{{user.name}}，今年{{user.age}}岁了，性别{{user.gender}}
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                users:[
+                    {&quot;name&quot;:&quot;唐僧&quot;,&quot;age&quot;:24,&quot;gender&quot;:&quot;男&quot;},
+                    {&quot;name&quot;:&quot;孙悟空&quot;,&quot;age&quot;:26,&quot;gender&quot;:&quot;男&quot;},
+                    {&quot;name&quot;:&quot;猪八戒&quot;,&quot;age&quot;:30,&quot;gender&quot;:&quot;男&quot;},
+                    {&quot;name&quot;:&quot;沙和尚&quot;,&quot;age&quot;:32,&quot;gender&quot;:&quot;男&quot;},
+                    {&quot;name&quot;:&quot;蜘蛛精&quot;,&quot;age&quot;:18,&quot;gender&quot;:&quot;女&quot;}
+                ]
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h4 id="4-5-3-v-else"><a href="#4-5-3-v-else" class="headerlink" title="4.5.3 v-else"></a>4.5.3 v-else</h4><p>可以使用<code>v-else</code>指令来表示<code>v-if</code>的“else块”，需要注意，v-else元素必须紧跟在带有v-if或v-else-if的元素的后面，否则它将不会被识别(两者之间不能插入其他元素)</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;h2&gt;西游人物&lt;/h2&gt;
+        &lt;ul&gt;
+            &lt;li v-for=&quot;(user, index) in users&quot; v-if=&quot;user.gender==&#39;女&#39;&quot; style=&quot;color:pink;&quot;&gt;
+                {{index+1}}：我是{{user.name}}，今年{{user.age}}岁了，性别{{user.gender}}
+            &lt;/li&gt;
+            &lt;li v-else style=&quot;color:skyblue;&quot;&gt;
+                {{index+1}}：我是{{user.name}}，今年{{user.age}}岁了，性别{{user.gender}}
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                users:[
+                    {&quot;name&quot;:&quot;唐僧&quot;,&quot;age&quot;:24,&quot;gender&quot;:&quot;男&quot;},
+                    {&quot;name&quot;:&quot;孙悟空&quot;,&quot;age&quot;:26,&quot;gender&quot;:&quot;男&quot;},
+                    {&quot;name&quot;:&quot;猪八戒&quot;,&quot;age&quot;:30,&quot;gender&quot;:&quot;男&quot;},
+                    {&quot;name&quot;:&quot;沙和尚&quot;,&quot;age&quot;:32,&quot;gender&quot;:&quot;男&quot;},
+                    {&quot;name&quot;:&quot;蜘蛛精&quot;,&quot;age&quot;:18,&quot;gender&quot;:&quot;女&quot;}
+                ]
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><code>v-else-if</code>，充当<code>v-if</code>的”else-if块“，可以连续使用(v-else-if也必须紧跟在带v-if或v-else-if的元素后)</p>
+<pre><code class="html">&lt;div id=&quot;app&quot;&gt;
+    &lt;h2&gt;西游人物&lt;/h2&gt;
+    &lt;ul&gt;
+        &lt;li v-for=&quot;(user, index) in users&quot; v-if=&quot;user.age&lt;20&quot; style=&quot;color:yellowgreen;&quot;&gt;
+            {{index+1}}：我是{{user.name}}，今年{{user.age}}岁了，性别{{user.gender}}
+        &lt;/li&gt;
+        &lt;li v-else-if=&quot;user.age&lt;30&quot; style=&quot;color:skyblue;&quot;&gt;
+            {{index+1}}：我是{{user.name}}，今年{{user.age}}岁了，性别{{user.gender}}
+        &lt;/li&gt;
+        &lt;li v-else style=&quot;color:yellow;&quot;&gt;
+            {{index+1}}：我是{{user.name}}，今年{{user.age}}岁了，性别{{user.gender}}
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+<h4 id="4-5-4-v-show"><a href="#4-5-4-v-show" class="headerlink" title="4.5.4 v-show"></a>4.5.4 v-show</h4><p><code>v-show</code>也可以根据条件是否展示元素，例如：</p>
+<pre><code class="html">&lt;h1 v-show=&quot;ok&quot;&gt;Hello Vue.js.&lt;/h1&gt;</code></pre>
+<p>但是，带有<code>v-show</code>的元素始终会被渲染并保留在DOM中，<code>v-show</code>只是简单地切换元素的CSS属性<code>display</code>的值。</p>
+<p>示例：</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;button @click=&quot;show=!show&quot;&gt;切换&lt;/button&gt;
+        &lt;h2 v-if=&quot;show&quot;&gt;Vue.js&lt;/h2&gt;
+        &lt;h2 v-show=&quot;show&quot;&gt;Vue.js&lt;/h2&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                show: true
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/pic/illustrtion/20200828082251.png" alt="image-20200828082250681" class="lazyload"></p>
+<p><code>v-if</code>在条件不满足的时候元素会消失；<code>v-show</code>条件不满足的时候只是<code>display:none</code>了</p>
+<h3 id="4-6-v-bind"><a href="#4-6-v-bind" class="headerlink" title="4.6 v-bind"></a>4.6 v-bind</h3><h4 id="4-6-1-属性上使用vue数据"><a href="#4-6-1-属性上使用vue数据" class="headerlink" title="4.6.1 属性上使用vue数据"></a>4.6.1 属性上使用vue数据</h4><p>插值表达式不能用在属性中，会报错<code>&lt;div id=&quot;box&quot; class=&quot;&quot;&gt;点击按钮改变背景颜色&lt;/div&gt;</code></p>
+<p>v-bind作用：可以对所有元素的属性值设置为vue中data的数据</p>
+<p>语法：在属性名之前加上<code>v-bind:</code>(<code>v-bind:属性名=&#39;Vue中的变量&#39;</code>)，简写为<code>:属性名=&#39;属性值&#39;</code></p>
+<p><code>&lt;img src=&quot;&quot; height=&quot;&quot; /&gt;</code>其中src和height的值如果不想写死，而是想获取Vue实例中的数据属性值的话，那么可以通过使用v-bind实现</p>
+<pre><code class="html">&lt;img v-bind:src=&quot;vue实例中的数据属性名&quot; :height=&quot;vue实例中的数据属性名&quot; /&gt;</code></pre>
+<p>利用v-bind实现点击切换背景颜色</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+    &lt;style&gt;
+        #box{
+            width: 150px;
+            height: 150px;
+            color: white;
+        }
+        .red{
+            background-color: red;
+        }
+        .green{
+            background-color: green;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;button @click=&quot;bgcolor=&#39;red&#39;&quot;&gt;切换红色&lt;/button&gt;
+        &lt;button @click=&quot;bgcolor=&#39;green&#39;&quot;&gt;切换绿色&lt;/button&gt;
+        &lt;br&gt;&lt;br&gt;
+        &lt;div id=&quot;box&quot; v-bind:class=&quot;bgcolor&quot;&gt;点击按钮改变背景颜色&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                bgcolor: &quot;red&quot;
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h4 id="4-6-2-class属性的特殊用法"><a href="#4-6-2-class属性的特殊用法" class="headerlink" title="4.6.2 class属性的特殊用法"></a>4.6.2 class属性的特殊用法</h4><p>上面虽然实现了颜色切换，但是比较麻烦。</p>
+<p>Vue对class属性进行了特殊处理，可接受数组或对象格式</p>
+<p>对象语法：</p>
+<p>可以传给<code>:class</code>一个对象，用于动态切换class：</p>
+<pre><code class="html">&lt;div :class=&quot;{red: true, green: false}&quot;&gt;&lt;/div&gt;</code></pre>
+<ul>
+<li>对象中，key是已经定义的class样式的名称，比如上面的<code>red</code>、<code>green</code></li>
+<li>对象中，value是一个布尔值，如果为true，则这个样式会生效，如果为false，则不生效。</li>
+</ul>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+    &lt;style&gt;
+        #box{
+            width: 150px;
+            height: 150px;
+            color: white;
+        }
+        .red{
+            background-color: red;
+        }
+        .green{
+            background-color: green;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;button @click=&quot;bool=!bool&quot;&gt;切换颜色&lt;/button&gt;
+        &lt;br&gt;&lt;br&gt;
+        &lt;div id=&quot;box&quot; v-bind:class=&quot;{red: bool, green: !bool}&quot;&gt;点击按钮改变背景颜色&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                bgcolor: &quot;red&quot;,
+                bool: true
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h3 id="4-7-计算属性"><a href="#4-7-计算属性" class="headerlink" title="4.7 计算属性"></a>4.7 计算属性</h3><p>在插值表达式中使用js表达式是非常方便的，而且也经常被用到。</p>
+<p>但是如果表达式的内容很长，就会显得不够优雅，而且后期维护起来也不方便。</p>
+<p>例如，将一个日期的毫秒值显示转为格式化的yyyy-MM-dd：</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;h2&gt;日期：{{new Date(date).getFullYear()}}-{{new Date(date).getMonth()+1}}-{{new Date(date).getDate()}}&lt;/h2&gt; &lt;!-- 日期：2020-8-28 --&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                date: 1598580451457 // 毫秒值
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>这样利用js的方法能够实现需求，但是很麻烦。</p>
+<p>Vue中提供了计算属性，来替代复杂的表达式：</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;h2&gt;日期：{{new Date(date).getFullYear()}}-{{new Date(date).getMonth()+1}}-{{new Date(date).getDate()}}&lt;/h2&gt;
+        &lt;hr&gt;
+        &lt;h2&gt;computed,日期：{{getDay}}&lt;/h2&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                date: 1598580451457 // 毫秒值
+            },
+            computed: {
+                getDay(){
+                    const date = new Date(this.date)
+                    return date.getFullYear() + &quot;-&quot; + (date.getMonth()+1) + &quot;-&quot; + date.getDate()
+                }
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>computed计算属性可以应用在插值或者指令表达式复杂的时候，它可以将一些属性数据经过方法处理之后返回。</p>
+<h3 id="4-8-watch"><a href="#4-8-watch" class="headerlink" title="4.8 watch"></a>4.8 watch</h3><h4 id="4-8-1-监控"><a href="#4-8-1-监控" class="headerlink" title="4.8.1 监控"></a>4.8.1 监控</h4><p>在vue实例中，数据属性因为在页面中修改而产生了变化，可以通过watch监控获取其改变前后的值。</p>
+<p>watch使用场景：可以监控视图中的数据变化从而做出相应的反应，例如，下拉列表中，如果选择了对应的下拉列表选项之后，要根据最新的值去加载一些其他数据。</p>
+<h4 id="4-8-2-深度监控"><a href="#4-8-2-深度监控" class="headerlink" title="4.8.2 深度监控"></a>4.8.2 深度监控</h4><p>如果是修改的对象数据属性，可以开启深度监控获取修改后最新的对象数据。</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;input type=&quot;text&quot; v-model=&quot;message&quot;&gt;
+        &lt;br&gt;&lt;hr&gt;
+        &lt;input type=&quot;text&quot; v-model=&quot;person.name&quot;&gt;
+        &lt;input type=&quot;text&quot; v-model=&quot;person.age&quot;&gt;
+        &lt;button @click=&quot;person.age++&quot;&gt;年龄+1&lt;/button&gt;
+        &lt;h2&gt;姓名：{{person.name}}，年龄：{{person.age}}&lt;/h2&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                message: &quot;你好啊！&quot;,
+                person:{
+                    name: &quot;张三&quot;,
+                    age: 21
+                }
+            },
+            watch: {
+                message(newValue, oldValue){
+                    console.log(&quot;新值：&quot;+ newValue +&quot;，旧值：&quot; + oldValue)
+                },
+                person: {
+                    /* 开启深度监控，监控对象中的属性值变化 */
+                    deep: true,
+                    // 可以获取到最新的对象属性数据
+                    handler(obj){
+                        console.log(&quot;姓名：&quot; + obj.name + &quot;,年龄：&quot; + obj.age)
+                    }
+                }
+            },
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h2 id="五、组件化"><a href="#五、组件化" class="headerlink" title="五、组件化"></a>五、组件化</h2><p>在大型应用开发的时候，页面可以划分成很多部分。</p>
+<p>但是如果每个页面都独自开发，无疑会增加开发的成本，因此会把页面的不同部分拆分成独立的组件，然后再不同的页面共享这些组件，避免重复开发。</p>
+<h3 id="5-1-定义全局组件"><a href="#5-1-定义全局组件" class="headerlink" title="5.1 定义全局组件"></a>5.1 定义全局组件</h3><p>通过Vue的component方法来定义一个全局组件。</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;!-- 引入组件(使用) --&gt;
+        &lt;counter /&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        // 定义组件
+        const counter = {
+            // el 组件不需要el绑定一个具体的元素
+            template: &quot;&lt;button @click=&#39;num++&#39;&gt;你点击了{{num}}次&lt;/button&gt;&quot;,
+            data() {
+                return {
+                    num: 0
+                }
+            } // data只能是一个函数，并且有返回
+            /* data: {
+                num: 0
+            } */
+        }
+        // 全局注册组件：在所有的vue实例中都可以使用组件
+        Vue.component(&quot;counter&quot;, counter) // 参数1：组件内名称，参数2：具体的组件
+        var vm = new Vue({
+            el: &quot;#app&quot;
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<ul>
+<li><p>组件其实也是一个Vue实例，因此它在定义时也会接收data、methods、生命周期函数等</p>
+</li>
+<li><p>不同的是，组件不会与页面的元素绑定，否则就无法复用了，因此没有el属性</p>
+</li>
+<li><p>但是组件渲染需要hmtl模板，所以添加了template属性，值就是HTML模板</p>
+</li>
+<li><p>全局组件定义完毕，任何Vue实例都可以直接在HTML中通过组件名称来使用该组件</p>
+</li>
+<li><p>data的定义方式比较特殊，必须是一个函数</p>
+</li>
+</ul>
+<h3 id="5-2-组件的复用"><a href="#5-2-组件的复用" class="headerlink" title="5.2 组件的复用"></a>5.2 组件的复用</h3><p>定义好的组件，可以任意复用多次：</p>
+<pre><code class="html">&lt;div id=&quot;app&quot;&gt;
+    &lt;!-- 引入组件(使用) --&gt;
+    &lt;counter&gt;&lt;/counter&gt;
+    &lt;counter&gt;&lt;/counter&gt;
+    &lt;counter&gt;&lt;/counter&gt;
+&lt;/div&gt;</code></pre>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/pic/illustrtion/20200828121653.png" alt="image-20200828121651862" class="lazyload"></p>
+<p>每个组件互不干扰，有自己的num值，这是因为</p>
+<p><strong>组件的data属性必须是函数</strong></p>
+<p>当定义这个组件的时候，它的data并不是像这样直接提供一个对象：</p>
+<pre><code class="javascript">data:{
+    num: 0
+}</code></pre>
+<p>而必须是一个函数，因此每个实例可以维护一分被返回对象的独立的拷贝</p>
+<pre><code class="javascript">data: function() {
+  return {
+    num: 0
+  }
+}</code></pre>
+<p>如果Vue没有这条规则，点击一个按钮就会影响到其他所有实例</p>
+<h3 id="5-3-局部注册"><a href="#5-3-局部注册" class="headerlink" title="5.3 局部注册"></a>5.3 局部注册</h3><p>一旦全局注册，就意味着即便以后不再使用这个组件，它依然会随着Vue的加载而加载。因此，对于一些使用并不频繁的组件，会采用局部注册。</p>
+<p>先在外部定义一个对象，结构与创建组件时传递的第二个参数一致，然后再Vue中使用它：</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;!-- 引入组件(使用) --&gt;
+        &lt;counter&gt;&lt;/counter&gt;
+        &lt;counter&gt;&lt;/counter&gt;
+        &lt;counter&gt;&lt;/counter&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        // 定义组件
+        const counter = {
+            // el 组件不需要el绑定一个具体的元素
+            template: &quot;&lt;button @click=&#39;num++&#39;&gt;你点击了{{num}}次&lt;/button&gt;&quot;,
+            data() {
+                return {
+                    num: 0
+                }
+            } // data只能是一个函数，并且有返回
+        }
+        // 全局注册组件：在所有的vue实例中都可以使用组件
+        /* Vue.component(&quot;counter&quot;, counter) */ // 参数1：组件内名称，参数2：具体的组件
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            // 局部注册组件
+            components:{
+                counter: counter // 组件名: 具体的某个组件
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<ul>
+<li>components就是当前vue对象子组件集合<ul>
+<li>其key就是子组件名称</li>
+<li>其值就是组件对象的属性</li>
+</ul>
+</li>
+<li>效果与全局注册时一样的，但是这个局部注册的counter组件只能在当前的Vue实例中使用</li>
+</ul>
+<p>组件使用场景：在项目需要重用某个模块(头部、尾部、内容……)的时候，可以将模块抽取成组件，其他页面中注册组件并引用。</p>
+<p>全局注册：在任何Vue实例中都可以引用，如：网站的头部导航菜单</p>
+<p>局部注册：可以在有需要的页面引入组件，如：商城网站首页页面中各种活动模块</p>
+<h3 id="5-4-组件通信"><a href="#5-4-组件通信" class="headerlink" title="5.4 组件通信"></a>5.4 组件通信</h3><p>通常一个单页面应用会以一颗嵌套的组件树的形式来组织：</p>
+<p><img data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/pic/illustrtion/20200828155751.png" alt="img" class="lazyload"></p>
+<ul>
+<li>页面首先分为了顶部导航、左侧内容区、右侧边栏三个部分</li>
+<li>左侧内容区又分为上下两个组件</li>
+<li>右侧边栏中包含了3个子组件</li>
+</ul>
+<p>各个组件之间以嵌套的关系组合在一起，那么这个时候不可避免地会有组件间通信的需求。</p>
+<h4 id="5-4-1-父向子传递-props"><a href="#5-4-1-父向子传递-props" class="headerlink" title="5.4.1 父向子传递 props"></a>5.4.1 父向子传递 props</h4><pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;introduce :title=&quot;msg&quot;&gt;&lt;/introduce&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        const introduce = {
+            template:&quot;&lt;h2&gt;{{title}}&lt;/h2&gt;&quot;,
+            // 定义接收父组件的属性
+            props:[&quot;title&quot;]
+        }
+        Vue.component(&quot;introduce&quot;, introduce)
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                msg:&quot;父组件的msg属性数据内容&quot;
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>introduce这个子组件中要使用title属性渲染页面，但是自己并没有title属性。通过props来接收父组件属性，名为title。父组件使用子组件，同时传递title属性。</p>
+<h4 id="5-4-2-传递复杂数据"><a href="#5-4-2-传递复杂数据" class="headerlink" title="5.4.2 传递复杂数据"></a>5.4.2 传递复杂数据</h4><pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;my-list :items=&quot;lessons&quot;&gt;&lt;/my-list&gt; &lt;!-- 这里就不能用驼峰命名法了 --&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        const myList = {
+            template:`
+                &lt;ul&gt;
+                    &lt;li v-for=&quot;item in items&quot; :key=&quot;item.id&quot;&gt;{{item.id}}——{{item.name}}&lt;/li&gt;
+                &lt;/ul&gt;
+            `, // 这里用的是模板字符串，也可以用双引号、单引号
+            props:{ // 通过props来接收父组件传递来的属性
+                items:{ // 这里定义items属性
+                    // 数据类型，如果是数组则是Array，如果是对象则是Object
+                    type:Array,
+                    // 默认值(如果父组件没有传值，那么就是一个空数组)
+                    default:[]
+                }
+            }
+        }
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                msg:&quot;父组件的msg属性数据内容&quot;,
+                lessons:[
+                    {&quot;id&quot;:1, &quot;name&quot;:&quot;语文&quot;},
+                    {&quot;id&quot;:2, &quot;name&quot;:&quot;数学&quot;},
+                    {&quot;id&quot;:3, &quot;name&quot;:&quot;英语&quot;},
+                    {&quot;id&quot;:4, &quot;name&quot;:&quot;物理&quot;},
+                    {&quot;id&quot;:5, &quot;name&quot;:&quot;化学&quot;},
+                    {&quot;id&quot;:6, &quot;name&quot;:&quot;生物&quot;}
+                ]
+            },
+            components:{
+                myList // ES6语法
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<ul>
+<li><p>这个子组件可以对items进行迭代，并输出到页面</p>
+</li>
+<li><p>但是组件中并没有定义items属性</p>
+</li>
+<li><p>可以通过props来定义需要从父组件中接收的属性</p>
+<ul>
+<li><p>items：要接收的属性名称</p>
+<ul>
+<li><p>type：限定父组件传递来的必须是数组，否则报错[type的值可以是Array或者Object，传递对象的时候使用]</p>
+</li>
+<li><p>default：默认值，如果是对象则需要写成方法的方式返回默认值，如：</p>
+<pre><code>default(){
+    return {&quot;xxx&quot;:&quot;默认值&quot;}
+}</code></pre></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-4-3-子向父的通信"><a href="#5-4-3-子向父的通信" class="headerlink" title="5.4.3 子向父的通信"></a>5.4.3 子向父的通信</h4><pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Vue.js测试&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        num = {{num}}
+        &lt;counter @plus=&quot;numPlus&quot; @reduce=&quot;numReduce()&quot; :snum=&quot;num&quot;&gt;&lt;/counter&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        const counter = {
+            template:`
+                &lt;div&gt; 
+                    &lt;button @click=&#39;incrNum&#39;&gt;增加&lt;/button&gt;
+                    &lt;button @click=&#39;decrNum&#39;&gt;减少&lt;/button&gt;
+                &lt;/div&gt;
+            `,/* 只能是一个容器包裹多个元素 */
+            props:[&quot;snum&quot;],
+            methods: {
+                incrNum(){
+                    // 调用到父组件中的方法
+                    return this.$emit(&quot;plus&quot;)
+                },
+                decrNum(){
+                    // 调用到父组件中的方法
+                    return this.$emit(&quot;reduce&quot;)
+                }
+            },
+        }
+        Vue.component(&quot;counter&quot;, counter)
+        var vm = new Vue({
+            el: &quot;#app&quot;,
+            data:{
+                num: 0
+            },
+            methods: {
+                numPlus(){
+                    this.num++
+                },
+                numReduce(){
+                    this.num--
+                }
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>实现了在子组件中点击对应按钮，父组件中属性数据的改变</p>
+<p>子组件绑定自定义事件，在子组件中通过<code>$emit</code>触发这个事件，去调用执行外界父组件传递过来的函数操作，函数调用时可以传递参数，从而间接地传递数据给父组件。(父组件给子组件传递一个函数，然后子组件调用此函数，调用时可以传参，函数执行时，实际执行的是父组件中的逻辑，从而可以拿到子组件传参过来的数据)</p>
+<p><code>$emit</code>可以传值，<code>this.$emit(&quot;自定义事件名&quot;,要传的数据)</code>，接着会在父组件中以方法的参数传过去</p>
+<h2 id="六、Vuejs-ajax"><a href="#六、Vuejs-ajax" class="headerlink" title="六、Vuejs ajax"></a>六、Vuejs ajax</h2><p>Vuejs并没有直接处理ajax的组件，但可以使用axios或vue-resource组件实现对异步请求的操作。</p>
+<h3 id="6-1-vue-resource"><a href="#6-1-vue-resource" class="headerlink" title="6.1 vue-resource"></a>6.1 vue-resource</h3><p>vue-resource是Vue.js的插件，提供了使用XMLHttpRequest或JSONP进行web请求和处理响应的服务。当Vue更新到2.0之后，作者就宣告不再对vue-resource更新，而是推荐使用axios。</p>
+<p>GitHub地址：<a href="https://github.com/pagekit/vue-resource" target="_blank" rel="noopener">https://github.com/pagekit/vue-resource</a></p>
+<h3 id="6-2-axios简介"><a href="#6-2-axios简介" class="headerlink" title="6.2 axios简介"></a>6.2 axios简介</h3><p>axios是一个基于promise的HTTP库，可以用在浏览器和Node.js中。</p>
+<p>GitHub地址：<a href="https://github.com/axios/axios" target="_blank" rel="noopener">https://github.com/axios/axios</a></p>
+<pre><code class="sh"># npm 安装
+npm install axios</code></pre>
+<p>也可以直接使用cdn服务：</p>
+<pre><code class="html">&lt;script src=&quot;https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+<h3 id="6-3-axios应用"><a href="#6-3-axios应用" class="headerlink" title="6.3 axios应用"></a>6.3 axios应用</h3><h4 id="6-3-1-方法说明"><a href="#6-3-1-方法说明" class="headerlink" title="6.3.1 方法说明"></a>6.3.1 方法说明</h4><p>axios可以使用的方法有：</p>
+<ul>
+<li><code>axios(config)</code></li>
+<li><code>axios.get(url[,config])</code></li>
+<li><code>axios.delete(url[,config])</code></li>
+<li><code>axios.head(url[,config])</code></li>
+<li><code>axios.post(url[,data[,config]])</code></li>
+<li><code>axios.put(url[,data[,config]])</code></li>
+<li><code>axios.patch(url[,data[,config]])</code></li>
+</ul>
+<p>1、config请求配置</p>
+<p>这些是创建请求时可以用的配置选项。只有<code>url</code>是必须的，如果没有指定<code>method</code>，请求将默认使用<code>get</code>方法。</p>
+<pre><code class="javascript">{
+  // url是用于请求的服务器URL
+  url: &#39;/user&#39;,
+
+  // method是创建请求时使用的方法
+  method: &#39;get&#39;, // 默认是get方式
+
+  // baseURL将自动加在url的前面，除非url是一个绝对URL。
+  // 它可以通过设置一个baseURL，便于为axios实例的方法传递相对URL。
+  baseURL: &#39;https://some-domain.com/api/&#39;,
+
+  // transformRequest允许在将请求数据发送到服务器之前对数据进行修改
+  // 只能用在&#39;PUT&#39;、&#39;POST&#39;、&#39;PATCH&#39; and &#39;DELETE&#39;这些请求方法
+  // 数组中的最后一个函数必须返回字符串或Buffer，ArrayBuffer，FormData或Stream的实例
+  // You may modify the headers object.
+  transformRequest: [function (data, headers) {
+    // 对data进行任意转换处理
+
+    return data;
+  }],
+
+  // transformResponse在传递给then/catch前，运行修改响应数据
+  transformResponse: [function (data) {
+    // 对data进行任意转换处理
+
+    return data;
+  }],
+
+  // headers是即将被发送的自定义请求头
+  headers: {
+    &#39;X-Requested-With&#39;: &#39;XMLHttpRequest&#39;,
+    &#39;Content-Type&#39;: &#39;application/json&#39;
+  },
+
+  // params是即将与请求一起发送的URL参数
+  // 必须是一个无格式对象(plain object)或URLSearchParams对象
+  params: {
+    ID: 12345
+  },
+
+  // paramsSerializer是用于序列化params的可选功能(e.g. https://www.npmjs.com/package/qs, http://api.jquery.com/jquery.param/)
+  paramsSerializer: function (params) {
+    return Qs.stringify(params, {arrayFormat: &#39;brackets&#39;})
+  },
+
+  // data是作为请求主体被发送的数据
+  // 只适用于&#39;PUT&#39;、&#39;POST&#39;、&#39;DELETE&#39;和&#39;PATCH&#39;请求方法
+  // 在没有设置transformRequest时, 必须是一下类型之一:
+  // - string, plain object, ArrayBuffer, ArrayBufferView, URLSearchParams
+  // - 浏览器专属: FormData, File, Blob
+  // - Node专属: Stream, Buffer
+  data: {
+    firstName: &#39;Fred&#39;
+  },
+
+  // syntax alternative to send data into the body
+  // method post
+  // only the value is sent, not the key
+  data: &#39;Country=Brasil&amp;City=Belo Horizonte&#39;,
+
+  // timeout指定请求超时的毫秒数(0表示无超时时间)
+  // 如果请求花费超过timeout的时间, 请求将被中断
+  timeout: 1000, // 默认是`0` (no timeout)
+
+  // withCredentials表示跨域请求时是否需要凭证
+  withCredentials: false, // 默认是false
+
+  // adapter` allows custom handling of requests which makes testing easier.
+  // Return a promise and supply a valid response (see lib/adapters/README.md).
+  adapter: function (config) {
+    /* ... */
+  },
+
+  // `auth` indicates that HTTP Basic auth should be used, and supplies credentials.
+  // This will set an `Authorization` header, overwriting any existing
+  // `Authorization` custom headers you have set using `headers`.
+  // Please note that only HTTP Basic auth is configurable through this parameter.
+  // For Bearer tokens and such, use `Authorization` custom headers instead.
+  auth: {
+    username: &#39;janedoe&#39;,
+    password: &#39;s00pers3cret&#39;
+  },
+
+  // responseType表示服务器响应的数据类型，可以是&#39;arraybuffer&#39;, &#39;document&#39;, &#39;json&#39;, &#39;text&#39;, &#39;stream&#39;
+  // 浏览器专属: &#39;blob&#39;
+  responseType: &#39;json&#39;, // 默认是json
+
+  // responseEncoding` indicates encoding to use for decoding responses (Node.js only)
+  // Note: Ignored for `responseType` of &#39;stream&#39; or client-side requests
+  responseEncoding: &#39;utf8&#39;, // default
+
+  // `xsrfCookieName` is the name of the cookie to use as a value for xsrf token
+  xsrfCookieName: &#39;XSRF-TOKEN&#39;, // default
+
+  // `xsrfHeaderName` is the name of the http header that carries the xsrf token value
+  xsrfHeaderName: &#39;X-XSRF-TOKEN&#39;, // default
+
+  // `onUploadProgress` allows handling of progress events for uploads
+  // browser only
+  onUploadProgress: function (progressEvent) {
+    // Do whatever you want with the native progress event
+  },
+
+  // `onDownloadProgress` allows handling of progress events for downloads
+  // browser only
+  onDownloadProgress: function (progressEvent) {
+    // Do whatever you want with the native progress event
+  },
+
+  // maxContentLength定义运行的响应内容的最大尺寸
+  maxContentLength: 2000,
+
+  // `maxBodyLength` (Node only option) defines the max size of the http request content in bytes allowed
+  maxBodyLength: 2000,
+
+  // validateStatus` defines whether to resolve or reject the promise for a given HTTP response status code. 如果validateStatus返回true(或者设置为null或undefined), promise将被resolved; 否则promise将被rejected.
+  validateStatus: function (status) {
+    return status &gt;= 200 &amp;&amp; status &lt; 300; // 默认是200~300
+  },
+
+  // maxRedirects定义在node.js中执行重定向的最大数目
+  // 如果设置为0，将不执行任何重定向。
+  maxRedirects: 5, // 默认是5
+
+  // `socketPath` defines a UNIX Socket to be used in node.js.
+  // e.g. &#39;/var/run/docker.sock&#39; to send requests to the docker daemon.
+  // Only either `socketPath` or `proxy` can be specified.
+  // If both are specified, `socketPath` is used.
+  socketPath: null, // default
+
+  // `httpAgent` and `httpsAgent` define a custom agent to be used when performing http
+  // and https requests, respectively, in node.js. This allows options to be added like
+  // `keepAlive` that are not enabled by default.
+  httpAgent: new http.Agent({ keepAlive: true }),
+  httpsAgent: new https.Agent({ keepAlive: true }),
+
+  // `proxy` defines the hostname and port of the proxy server.
+  // You can also define your proxy using the conventional `http_proxy` and
+  // `https_proxy` environment variables. If you are using environment variables
+  // for your proxy configuration, you can also define a `no_proxy` environment
+  // variable as a comma-separated list of domains that should not be proxied.
+  // Use `false` to disable proxies, ignoring environment variables.
+  // `auth` indicates that HTTP Basic auth should be used to connect to the proxy, and
+  // supplies credentials.
+  // This will set an `Proxy-Authorization` header, overwriting any existing
+  // `Proxy-Authorization` custom headers you have set using `headers`.
+  proxy: {
+    host: &#39;127.0.0.1&#39;,
+    port: 9000,
+    auth: {
+      username: &#39;mikeymike&#39;,
+      password: &#39;rapunz3l&#39;
+    }
+  },
+
+  // `cancelToken` specifies a cancel token that can be used to cancel the request
+  // (see Cancellation section below for details)
+  cancelToken: new CancelToken(function (cancel) {
+  }),
+
+  // `decompress` indicates whether or not the response body should be decompressed 
+  // automatically. If set to `true` will also remove the &#39;content-encoding&#39; header 
+  // from the responses objects of all decompressed responses
+  // - Node only (XHR cannot turn off decompression)
+  decompress: true // default
+
+}</code></pre>
+<p>2、响应结构</p>
+<pre><code class="javascript">{
+  // data是由服务器提供的响应数据
+  data: {},
+
+  // status是来自服务器响应的HTTP状态码
+  status: 200,
+
+  // statusText服务器响应的HTTP状态信息
+  statusText: &#39;OK&#39;,
+
+  // headers是服务器响应的头，服务器使用所有标头名称响应的HTTP标头均使用小写字母，并且可以使用方括号表示法进行访问。
+  // 例如: `response.headers[&#39;content-type&#39;]`
+  headers: {},
+
+  // config是为请求提供给axios的配置
+  config: {},
+
+  // `request` is the request that generated this response
+  // It is the last ClientRequest instance in node.js (in redirects)
+  // and an XMLHttpRequest instance in the browser
+  request: {}
+}</code></pre>
+<p>使用<code>then</code>时，将会收到如下响应：</p>
+<pre><code class="javascript">axios.get(&#39;/user/12345&#39;)
+  .then(function (response) {
+    console.log(response.data);
+    console.log(response.status);
+    console.log(response.statusText);
+    console.log(response.headers);
+    console.log(response.config);
+  });</code></pre>
+<p>当使用<code>catch</code>或将<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then" target="_blank" rel="noopener">拒绝回调</a>作为<code>then</code>的第二个参数传递时，响应将通过<code>error</code>对象提供，如“<a href="https://github.com/axios/axios#handling-errors" target="_blank" rel="noopener">处理错误</a>”部分所述。</p>
+<h4 id="6-3-2-axios方法示例"><a href="#6-3-2-axios方法示例" class="headerlink" title="6.3.2 axios方法示例"></a>6.3.2 axios方法示例</h4><h4 id="6-3-3-get方法示例"><a href="#6-3-3-get方法示例" class="headerlink" title="6.3.3 get方法示例"></a>6.3.3 get方法示例</h4><h4 id="6-3-4-post方法示例"><a href="#6-3-4-post方法示例" class="headerlink" title="6.3.4 post方法示例"></a>6.3.4 post方法示例</h4><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
+  </article>
+
+  <div class="nexmoe-post-meta">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><a class="nexmoefont icon-appstore-fill -link" href="/categories/%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/">前端</a>
+    
+    
+        <a class="nexmoefont icon-tag-fill -link" href="/tags/JavaScript/" rel="tag">JavaScript</a> <a class="nexmoefont icon-tag-fill -link" href="/tags/Vue/" rel="tag">Vue</a> <a class="nexmoefont icon-tag-fill -link" href="/tags/web/" rel="tag">web</a> <a class="nexmoefont icon-tag-fill -link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+      <!-- 
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Luwang<br>
+    <strong>本文链接：</strong><a href="https://blog.wallleap.cn/2020/08/28/VUE/" title="https:&#x2F;&#x2F;blog.wallleap.cn&#x2F;2020&#x2F;08&#x2F;28&#x2F;VUE&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;blog.wallleap.cn&#x2F;2020&#x2F;08&#x2F;28&#x2F;VUE&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+ -->
+
+  <div class="my_post_copyright">
+    <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script> 
+    <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <p><span>本文标题:</span>Vue学习笔记</a></p>
+    <p><span>文章作者:</span><a href="/" title="访问 {{ theme.author }} 的个人博客">luwang</a></p>
+    <p><span>发布时间:</span>2020年08月28日 - 12:08</p>
+    <p><span>最后更新:</span>2020年09月11日 - 21:09</p>
+    <p><span>原始链接:</span><a href="/2020/08/28/VUE/" title="Vue学习笔记">https://blog.wallleap.cn/2020/08/28/VUE/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.wallleap.cn/2020/08/28/VUE/"  aria-label="复制成功！"></i></span>
+    </p>
+    <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+  </div>
+  <script> 
+      var clipboard = new Clipboard('.fa-clipboard');
+        $(".fa-clipboard").click(function(){
+        clipboard.on('success', function(){
+          swal({   
+            title: "",   
+            text: '复制成功',
+            icon: "success", 
+            showConfirmButton: true
+            });
+          });
+      });  
+    </script>
+  
+
+  
+    
+    <!-- <div style="text-align:center;color: #ccc;font-size:14px;margin-top: 46px;">-------------喜欢就分享<i class="fa fa-paw"></i>疼爱就打赏-------------</div>
+    <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+    <footer class="post-footer">
+        <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+        <div class="post-tags">
+        </div>
+        <div class="post-share">
+          <div class="social-share sharehidden share-component"></div>
+          <i class="iconfont show-share icon-forward"></i>
+        </div>
+      </footer>.entry-footer -->
+    
+      <style>
+/* .list, .list li, .list-left li {
+	list-style: none;
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+} 
+.pos-f {
+	position: fixed;
+} 
+*/
+
+.left-100 {
+	width: 100%;
+    height: 100%;
+    float: left;
+}
+.blur {
+	-webkit-filter: blur(3px);
+	filter: blur(3px);
+}
+.tr3, .list li {
+	transition: all .3s;
+}
+.hidden {
+    display: none;
+}
+.click-cursor, .icon-donate, .list li {
+    cursor: pointer;
+}
+#drinks-box .opacity-show {
+    opacity: 1;
+}
+#drinks-box {
+    width: 320px;
+    height: 240px;
+    margin: 0 auto;
+	text-align: center;
+	/* left: calc(50% - 160px);
+	top: calc(50% - 120px);
+    position: fixed; */
+    position: relative;
+    top:0;
+    left: 0;
+}
+#drinks-icons {
+    background: no-repeat center center url(https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/images/donate/drinks/text.png);
+}
+.drinks-button>div {
+    position: absolute;
+    top: 0;
+    left: 0;
+	transition: all 0.3s;
+	transform-style: preserve-3d;
+    transform-origin: center center;
+}
+.icon-donate {
+    width: 64px;
+    height: 64px;
+    position: absolute;
+	left: calc(50% - 32px);
+	top: calc(50% - 32px);
+}
+.icon-donate img {
+    max-width: 64px;
+    max-height: 64px;
+}
+#drinks-button-box {
+    display: none;
+    opacity: 0;
+    transform: scale(1.3,1.3);
+}
+#drinks-button-bg {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    height: 100px;
+    opacity: 0;
+}
+#donate-buttons {
+    position: absolute;
+    overflow: hidden;
+    top: calc(50% - 14px);
+    left: 20px;
+    height: 28px;
+    border-radius: 6px;
+    background-color: #ff006e;
+    box-shadow: 0 10px 20px 1px rgba(255, 0, 110, 0.5);
+}
+#donate-buttons a, #github-box a {
+    display: block;
+}
+li[id$="_donate"] {
+    position: relative;
+    float: left;
+    width: 70px;
+    height: 28px;
+    line-height: 600px;
+    overflow: hidden;
+	cursor: pointer;
+	background: no-repeat center center;
+    background-size: 45px;
+    text-align: center;
+}
+li[id$="_donate"]::after {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: calc(50% - 5px);
+    height: 0;
+    width: 0;
+    opacity: 0;
+	border: 5px solid #fff;
+	border-color: #fff transparent transparent transparent;
+    transition: all .3s;
+}
+li[id$="_donate"]:hover::after {
+    opacity: 1;
+    top: 0px;
+}
+#github-box {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: calc(50% - 16px);
+    background: no-repeat center center url(https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/images/donate/drinks/github.svg);
+    background-size: contain;
+    right: 72px;
+    line-height: 600px;
+    overflow: hidden;
+    transform: rotatez(20deg );
+    opacity: 0;
+    transition: all .3s ease-out;
+}
+#drinks-button-box:hover #github-box, #drinks-button-box.Mobile #github-box {
+    top: calc(50% - 40px);
+    right: 64px;
+    transform: rotatez(5deg );
+    opacity: 0.8;
+}
+#paypal_donate {
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMy4wLjIsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iUGF5UGFsIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgdmlld0JveD0iMCAwIDUxMiAxNDUiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiAxNDU7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiNGRkZGRkY7fQ0KPC9zdHlsZT4NCjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik00OS41LDcyLjljLTMuNywwLTcuMywwLTExLDBjLTEuOCwwLTMuMSwwLjctMy42LDIuNmMtMS4yLDQuMi02LjMsMjIuOS03LjYsMjguMWMtMC43LDIuNy0yLjEsMy44LTQuOSwzLjgNCgljLTUuNywwLTExLjUsMC0xNy4yLDBjLTMuMSwwLTQuNC0xLjQtMy45LTQuNGMwLjQtMi42LDE1LjQtNjcuMiwyMi4zLTk2LjlDMjQuNiwyLjMsMjYuMiwxLDMwLjIsMWMxMC43LDAsNDMuNCwwLjIsNDkuMSwwLjINCglDOTMuNywxLjMsMTA1LjUsMTIuNywxMDYsMjdjMC4zLDkuNi0xLjUsMTguNy02LjksMjYuOGMtNS4zLDcuOS0xMi44LDEyLjgtMjEuNywxNS43QzY4LjMsNzIuNSw1OSw3My40LDQ5LjUsNzIuOXogTTUwLjIsNTMNCgljMi42LTAuMiw0LjctMC4zLDYuOC0wLjVjNS4zLTAuNiwxMC40LTIsMTQuOC01LjNjNS0zLjgsNi43LTksNS43LTE1LjFjLTAuOS01LjYtNC42LTguNi05LjctMTAuM0M2Mi42LDIwLDU3LjIsMjAsNTEuOCwyMC40DQoJYy0yLjcsMC4yLTQuNSwxLjctNS4yLDQuNWMtMC42LDIuNi0xLjUsNS4yLTIuMSw3LjhjLTEuMSw0LjgtMi4yLDkuNy0zLjEsMTQuNmMtMC42LDMuMSwwLjUsNC43LDMuNSw1LjINCglDNDYuOCw1Mi45LDQ4LjcsNTIuOSw1MC4yLDUzeiIvPg0KPHBhdGggY2xhc3M9InN0MCIgZD0iTTIwMywxNDMuNmMzLjEsMCw2LjItMC4xLDkuMywwYzIsMC4xLDMuNS0wLjUsNC43LTIuMmMxLjktMi44LDYzLjQtMTAyLjksNjguNS0xMTEuN2MxLjMtMi4yLDAuNS00LTEuOS00DQoJYy02LjctMC4xLTEzLjUsMC0yMC4yLDAuMWMtMS43LDAtMywwLjktNCwyLjVjLTQuOCw3LjgtMjQuMywzOS4yLTI5LjMsNDcuMmMtMC4zLDAuNS0xLjEsMS0xLjUsMC45Yy0wLjYtMC4xLTEuMS0wLjgtMS41LTEuMw0KCWMtMC4yLTAuMy0wLjItMC43LTAuMy0xLjFjLTAuNy0zLjgtNS4zLTMyLjEtNy00Mi40Yy0wLjctNC40LTIuOS02LjEtNy4zLTYuMWMtNC42LDAtOS4yLDAuMi0xMy44LDAuM2MtMy42LDAuMS01LjYsMi40LTUuMSw1LjkNCgljMC4zLDEuOSwxMi40LDY2LjcsMTQuNSw3Ny40YzAuMSwwLjUsMC4yLDEsMC4xLDEuNGMtMC41LDEuNC0wLjksMi44LTEuNiw0Yy00LjcsNy41LTkuNSwxNS0xNC4yLDIyLjVjLTAuNCwwLjctMC45LDEuNC0xLjEsMi4xDQoJYy0wLjYsMi41LTAuOCw0LjIsMi45LDQuMkMxOTcsMTQzLjMsMjAzLDE0My41LDIwMywxNDMuNnoiLz4NCjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xNDkuOCw5OS4yYy0xLjYsMC45LTIuOCwxLjUtMy45LDIuMWMtMi45LDEuNi01LjcsMy4xLTguNiw0LjhjLTUuNCwzLjItMTEuMywzLjktMTcuMywzLjcNCgljLTMuMS0wLjEtNi4yLTAuNC05LjEtMS4yYy03LjctMi0xMi4zLTctMTMuMi0xNS4xYy0wLjgtNi42LTAuMS0xMy4xLDMuMy0xOWMzLjgtNi43LDkuOS0xMC4zLDE2LjktMTIuNmM2LjMtMi4xLDEyLjktMi42LDE5LjUtMi43DQoJYzUuMi0wLjEsMTAuNC0wLjMsMTUuNy0wLjRjMC42LDAsMS4yLTAuMiwxLjgtMC4xYzIuNSwwLjEsMy42LTEuNSw0LTMuNmMwLjMtMS43LDAuNi0zLjYsMC40LTUuM2MtMC40LTMuNS0yLjMtNS43LTUuOC02DQoJYy00LjMtMC41LTguNi0wLjctMTIuOS0wLjZjLTYuMywwLjItMTIuNSwxLTE4LjUsMi44Yy0wLjksMC4zLTEuOCwwLjctMi44LDEuMWMtMi40LDEtNC42LTAuMi00LjQtMi43YzAuMy00LjEsMC44LTguMiwxLjctMTIuMg0KCWMwLjUtMi4yLDIuNC0zLjYsNC43LTRjNy44LTEuNiwxNS43LTIuNCwyMy43LTIuN2M2LjUtMC4yLDEyLjksMCwxOS4yLDEuNWM1LjgsMS4zLDEwLjYsNC4zLDE0LjcsOC41YzQuNCw0LjYsNS45LDEwLjIsNC44LDE2LjMNCgljLTIuMSwxMS4zLTkuNCw0NS41LTEwLjcsNTEuNGMtMC42LDIuOS0yLjMsNC40LTUuMyw0LjVjLTUuNSwwLjItMTEsMC4yLTE2LjUsMC4zYy0xLjYsMC0yLjEtMC42LTItMi4yDQoJQzE0OS41LDEwMy41LDE0OS43LDEwMS42LDE0OS44LDk5LjJ6IE0xNDcuNyw3MC4xYzAsMCwwLDAuMSwwLDAuMWMtMi41LDAuMi00LjksMC4zLTcuNCwwLjVjLTQuMSwwLjQtOC4xLDEuMS0xMS44LDIuOQ0KCWMtNC45LDIuNC02LjksNS44LTYuNiwxMS4zYzAuMyw0LjksMy4zLDguMSw4LjIsOC43YzQsMC41LDcuOSwwLjEsMTEuNy0wLjdjMy4xLTAuNiw1LjktMiw3LjktNC41YzMuOC00LjcsNS0xMC4yLDUtMTYuMQ0KCWMwLTEuNC0wLjktMi4xLTIuMy0yLjJDMTUwLjksNzAuMSwxNDkuMyw3MC4xLDE0Ny43LDcwLjF6Ii8+DQo8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzI1LjksNzIuOWMtMy42LDAtNy4zLDAtMTEsMGMtMS44LDAtMy4xLDAuNy0zLjYsMi42Yy0xLjIsNC4yLTYuMywyMi45LTcuNiwyOC4xYy0wLjcsMi43LTIuMSwzLjgtNC45LDMuOA0KCWMtNS43LDAtMTEuNSwwLTE3LjIsMGMtMy4xLDAtNC40LTEuNC0zLjktNC40YzAuNC0yLjYsMTUuNC02Ny4yLDIyLjMtOTYuOWMwLjktMy45LDIuNi01LjIsNi42LTUuMmMxMC43LDAsNDMuNCwwLjIsNDkuMSwwLjINCglDMzcwLDEuMywzODEuOCwxMi43LDM4Mi4zLDI3YzAuMyw5LjYtMS41LDE4LjctNi45LDI2LjhjLTUuMyw3LjktMTIuOCwxMi44LTIxLjcsMTUuN0MzNDQuNiw3Mi41LDMzNS4zLDczLjQsMzI1LjksNzIuOXogTTMyNi41LDUzDQoJYzIuNi0wLjIsNC43LTAuMyw2LjgtMC41YzUuMy0wLjYsMTAuNC0yLDE0LjgtNS4zYzUtMy44LDYuNy05LDUuNy0xNS4xYy0wLjktNS42LTQuNi04LjYtOS43LTEwLjNjLTUuMi0xLjctMTAuNi0xLjgtMTYuMS0xLjMNCgljLTIuNywwLjItNC41LDEuNy01LjIsNC41Yy0wLjYsMi42LTEuNSw1LjItMi4xLDcuOGMtMS4xLDQuOC0yLjIsOS43LTMuMSwxNC42Yy0wLjYsMy4xLDAuNSw0LjcsMy41LDUuMg0KCUMzMjMuMSw1Mi45LDMyNSw1Mi45LDMyNi41LDUzeiIvPg0KPHBhdGggY2xhc3M9InN0MCIgZD0iTTQyNS41LDk5LjJjLTEsMC40LTEuNiwwLjYtMi4yLDAuOWMtNC41LDIuNC05LjEsNC44LTEzLjYsNy4yYy00LjQsMi4zLTkuMiwyLjYtMTQsMi42Yy00LDAtOC0wLjUtMTEuOC0yLjENCgljLTYuNi0yLjgtMTAtNy45LTEwLjctMTQuOWMtMC41LTQuOS0wLjEtOS44LDEuNi0xNC40YzIuOC03LjksOC44LTEyLjcsMTYuNC0xNS43YzYuOS0yLjYsMTQtMy40LDIxLjMtMy41DQoJYzUuNi0wLjEsMTEuMy0wLjMsMTYuOS0wLjVjMy41LTAuMSw0LjMtMC43LDUuMS00LjFjMC40LTEuNywwLjUtMy41LDAuNC01LjJjLTAuMy0zLjItMi4zLTUuNC01LjctNS45Yy0zLjctMC41LTcuNS0wLjgtMTEuMi0wLjcNCgljLTcsMC4yLTEzLjksMS0yMC42LDIuOWMtMC44LDAuMi0xLjYsMC42LTIuNCwxYy0yLjYsMS4yLTQuOCwwLTQuNS0yLjhjMC4zLTMuOCwwLjgtNy42LDEuNS0xMS40YzAuNC0yLjMsMi0zLjksNC40LTQuMw0KCWM0LjgtMC44LDkuNi0xLjgsMTQuNS0yLjFjNi4xLTAuNSwxMi4zLTAuNywxOC41LTAuNmM4LDAuMiwxNS42LDEuNywyMi4xLDdjMy45LDMuMiw2LjksNi45LDcuOCwxMmMwLjYsMy42LDAuMiw3LjItMC41LDEwLjcNCgljLTMuMywxNS41LTYuNiwzMS05LjksNDYuNWMtMC45LDQuMS0yLjMsNS40LTYuNCw1LjVjLTUuMSwwLjItMTAuMiwwLjItMTUuMiwwLjNjLTEuOCwwLTIuMi0wLjQtMi4xLTIuMg0KCUM0MjUuMywxMDMuNSw0MjUuNCwxMDEuNiw0MjUuNSw5OS4yeiBNNDI1LjgsNzAuMWMtMy4yLDAuMi02LjcsMC4zLTEwLjIsMC43Yy00LDAuNC03LjksMS4yLTExLjQsMy4xYy0zLjMsMS43LTUuNiw0LjMtNiw4LjENCgljLTAuNiw1LjMsMS4yLDEwLjksOC40LDExLjdjNC4zLDAuNSw4LjQsMC4xLDEyLjUtMC45YzMuOC0wLjksNi44LTMuMiw4LjctNi42YzIuMy00LDMuMi04LjQsMy40LTEyLjljMC4xLTIuMy0wLjktMy4xLTMuMi0zLjINCglDNDI3LjQsNzAsNDI2LjcsNzAuMSw0MjUuOCw3MC4xeiIvPg0KPHBhdGggY2xhc3M9InN0MCIgZD0iTTQ4NC40LDEwNy40YzIuMy0wLjEsMi44LTAuNSwzLjMtMi41YzIuMS04LjcsMTcuNS03NC4xLDIzLjItOTguMWMwLjYtMi42LTEuMi00LjktNC00LjkNCgljLTUuNCwwLTEwLjgtMC4xLTE2LjItMC4xYy0zLjMsMC00LjksMS4yLTUuNiw0LjRjLTEuMiw0LjgtMjAuNyw5My45LTIxLjMsOThjLTAuMywyLDAuOCwyLjksMi45LDIuOQ0KCUM0NjkuNSwxMDcuMiw0ODIuOSwxMDcuNCw0ODQuNCwxMDcuNHoiLz4NCjwvc3ZnPg0K);
+}
+#btc_donate{
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMy4wLjIsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAxMzAzLjYgMjc0LjYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDEzMDMuNiAyNzQuNjsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4NCgkuc3Qwe2ZpbGw6I0ZGRkZGRjt9DQo8L3N0eWxlPg0KPGc+DQoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTEzNi42LDkzLjZsLTcuNSwzMC4xYzguNSwyLjEsMzQuNywxMC44LDM5LTYuMkMxNzIuNSw5OS43LDE0NS4xLDk1LjcsMTM2LjYsOTMuNnoiLz4NCgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTcwLjUsNC4xQzk3LTE0LjIsMjIuNSwzMC41LDQuMiwxMDQuMWMtMTguMyw3My41LDI2LjQsMTQ4LDk5LjksMTY2LjNjNzMuNiwxOC4zLDE0OC0yNi40LDE2Ni40LTk5LjkNCgkJQzI4OC44LDk2LjksMjQ0LDIyLjQsMTcwLjUsNC4xeiBNMTk3LjgsMTE3LjdjLTIsMTMuNC05LjQsMTkuOC0xOS4yLDIyLjFjMTMuNSw3LDIwLjQsMTcuOCwxMy44LDM2LjUNCgkJYy04LjEsMjMuMi0yNy40LDI1LjItNTMuMSwyMC4zbC02LjIsMjVsLTE1LjEtMy44bDYuMS0yNC42Yy0zLjktMS03LjktMi0xMi0zLjFsLTYuMiwyNC44bC0xNS0zLjhsNi4yLTI1DQoJCWMtMy41LTAuOS03LjEtMS45LTEwLjctMi44bC0xOS42LTQuOWw3LjUtMTcuMmMwLDAsMTEuMSwyLjksMTAuOSwyLjdjNC4zLDEuMSw2LjItMS43LDYuOS0zLjZsOS45LTM5LjVjMC42LDAuMSwxLjEsMC4zLDEuNiwwLjQNCgkJYy0wLjYtMC4yLTEuMS0wLjQtMS42LTAuNWw3LTI4LjJjMC4yLTMuMi0wLjktNy4yLTctOC44YzAuMi0wLjItMTAuOS0yLjctMTAuOS0yLjdsNC0xNi4xbDIwLjgsNS4ydjAuMWMzLjEsMC44LDYuMywxLjUsOS42LDIuMw0KCQlsNi4yLTI0LjdsMTUuMSwzLjhsLTYsMjQuM2M0LDAuOSw4LjEsMS45LDEyLjEsMi44bDYtMjQuMWwxNS4xLDMuOEwxNjcuNiw4M0MxODYuNiw4OS42LDIwMC41LDk5LjQsMTk3LjgsMTE3Ljd6Ii8+DQoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTEyOTQuMiwxMDcuMmMtMTAuMy0xNS43LTI4LjktMjMuNS01NS45LTIzLjVjLTkuMiwwLTE3LjUsMC40LTI0LjcsMS4yYy03LjMsMC44LTEzLjksMS44LTE5LjcsMy4xDQoJCWMtNS45LDEuMi0xMS4yLDIuNi0xNS45LDQuMWMtNC43LDEuNS05LjEsMi45LTEyLjksNGwtNDEuOSwxNzMuNmg1MS41bDMzLjYtMTQwLjdjNi45LTEuNCwxMy43LTIuMSwyMC40LTIuMWM2LjksMCwxMiwxLjMsMTUuNCw0DQoJCWMzLjMsMi43LDUuNSw2LjIsNi40LDEwLjRjMSw0LjMsMSw5LjIsMC4yLDE0LjlzLTEuOSwxMS41LTMuMywxNy41bC0yMi44LDk2LjFoNTEuNWwyMy41LTk4LjINCgkJQzEzMDYuMywxNDQuNCwxMzA0LjUsMTIyLjksMTI5NC4yLDEwNy4yeiIvPg0KCTxwb2x5Z29uIGNsYXNzPSJzdDAiIHBvaW50cz0iMTA3Ni42LDg3LjkgMTAzMy40LDI2OS44IDEwODQuNiwyNjkuOCAxMTI4LjIsODcuOSAJIi8+DQoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTEwOTAuMiw1OS4zYzUuNyw0LjMsMTIuMiw2LjQsMTkuMyw2LjRjNC45LDAsOS40LTAuOSwxMy43LTIuOGM0LjMtMS44LDgtNC4zLDExLjItNy40DQoJCWMzLjItMy4xLDUuOC02LjgsNy44LTExLjFjMS45LTQuMywzLTguOCwzLTEzLjdjMC04LjctMi45LTE1LjMtOC43LTE5LjVjLTUuOC00LjMtMTIuMi02LjQtMTkuNC02LjRjLTQuOCwwLTkuNCwwLjktMTMuNiwyLjgNCgkJcy04LDQuMy0xMS4yLDcuNHMtNS44LDYuOC03LjgsMTEuMXMtMi45LDguOC0yLjksMTMuNkMxMDgxLjUsNDguNiwxMDg0LjQsNTUuMSwxMDkwLjIsNTkuM3oiLz4NCgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNTIwLjYsNTkuM2M1LjcsNC4zLDEyLjIsNi40LDE5LjQsNi40YzQuOCwwLDkuNC0wLjksMTMuNy0yLjhjNC4yLTEuOCw4LTQuMywxMS4yLTcuNA0KCQljMy4yLTMuMSw1LjgtNi44LDcuOC0xMS4xczIuOS04LjgsMi45LTEzLjdjMC04LjctMi45LTE1LjMtOC42LTE5LjVjLTUuOC00LjMtMTIuMi02LjQtMTkuMy02LjRjLTQuOSwwLTkuNCwwLjktMTMuNywyLjgNCgkJcy04LDQuMy0xMS4yLDcuNHMtNS44LDYuOC03LjgsMTEuMWMtMiw0LjMtMyw4LjktMywxMy43QzUxMiw0OC42LDUxNC45LDU1LjEsNTIwLjYsNTkuM3oiLz4NCgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTI1LjMsMTM4LjhMMTE3LDE3MmMxMC4yLDIuNSw0MS43LDEyLjcsNDYuNC02LjFDMTY4LjIsMTQ2LjQsMTM1LjUsMTQxLjQsMTI1LjMsMTM4Ljh6Ii8+DQoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTgwOC4xLDEyNi42YzcuMiwwLDEzLjIsMC43LDE4LjIsMi4zYzUsMS41LDkuNywzLjEsMTQuNCw1bDE3LjctNDAuMWMtNi43LTMuMi0xNC4xLTUuOC0yMi4zLTcuOA0KCQlzLTE3LjQtMy0yNy44LTNjLTE2LjYsMC0zMS43LDMtNDUuMSw5Yy0xMy41LDYtMjUsMTQuMi0zNC40LDI0LjVjLTkuNSwxMC40LTE2LjcsMjIuNS0yMS44LDM2LjNjLTUuMSwxMy44LTcuNiwyOC42LTcuNiw0NC4zDQoJCWMwLDEwLjQsMS41LDIwLjMsNC4zLDI5LjdjMi45LDkuNSw3LjUsMTcuNywxNCwyNC43YzYuNSw3LDE0LjYsMTIuNiwyNC41LDE2LjhjOS45LDQuMSwyMiw2LjIsMzYuMyw2LjJjMTAuOCwwLDIwLjItMSwyOC0yLjkNCgkJYzcuOC0yLDE1LTQuMywyMS40LTYuOGwtMy44LTQxLjFjLTQuOSwyLjEtMTAuNCwzLjgtMTYuNiw1LjJjLTYuMiwxLjQtMTIuNywyLjEtMTkuNCwyLjFjLTEzLjYsMC0yMi45LTMuNi0yOC0xMC45DQoJCWMtNS4xLTcuMy03LjYtMTYuOC03LjYtMjguNWMwLTE5LjgsNS0zNS42LDE1LjEtNDcuNEM3NzcuNSwxMzIuNSw3OTEsMTI2LjYsODA4LjEsMTI2LjZ6Ii8+DQoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTEwMTEuMSwxMDQuMWMtNS45LTYuNy0xMy40LTExLjktMjIuNS0xNS42cy0xOS43LTUuNi0zMS43LTUuNmMtMTYuMywwLTMwLjksMy41LTQzLjUsMTAuNQ0KCQljLTEyLjcsNy4xLTIzLjQsMTYuMS0zMi4xLDI3LjJjLTguOCwxMS4xLTE1LjQsMjMuNS0xOS45LDM3LjNzLTYuNywyNy43LTYuNyw0MS41YzAsMTEsMS41LDIxLjEsNC41LDMwLjJjMyw5LjEsNy40LDE3LDEzLjMsMjMuNw0KCQljNS45LDYuNywxMy4zLDExLjksMjIuMywxNS42YzksMy43LDE5LjYsNS41LDMxLjgsNS41YzE2LjgsMCwzMS43LTMuNSw0NC40LTEwLjZjMTIuOC03LDIzLjUtMTYuMSwzMi0yNy4xDQoJCWM4LjUtMTEuMSwxNS0yMy41LDE5LjQtMzcuM2M0LjQtMTMuOSw2LjYtMjcuNyw2LjYtNDEuNWMwLTExLjEtMS41LTIxLjItNC41LTMwLjJDMTAyMS40LDExOC43LDEwMTYuOSwxMTAuOCwxMDExLjEsMTA0LjF6DQoJCSBNOTc0LjgsMTg1LjljLTIsOC00LjksMTUuMy04LjgsMjJjLTMuOSw2LjctOC44LDEyLjItMTQuNSwxNi42Yy01LjgsNC40LTEyLjQsNi42LTIwLjEsNi42Yy05LjcsMC0xNi40LTMuMi0yMC4xLTkuNw0KCQljLTMuNy02LjUtNS41LTE1LjUtNS41LTI3YzAtNy4yLDEtMTQuNywyLjktMjIuNmMyLTcuOSw0LjktMTUuMyw4LjgtMjJjMy45LTYuNyw4LjctMTIuMiwxNC41LTE2LjZjNS43LTQuNCwxMi40LTYuNiwyMC02LjYNCgkJYzkuNywwLDE2LjQsMy4yLDIwLjEsOS43YzMuNyw2LjUsNS42LDE1LjUsNS42LDI3Qzk3Ny43LDE3MC40LDk3Ni43LDE3OCw5NzQuOCwxODUuOXoiLz4NCgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNjE4LjgsMTkzLjdsMTUuMi02My42aDU3bDEwLjQtNDIuMkg2NDRsMTMuMi01My42bC01My42LDguM2wtMzMuOSwxNDMuMmMtMi44LDExLjgtNC40LDIyLjktNC44LDMzLjUNCgkJYy0wLjUsMTAuNiwxLjIsMjAsNC44LDI4LjJjMy43LDguMiw5LjksMTQuNywxOC43LDE5LjRjOC44LDQuNywyMS4xLDcuMSwzNyw3LjFjMTEuMSwwLDIwLjYtMC45LDI4LjctMi44YzguMS0xLjgsMTUuNi00LDIyLjUtNi42DQoJCWwtMy44LTM5LjRjLTUuMywxLjktMTAuNSwzLjMtMTUuNyw0LjNzLTEwLjYsMS42LTE2LjEsMS42Yy02LjcsMC0xMS44LTAuOS0xNS40LTIuOGMtMy42LTEuOC02LjEtNC40LTcuNC03LjgNCgkJYy0xLjQtMy4zLTItNy4zLTEuNy0xMS45QzYxNi42LDIwMy45LDYxNy40LDE5OSw2MTguOCwxOTMuN3oiLz4NCgk8cG9seWdvbiBjbGFzcz0ic3QwIiBwb2ludHM9IjQ2My45LDI2OS44IDUxNS4xLDI2OS44IDU1OC43LDg3LjkgNTA3LjEsODcuOSAJIi8+DQoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTQ0NCwxMDUuOGMtNS40LTYuNy0xMi0xMi0yMC4xLTE1LjljLTgtMy45LTE3LjYtNS45LTI4LjctNS45Yy01LjMsMC0xMC4yLDAuNi0xNC45LDEuNw0KCQljLTQuNiwxLjItOS4yLDIuOC0xMy44LDQuOGwyMS40LTg5LjJsLTUzLjYsOC4zTDI3NC41LDI2MWM2LjcsMy4yLDEzLjgsNS44LDIxLjMsNy42YzcuNSwxLjksMTQuNiwzLjIsMjEuMyw0LjINCgkJYzYuNywwLjksMTIuNiwxLjQsMTcuOCwxLjVjNS4yLDAuMSw4LjgsMC4yLDEwLjksMC4yYzE2LjEsMCwzMS4xLTMuMSw0NC45LTkuMnMyNS44LTE0LjQsMzYtMjQuOXMxOC4yLTIyLjgsMjQtMzcNCgkJYzUuOS0xNC4yLDguOC0yOS4yLDguOC00NS4xYzAtMTAuNC0xLjMtMjAtMy44LTI5QzQ1My4yLDEyMC40LDQ0OS4zLDExMi41LDQ0NCwxMDUuOHogTTQwMy45LDE4OC4xYy0zLDguMy03LjEsMTUuNy0xMi4zLDIyLjMNCgkJYy01LjIsNi42LTExLjQsMTEuOC0xOC41LDE1LjdzLTE0LjcsNS45LTIyLjgsNS45Yy0yLjUsMC00LjYsMC02LjIsMHMtMy0wLjEtNC4yLTAuMmMtMS4xLTAuMS0yLjItMC4zLTMuMy0wLjUNCgkJYy0xLTAuMi0yLjMtMC40LTMuNi0wLjdsMjIuOC05NC43YzQuMi0zLjcsOC44LTYuMSwxNC03LjNjNS4yLTEuMSw5LjQtMS43LDEyLjYtMS43YzkuOSwwLDE2LjcsMy4xLDIwLjQsOS4zDQoJCWMzLjcsNi4yLDUuNSwxNC45LDUuNSwyNS45QzQwOC40LDE3MS4yLDQwNi45LDE3OS44LDQwMy45LDE4OC4xeiIvPg0KPC9nPg0KPC9zdmc+DQo=);
+}
+#alipay_donate{
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMy4wLjIsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgdmlld0JveD0iMCAwIDQ0OC41IDE0NS41IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0NDguNSAxNDUuNTsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4NCgkuc3Qwe2VuYWJsZS1iYWNrZ3JvdW5kOm5ldyAgICA7fQ0KCS5zdDF7ZmlsbC1ydWxlOmV2ZW5vZGQ7Y2xpcC1ydWxlOmV2ZW5vZGQ7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8ZyBpZD0i5Zu+5bGCXzIiPg0KPC9nPg0KPGcgaWQ9IuWbvuWxgl8xIj4NCgk8ZyBpZD0i5qSt5ZyGXzJfMV8iIGNsYXNzPSJzdDAiPg0KCQk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNMTA1LjYsMEg4MS44djE4LjdoLTQ4djkuOGg0OHYxOEg0OC4xdjExLjFoNjcuNGMwLDAsMCwxNS45LTIwLjMsMzcuNlM2Ny40LDEyMC4yLDU3LjgsMTIzcy0yNiwyLjQtMzEuNS0xLjUNCgkJCXMtMTEuOC04LjktMTEuMy0xOFMyNi45LDg0LjEsMzMuOSw4M2MwLDAtMjAtMi4yLTI0LjUsMTguMWMtMy41LDE1LjYsNi42LDIzLjMsMTIuNCwyNy4yczE4LjIsOC41LDI2LjMsOXMyNS44LTAuNiw0Mi43LTEyLjgNCgkJCWMxNi44LTEyLjIsMzcuMy0zNi43LDQzLjUtNTEuOHM4LjktMjEuMyw5LjgtMjYuMmgtMzguNHYtMThoNTAuMnYtOS44aC01MC4yVjAiLz4NCgkJPHBhdGggY2xhc3M9InN0MSIgZD0iTTE4NiwwYzAsMC0yLjUsMjEuNS0zMy44LDQ1bDMuNiw1LjNjMCwwLDEzLjktNS41LDE3LjQtOC4zdjgwLjNIMTk4VjI1LjVjMCwwLDEyLTEyLjUsMTItMjUuNQ0KCQkJQzIxMCwwLDE4NiwwLDE4NiwweiIvPg0KCQk8cG9seWdvbiBjbGFzcz0ic3QxIiBwb2ludHM9IjI0NiwwIDI0NiwyNyAyMDIuNSwyNyAyMDIuNSwzNi4xIDI0NiwzNi4xIDI0NiwxMjEuNSAyNzAuMSwxMjEuNSAyNzAuMSwzNi4xIDI4MS4zLDM2LjEgMjgxLjMsMjcgDQoJCQkyNzAuMSwyNyAyNzAuMSwwIAkJIi8+DQoJCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0zNjQuNSwwdjExLjJINDExdjcuNWMwLDIyLjEtMTQuMiwyNC44LTE0LjIsMjQuOGgtMzIuM1Y2M2gzMi4zdjkuOGgtMzIuM3Y0NS44aC0yNC43VjcyLjhoLTM0LjZWNjNoMzQuNg0KCQkJVjQzLjVoLTQ5LjVWOC4zaDIzLjF2M2gyNi40VjBIMzY0LjV6IE0zMTMuMywyMS41djEzaDc3LjR2LTEzSDMxMy4zeiIvPg0KCTwvZz4NCgk8ZyBpZD0i5qSt5ZyGXzFfMV8iIGNsYXNzPSJzdDAiPg0KCQk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNNDQuMSwxMzYuN2MwLDAtMjIuNS0zLjctMzIuMS0yMC41Yy0zLjctNi40LTQtMTkuMyw2LTI3LjhjOC40LTcuMSwxOS41LTYuNiwzMy44LTNzMjQuNCw4LjEsNDIuOCwxNy4zDQoJCQljMTguNSw5LjMsNDQuOSwyMi41LDc4LjcsMjkuNmMzMy43LDcuMSw1Mi4zLDkuNCw3Mi44LDEwLjljMzUuNCwyLjYsMTQ5LjQtMi40LDE2NS02bDM3LjUtMzljMCwwLTExMi45LDE3LjQtMTgzLjgsMTgNCgkJCWMtNzAuOCwwLjYtNzguOC0zLjctOTUuMy02LjhTMTA5LjYsOTIuMyw5Ni44LDg3Yy02LjMtMi42LTQxLjctMTYuMy02My0xNC4zUzEuMiw4NCwwLjgsOTguM1M1LjgsMTMyLjIsNDQuMSwxMzYuN3oiLz4NCgkJDQoJCQk8cmVjdCB4PSIyMDYuNiIgeT0iNDYuNyIgdHJhbnNmb3JtPSJtYXRyaXgoMC43MDcxIC0wLjcwNzEgMC43MDcxIDAuNzA3MSAyMS4zNjgzIDE3NC42Mzk3KSIgY2xhc3M9InN0MSIgd2lkdGg9IjI5LjciIGhlaWdodD0iMjkuNyIvPg0KCQkNCgkJCTxyZWN0IHg9IjM3OC40IiB5PSI3OC45IiB0cmFuc2Zvcm09Im1hdHJpeCgwLjcwNzEgLTAuNzA3MSAwLjcwNzEgMC43MDcxIDUwLjc0MDMgMzAxLjE0OTEpIiBjbGFzcz0ic3QxIiB3aWR0aD0iMjAuOSIgaGVpZ2h0PSIyMC45Ii8+DQoJPC9nPg0KPC9nPg0KPC9zdmc+DQo=);
+}
+#wechat_donate{
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMy4wLjIsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0i5Zu+5bGCXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgNTMxLjIgMTYxLjciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUzMS4yIDE2MS43OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8Zz4NCgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNjguNiwwQzMxLjEtMC42LDAsMjcsMCw1OS41YzAsMTguOCw4LjgsMzUsMjUuOSw0N2MwLDAtNi4zLDIwLjctNi4yLDIxLjFjMC4xLDAuNCwxLjUsMS4yLDEuOSwxDQoJCWMwLjQtMC4yLDIyLjYtMTMuNSwyMi42LTEzLjVjMTcsNS44LDI2LjksMy45LDI3LjQsMy45Yy0xLjctNS0yLjgtMTIuNy0xLjUtMjBjNi42LTM4LjEsNDUuNi01MCw2Ny00Ny45DQoJCUMxMzEuMiwyMy40LDEwNS42LDAuNSw2OC42LDB6IE00Mi41LDQ5LjFjLTQuOSwwLTguOS00LTguOS04LjlzNC04LjksOC45LTguOXM4LjksNCw4LjksOC45UzQ3LjQsNDkuMSw0Mi41LDQ5LjF6IE05Ni40LDQ5LjENCgkJYy00LjksMC04LjktNC04LjktOC45czQtOC45LDguOS04LjlzOC45LDQsOC45LDguOVMxMDEuNCw0OS4xLDk2LjQsNDkuMXoiLz4NCgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTkyLDEwNC43YzAtMjcuOC0yNi45LTQ5LjItNTguMS00OS4yYy0zMy4xLDAtNTkuNCwyMS44LTU5LjQsNDkuNmMwLDI3LjksMjUuMSw1MSw1OS41LDUxLjINCgkJYzYuOSwwLDE3LjItMS43LDI0LjItNC42YzAsMCwxNi42LDEwLjEsMTcuNSwxMHMxLjQtMC44LDEuNC0xLjRzLTUuMy0xNi40LTUuMy0xNi40QzE4NiwxMzIuNywxOTIsMTIwLjQsMTkyLDEwNC43eiBNMTEyLjEsOTQuNA0KCQljLTQuNCwwLTcuOS0zLjUtNy45LTcuOXMzLjUtNy45LDcuOS03LjlzNy45LDMuNSw3LjksNy45UzExNi40LDk0LjQsMTEyLjEsOTQuNHogTTE1NC4yLDk0LjRjLTQuNCwwLTcuOS0zLjUtNy45LTcuOQ0KCQlzMy41LTcuOSw3LjktNy45czcuOSwzLjUsNy45LDcuOVMxNTguNiw5NC40LDE1NC4yLDk0LjR6Ii8+DQo8L2c+DQo8Zz4NCgk8Zz4NCgkJPHBvbHlnb24gY2xhc3M9InN0MCIgcG9pbnRzPSIyNzcuNiw2Ni41IDI2NS43LDExNS41IDI1NS43LDY2LjUgMjQwLjUsNjYuNSAyMzAuNSwxMTUuNSAyMTguNiw2Ni41IDIwMy44LDY2LjUgMjIzLjcsMTM2IA0KCQkJMjM3LjIsMTM2IDI0OCw4Mi44IDI1OC44LDEzNiAyNzIuNCwxMzYgMjkyLjMsNjYuNSAJCSIvPg0KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzI4LjMsODkuOGMtNC4zLTQuNy0xMC4zLTcuMS0xOC4yLTcuMWMtNy40LDAtMTMuMiwyLjUtMTcuNSw3LjNjLTQuMyw0LjktNi40LDExLjUtNi40LDE5LjkNCgkJCWMwLDguNiwyLjIsMTUuMyw2LjUsMjAuM3MxMC4yLDcuNSwxNy42LDcuNWM2LDAsMTEuMS0xLjUsMTUuMy00LjZjNC4yLTMuMSw3LTcuMyw4LjQtMTIuN2gtMTMuNmMtMC45LDEuOS0yLjEsMy40LTMuNiw0LjENCgkJCWMtMS41LDAuOS0zLjQsMS40LTUuOCwxLjRjLTMuNCwwLTUuOS0xLjEtNy43LTMuMWMtMS43LTItMi43LTUuMS0yLjktOS4xaDM0LjJjMC0wLjQsMC4xLTAuOSwwLjEtMS40czAtMS4yLDAtMi4yDQoJCQlDMzM0LjcsMTAxLjMsMzMyLjYsOTQuNSwzMjguMyw4OS44eiBNMzAwLjQsMTA0LjljMC4zLTMuNCwxLjMtNiwzLTcuOWMxLjctMS44LDQtMi43LDctMi43YzMuMiwwLDUuNywwLjksNy40LDIuNw0KCQkJYzEuOCwxLjgsMi43LDQuNCwyLjgsNy45SDMwMC40eiIvPg0KCTwvZz4NCgk8Zz4NCgkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTQwMi43LDExMi4yTDQwMi43LDExMi4yQzQwMi43LDExMi4xLDQwMi43LDExMi4yLDQwMi43LDExMi4yTDQwMi43LDExMi4yeiIvPg0KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzgzLjQsMTIxLjdjLTIuOCwyLjItNi40LDMuMy0xMC43LDMuM2MtNiwwLTEwLjYtMi4xLTEzLjktNi4ycy00LjktMTAtNC45LTE3LjVjMC03LjgsMS42LTEzLjcsNC45LTE3LjgNCgkJCWMzLjItNC4xLDgtNi4xLDE0LjMtNi4xYzQuNSwwLDgsMSwxMC42LDMuMXM0LjIsNS4xLDQuOCw5aDE0LjFjLTAuNS03LjktMy40LTE0LTguNS0xOC4zcy0xMi4xLTYuNS0yMS02LjUNCgkJCWMtMTAuOSwwLTE5LjMsMy4xLTI1LjEsOS40cy04LjcsMTUuNC04LjcsMjcuMmMwLDExLjYsMi45LDIwLjYsOC42LDI3czEzLjcsOS42LDI0LDkuNmM4LjksMCwxNi4yLTIuMywyMS43LTcNCgkJCWM1LjUtNC42LDguNi0xMC44LDkuMS0xOC43aC0xMy45QzM4OCwxMTYuMywzODYuMiwxMTkuNSwzODMuNCwxMjEuN3oiLz4NCgkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTQ0OC41LDg5LjNjLTEuNS0xLjktMy41LTMuNC01LjktNC40Yy0yLjUtMS4xLTUuMi0xLjYtOC4yLTEuNmMtMy4yLDAtNi4xLDAuNi04LjYsMS44DQoJCQljLTIuNSwxLjItNC43LDMtNi42LDUuM1Y2Ni41aC0xMy42djY5LjNoMTMuNnYtMzAuNGMwLTMuMywwLjktNiwyLjgtNy45czQuNS0yLjksNy43LTIuOWMzLDAsNS4yLDAuNyw2LjMsMi40DQoJCQljMS4xLDEuNywxLjcsNS43LDEuNywxMnYyNi44aDEzLjZ2LTMzLjJ2LTAuOWMwLTMuNy0wLjItNi4zLTAuNi04QzQ1MC4zLDkyLjEsNDQ5LjUsOTAuNiw0NDguNSw4OS4zeiIvPg0KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNTAwLjcsMTMxLjRjLTAuNS0xLjEtMC43LTIuNy0wLjctNC44Vjk3LjVjMC00LjctMS45LTguMy01LjctMTAuOFM0ODUsODMsNDc3LjgsODMNCgkJCWMtNi42LDAtMTEuNywxLjUtMTUuNCw0LjVzLTUuNiw3LjEtNS42LDEyLjR2MC45aDEyLjhWMTAwYzAtMiwwLjctMy42LDIuMi00LjdzMy42LTEuNyw2LjQtMS43YzMuMSwwLDUuMiwwLjQsNi41LDEuMw0KCQkJczEuOSwyLjQsMS45LDQuNWMwLDIuNi0yLjksNC4yLTguNyw1Yy0yLjMsMC4zLTQuMiwwLjYtNS42LDAuOGMtNi4yLDAuOS0xMC42LDIuNy0xMy4zLDUuMmMtMi43LDIuNi00LDYuMy00LDExLjENCgkJCWMwLDUuMiwxLjMsOS4zLDQsMTIuMWMyLjcsMi44LDYuNSw0LjIsMTEuNSw0LjJjMy43LDAsNy0wLjcsOS44LTIuMXM1LjEtMy40LDYuOC02LjFjMCwxLjIsMC4yLDIuNCwwLjQsMy42YzAuMywxLDAuNiwyLDEuMSwyLjkNCgkJCWgxNC4zdi0yLjNDNTAxLjksMTMzLjIsNTAxLjEsMTMyLjUsNTAwLjcsMTMxLjR6IE00ODYuOSwxMTUuNmMwLDMuNy0xLjEsNi41LTMuMiw4LjZzLTUsMy4xLTguNywzLjFjLTIuMSwwLTMuOC0wLjYtNS0xLjcNCgkJCXMtMS44LTIuNi0xLjgtNC41YzAtMS44LDAuNC0zLjMsMS40LTQuM3MyLjctMS45LDUuMS0yLjZjMC4xLDAsMS42LTAuNCw0LjUtMXM1LjUtMS41LDcuNy0yLjVWMTE1LjZ6Ii8+DQoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01MzEuMiw5NC40di05LjZoLTcuOXYtMTRoLTEzLjZ2MTRoLTYuOHY5LjZoNi44djI3LjdjMCw1LjgsMSw5LjYsMi45LDExLjZjMiwxLjksNS41LDIuOSwxMC44LDIuOQ0KCQkJYzAuNCwwLDEuNiwwLDMuMy0wLjFjMS43LTAuMSwzLjItMC4yLDQuNS0wLjJsMCwwdi0xMC4yaC0zLjNjLTEuOSwwLTMuMS0wLjItMy43LTAuNmMtMC42LTAuNS0wLjktMS4zLTAuOS0yLjdWOTQuNEw1MzEuMiw5NC40DQoJCQlMNTMxLjIsOTQuNHoiLz4NCgk8L2c+DQo8L2c+DQo8L3N2Zz4NCg==);
+}
+#drinks-qrcodes {
+    display: none;
+}
+#drinks-qrcode {
+    position: absolute;
+    top: calc(50% - 90px);
+    left: calc(50% - 90px);
+    width: 180px;
+    height: 180px;
+	background: #fff no-repeat center center url(https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/images/donate/WeChatSQ.png);
+    background-size: 160px;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(255, 0, 110, 0.5);
+}
+
+/* 动画 */
+#drinks-icons, #drinks-button-box {filter: blur(0px);}
+.donate-animation-1>#drinks-icons, .donate-animation-4>#drinks-icons,.donate-animation-3>#drinks-button-box {
+    transform: scale(0.7,0.7);
+    filter: blur(2px);
+    display: block;
+    opacity: 1;
+}
+.donate-animation-1>#drinks-button-box,.donate-animation-4>#drinks-button-box,.donate-animation-3>#drinks-qrcodes {
+    display: block;
+    opacity: 1;
+    transform: scale(1,1);
+}
+.donate-animation-2>#drinks-button-box,.donate-animation-4>#drinks-qrcodes, .hideBox {
+    display: block;
+    transform: scale(1,1);
+    animation-name:hideBox;
+    animation-duration:0.3s;
+    animation-timing-function:ease-in-out;
+    animation-iteration-count:1;
+    animation-fill-mode:forwards;
+}
+
+.donate-animation-3>#drinks-icons {
+    transform: scale(0.4,0.4);
+    filter: blur(2px);
+}
+.showBox {
+    animation-name:showBox;
+    animation-duration:0.3s;
+    animation-timing-function:ease-in-out;
+    animation-iteration-count:1;
+    animation-fill-mode:forwards;
+}
+@keyframes showBox {
+	from {
+        opacity: 0;
+        transform: scale(1.3,1.3);
+	}
+	to {
+        opacity: 1;
+        transform: scale(1,1);
+	}
+}
+@keyframes hideBox {
+	from {
+        opacity: 1;
+        transform: scale(1,1);
+	}
+	to {
+        opacity: 0;
+        transform: scale(1.3,1.3);
+	}
+}
+</style>
+<section id="drinks-box">
+    <section id="drinks-box-s" class="drinks-button left-100">
+        <div id="drinks-icons" class="left-100 tr3">
+            <div id="coffee-donate" class="icon-donate"><img src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/images/donate/drinks/coffee.png" alt="coffee" data-creative
+                ="https://www.zcool.com.cn/work/ZMjQ3NTE2MA==.html"></div>
+        </div>
+        <div id="drinks-button-box" class="tr3 left-100">
+            <div id="drinks-button-bg" class="left-100"></div>
+            <div id="github-box"><a href="https://github.com/Kaiyuan/donate-page/" target="_blank">Github</a></div>
+            <ul id="donate-buttons" class="list tr3">
+                <li id="paypal_donate"><a href="https://www.paypal.me/wallleap" target="_blank">Paypal</a></li>
+                <!-- <li id="btc_donate" class="donate-button">Bitcoin</li> -->
+                <li id="alipay_donate" class="donate-button">AliPay</li>
+                <li id="wechat_donate" class="donate-button">WeChat</li>
+            </ul>
+        </div>
+        <div id="drinks-qrcodes" class="left-100 tr3">
+            <div id="drinks-qrcode"></div>
+        </div>
+    </section>
+</section>
+
+<script>
+jQuery(document).ready(function () {
+
+    var thisPage = $('body');
+    var drink_box = $('#donate-box');
+    var drink_box_s = $('#drinks-box-s');
+    var icon_donate = $('.icon-donate');
+    var donate_button = $('.donate-button');
+    var donate_buttons = $('#drinks-button-box');
+    var donate_button_bg = $('#drinks-button-bg');
+    var drinks_qrcodes = $('#drinks-qrcodes');
+    var drinks_qrcode = $('#drinks-qrcode');
+    var isMobile = /Android|webOS|iPhone|iPad|BlackBerry/i.test(navigator.userAgent);
+    
+    var GithubLink  =   "https://github.com/wallleap/sponsor-page/";
+    var PayPalLink  =   "https://www.paypal.me/wallleap";
+    $('#paypal-donate>a').href = PayPalLink;
+    $('#github-box>a').href = GithubLink;
+    var qrcodes = {
+        // 'btc_donate'	:	'https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/images/BTCQR.png',	// 二维码路径
+        'alipay_donate'	:	'https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/custom/donate/AliPayQR.jpg',	// 支付宝二维码
+        // 'alipay_donate_link'   :   'https://qr.alipay.com/3272611934645308',   // 支付宝二维码上的链接，必须换成自己的连接！！！手机点击会自动跳转到支付宝。
+        'wechat_donate'	:	'https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/custom/donate/WeChatSQ.jpg'
+    };
+    
+    var drinks_an = new Object();
+    // 动画有 4 种状态，不同状态给对应 DOM 添加 css 动画
+    drinks_an[0] = function(){
+        drink_box_s.removeClass('donate-animation-2 donate-animation-3').addClass('donate-animation-1');
+        donate_buttons.addClass('showBox');
+        setTimeout(() => {
+            donate_buttons.removeClass('showBox');
+        }, 300);
+        // console.log('donate-animation-1');
+    }
+    drinks_an[1] = function(){
+        drink_box_s.removeClass('donate-animation-1 donate-animation-3').addClass('donate-animation-2');
+        setTimeout(() => {
+            drink_box_s.removeClass('donate-animation-2');
+        }, 300);
+        // console.log('donate-animation-2');
+    }
+    drinks_an[2] = function(){
+        drink_box_s.removeClass('donate-animation-2 donate-animation-1').addClass('donate-animation-3');
+        drinks_qrcodes.addClass('showBox');
+        setTimeout(() => {
+            drinks_qrcodes.removeClass('showBox');
+        }, 300);
+        // console.log('donate-animation-3');
+    }
+    drinks_an[3] = function(){
+        drink_box_s.removeClass('donate-animation-3 donate-animation-2').addClass('donate-animation-4');
+        setTimeout(() => {
+            drink_box_s.removeClass('donate-animation-4');
+            drink_box_s.addClass('donate-animation-1');
+        }, 300);
+        // console.log('donate-animation-4');
+    }
+    
+    if (isMobile) {
+        donate_buttons.addClass('Mobile');
+    }
+    
+    icon_donate.on('click',drinks_an[0]); // drinks 图标点击
+    
+    donate_button_bg.on('click',drinks_an[1]); // 隐藏 donate box
+    
+    donate_button.on('click',function(){
+        var thisID = $(this).attr("id");
+        if (isMobile && thisID === 'alipay_donate') {
+            // 当前网页在手机端打开跳转到支付宝 App
+            window.open(qrcodes['alipay_donate_link']);
+        } else {
+            // 当前网页在PC端打开
+        drinks_qrcode.css({'background-image' : 'url('+qrcodes[thisID]+')'});
+        drinks_an[2]();
+        // 显示二维码
+        }
+    });
+    
+    drinks_qrcode.on('click',drinks_an[3]); // 隐藏二维码
+    //
+    })
+</script>
+    
+    <section class="nexmoe-comment">
+    <div class="valine" id="vcomments"></div>
+<!-- <script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script> -->
+<script type="text/javascript">
+    loadComments();
+    function loadComments() {
+      if (typeof Valine === 'undefined') {
+        var getScript = (options) => {
+          var script = document.createElement('script');
+          script.defer = true;
+          script.crossOrigin = 'anonymous';
+          Object.keys(options).forEach((key) => {
+              script[key] = options[key];
+          });
+          document.body.appendChild(script);
+        };
+        getScript({
+          src: '//unpkg.com/valine/dist/Valine.min.js',
+          onload: () => {
+            newValine();
+          }
+        });
+      } else {
+        newValine();
+      }
+    }
+    function newValine() {
+      new Valine({
+        el: '.valine',
+        appId: 'GOPlqD10uwQGshDFcsr8Cxik-gzGzoHsz',
+        appKey: 'vpzGg4wzHHLRPNOlPHf0UEDS',
+        placeholder: '欢迎访问本站，评论一下留个足迹👣呗',
+        notify: false,
+        verify: true,
+        avatar: 'mp',
+        meta: ['nick','mail','link'],
+        pageSize: 10,
+        recordIP: true,
+        enableQQ: true,
+        // 设置Bilibili表情包地址
+        emojiCDN: '//cdn.jsdelivr.net/gh/wallleap/cdn@latest/emote/cool/', 
+        // 表情title和图片映射
+        emojiMaps: {
+            "cool_coolapk_emotion_100_qqdoge": "coolapk_emotion_100_qqdoge.png",
+            "cool_coolapk_emotion_1010": "coolapk_emotion_1010.png",
+            "cool_coolapk_emotion_1011": "coolapk_emotion_1011.png",
+            "cool_coolapk_emotion_1012": "coolapk_emotion_1012.png",
+            "cool_coolapk_emotion_1013": "coolapk_emotion_1013.png",
+            "cool_coolapk_emotion_1014": "coolapk_emotion_1014.png",
+            "cool_coolapk_emotion_1015": "coolapk_emotion_1015.png",
+            "cool_coolapk_emotion_1016": "coolapk_emotion_1016.png",
+            "cool_coolapk_emotion_1017": "coolapk_emotion_1017.png",
+            "cool_coolapk_emotion_1018": "coolapk_emotion_1018.png",
+            "cool_coolapk_emotion_1019": "coolapk_emotion_1019.png",
+            "cool_coolapk_emotion_101_pyjiaoyi": "coolapk_emotion_101_pyjiaoyi.png",
+            "cool_coolapk_emotion_1020": "coolapk_emotion_1020.png",
+            "cool_coolapk_emotion_1021": "coolapk_emotion_1021.png",
+            "cool_coolapk_emotion_102_fadai": "coolapk_emotion_102_fadai.png",
+            "cool_coolapk_emotion_103_nb": "coolapk_emotion_103_nb.png",
+            "cool_coolapk_emotion_104": "coolapk_emotion_104.png",
+            "cool_coolapk_emotion_105": "coolapk_emotion_105.png",
+            "cool_coolapk_emotion_106": "coolapk_emotion_106.png",
+            "cool_coolapk_emotion_107": "coolapk_emotion_107.png",
+            "cool_coolapk_emotion_108": "coolapk_emotion_108.png",
+            "cool_coolapk_emotion_109": "coolapk_emotion_109.png",
+            "cool_coolapk_emotion_10_aoman": "coolapk_emotion_10_aoman.png",
+            "cool_coolapk_emotion_11_yiwen": "coolapk_emotion_11_yiwen.png",
+            "cool_coolapk_emotion_12_wuyu": "coolapk_emotion_12_wuyu.png",
+            "cool_coolapk_emotion_13_huaixiao": "coolapk_emotion_13_huaixiao.png",
+            "cool_coolapk_emotion_14_bishi": "coolapk_emotion_14_bishi.png",
+            "cool_coolapk_emotion_15_fanu": "coolapk_emotion_15_fanu.png",
+            "cool_coolapk_emotion_16_tuosai": "coolapk_emotion_16_tuosai.png",
+            "cool_coolapk_emotion_17_tushe": "coolapk_emotion_17_tushe.png",
+            "cool_coolapk_emotion_18_han": "coolapk_emotion_18_han.png",
+            "cool_coolapk_emotion_19_koubi": "coolapk_emotion_19_koubi.png",
+            "cool_coolapk_emotion_1_hahaha": "coolapk_emotion_1_hahaha.png",
+            "cool_coolapk_emotion_20_qinqin": "coolapk_emotion_20_qinqin.png",
+            "cool_coolapk_emotion_21_penxue": "coolapk_emotion_21_penxue.png",
+            "cool_coolapk_emotion_22_xiaoyan": "coolapk_emotion_22_xiaoyan.png",
+            "cool_coolapk_emotion_23_shui": "coolapk_emotion_23_shui.png",
+            "cool_coolapk_emotion_24_wuzuixiao": "coolapk_emotion_24_wuzuixiao.png",
+            "cool_coolapk_emotion_25_zaijian": "coolapk_emotion_25_zaijian.png",
+            "cool_coolapk_emotion_26_kelian": "coolapk_emotion_26_kelian.png",
+            "cool_coolapk_emotion_27_qiang": "coolapk_emotion_27_qiang.png",
+            "cool_coolapk_emotion_28_ruo": "coolapk_emotion_28_ruo.png",
+            "cool_coolapk_emotion_29_baoquan": "coolapk_emotion_29_baoquan.png",
+            "cool_coolapk_emotion_2_jingya": "coolapk_emotion_2_jingya.png",
+            "cool_coolapk_emotion_30_ok": "coolapk_emotion_30_ok.png",
+            "cool_coolapk_emotion_31_xiaoku": "coolapk_emotion_31_xiaoku.png",
+            "cool_coolapk_emotion_32_heiha": "coolapk_emotion_32_heiha.png",
+            "cool_coolapk_emotion_33_wulian": "coolapk_emotion_33_wulian.png",
+            "cool_coolapk_emotion_34_jizhi": "coolapk_emotion_34_jizhi.png",
+            "cool_coolapk_emotion_35_ye": "coolapk_emotion_35_ye.png",
+            "cool_coolapk_emotion_36_ku": "coolapk_emotion_36_ku.png",
+            "cool_coolapk_emotion_37_doge": "coolapk_emotion_37_doge.png",
+            "cool_coolapk_emotion_38_wozuimei": "coolapk_emotion_38_wozuimei.png",
+            "cool_coolapk_emotion_39_caidao": "coolapk_emotion_39_caidao.png",
+            "cool_coolapk_emotion_3_ciya": "coolapk_emotion_3_ciya.png",
+            "cool_coolapk_emotion_40_aixin": "coolapk_emotion_40_aixin.png",
+            "cool_coolapk_emotion_41_meigui": "coolapk_emotion_41_meigui.png",
+            "cool_coolapk_emotion_42_diaoxie": "coolapk_emotion_42_diaoxie.png",
+            "cool_coolapk_emotion_43_heixian": "coolapk_emotion_43_heixian.png",
+            "cool_coolapk_emotion_44_pen": "coolapk_emotion_44_pen.png",
+            "cool_coolapk_emotion_45_yinxian": "coolapk_emotion_45_yinxian.png",
+            "cool_coolapk_emotion_46_nanguo": "coolapk_emotion_46_nanguo.png",
+            "cool_coolapk_emotion_47_weiqu": "coolapk_emotion_47_weiqu.png",
+            "cool_coolapk_emotion_48_weiweiyixiao": "coolapk_emotion_48_weiweiyixiao.png",
+            "cool_coolapk_emotion_49_huanhu": "coolapk_emotion_49_huanhu.png",
+            "cool_coolapk_emotion_4_liulei": "coolapk_emotion_4_liulei.png",
+            "cool_coolapk_emotion_50_xinsui": "coolapk_emotion_50_xinsui.png",
+            "cool_coolapk_emotion_51_chigua": "coolapk_emotion_51_chigua.png",
+            "cool_coolapk_emotion_52_hejiu": "coolapk_emotion_52_hejiu.png",
+            "cool_coolapk_emotion_53_pu": "coolapk_emotion_53_pu.png",
+            "cool_coolapk_emotion_54_hongyaowan": "coolapk_emotion_54_hongyaowan.png",
+            "cool_coolapk_emotion_55_lvyaowan": "coolapk_emotion_55_lvyaowan.png",
+            "cool_coolapk_emotion_56_dogexiaoku": "coolapk_emotion_56_dogexiaoku.png",
+            "cool_coolapk_emotion_57_dogehechi": "coolapk_emotion_57_dogehechi.png",
+            "cool_coolapk_emotion_58_dogeyuanliangta": "coolapk_emotion_58_dogeyuanliangta.png",
+            "cool_coolapk_emotion_59_erha": "coolapk_emotion_59_erha.png",
+            "cool_coolapk_emotion_5_keai": "coolapk_emotion_5_keai.png",
+            "cool_coolapk_emotion_61_lvmao": "coolapk_emotion_61_lvmao.png",
+            "cool_coolapk_emotion_62_huaji": "coolapk_emotion_62_huaji.png",
+            "cool_coolapk_emotion_60_kuan": "coolapk_emotion_60_kuan.png",
+            "cool_coolapk_emotion_63_liuhanhuaji": "coolapk_emotion_63_liuhanhuaji.png",
+            "cool_coolapk_emotion_64_shounuehuaji": "coolapk_emotion_64_shounuehuaji.png",
+            "cool_coolapk_emotion_65_coshuaji": "coolapk_emotion_65_coshuaji.png",
+            "cool_coolapk_emotion_66_doujiyanhuaji": "coolapk_emotion_66_doujiyanhuaji.png",
+            "cool_coolapk_emotion_67_mojinghuaji": "coolapk_emotion_67_mojinghuaji.png",
+            "cool_coolapk_emotion_68": "coolapk_emotion_68.png",
+            "cool_coolapk_emotion_69": "coolapk_emotion_69.png",
+            "cool_coolapk_emotion_6_weixiao": "coolapk_emotion_6_weixiao.png",
+            "cool_coolapk_emotion_70": "coolapk_emotion_70.png",
+            "cool_coolapk_emotion_71": "coolapk_emotion_71.png",
+            "cool_coolapk_emotion_72": "coolapk_emotion_72.png",
+            "cool_coolapk_emotion_73": "coolapk_emotion_73.png",
+            "cool_coolapk_emotion_74": "coolapk_emotion_74.png",
+            "cool_coolapk_emotion_75": "coolapk_emotion_75.png",
+            "cool_coolapk_emotion_76": "coolapk_emotion_76.png",
+            "cool_coolapk_emotion_77": "coolapk_emotion_77.png",
+            "cool_coolapk_emotion_78": "coolapk_emotion_78.png",
+            "cool_coolapk_emotion_79": "coolapk_emotion_79.png",
+            "cool_coolapk_emotion_7_hehe": "coolapk_emotion_7_hehe.png",
+            "cool_coolapk_emotion_80": "coolapk_emotion_80.png",
+            "cool_coolapk_emotion_81_naikezui": "coolapk_emotion_81_naikezui.png",
+            "cool_coolapk_emotion_82_miaomiao": "coolapk_emotion_82_miaomiao.png",
+            "cool_coolapk_emotion_83_huoba": "coolapk_emotion_83_huoba.png",
+            "cool_coolapk_emotion_84_baiyan": "coolapk_emotion_84_baiyan.png",
+            "cool_coolapk_emotion_85": "coolapk_emotion_85.png",
+            "cool_coolapk_emotion_86": "coolapk_emotion_86.png",
+            "cool_coolapk_emotion_87": "coolapk_emotion_87.png",
+            "cool_coolapk_emotion_88": "coolapk_emotion_88.png",
+            "cool_coolapk_emotion_89": "coolapk_emotion_89.png",
+            "cool_coolapk_emotion_8_piezui": "coolapk_emotion_8_piezui.png",
+            "cool_coolapk_emotion_90": "coolapk_emotion_90.png",
+            "cool_coolapk_emotion_91": "coolapk_emotion_91.png",
+            "cool_coolapk_emotion_92": "coolapk_emotion_92.png",
+            "cool_coolapk_emotion_93": "coolapk_emotion_93.png",
+            "cool_coolapk_emotion_94": "coolapk_emotion_94.png",
+            "cool_coolapk_emotion_95_erhading": "coolapk_emotion_95_erhading.png",
+            "cool_coolapk_emotion_96_kuanlvmao": "coolapk_emotion_96_kuanlvmao.png",
+            "cool_coolapk_emotion_97_haixiu": "coolapk_emotion_97_haixiu.png",
+            "cool_coolapk_emotion_98_wunai": "coolapk_emotion_98_wunai.png",
+            "cool_coolapk_emotion_99_zhoumei": "coolapk_emotion_99_zhoumei.png",
+            "cool_coolapk_emotion_9_se": "coolapk_emotion_9_se.png",
+            "cool_c_coolb": "c_coolb.png",
+            "cool_c_fived": "c_fived.png",
+            "cool_c_fivef": "c_fivef.png",
+            "cool_c_fivem": "c_fivem.png",
+            "cool_c_fiveo": "c_fiveo.png",
+            "cool_c_fivey": "c_fivey.png",
+            "cool_c_fy": "c_fy.png",
+            "cool_c_oned": "c_oned.png",
+            "cool_c_onef": "c_onef.png",
+            "cool_c_onem": "c_onem.png",
+            "cool_c_oneo": "c_oneo.png",
+            "cool_c_oney": "c_oney.png",
+            "cool_c_oy": "c_oy.png",
+            "cool_c_teny": "c_teny.png",
+            "cool_c_twod": "c_twod.png",
+            "cool_c_twof": "c_twof.png",
+            "cool_c_twom": "c_twom.png",
+            "cool_c_twoo": "c_twoo.png",
+            "cool_c_twoy": "c_twoy.png",
+            "cool_c_ty": "c_ty.png",
+            // ... 更多表情
+        } 
+      });
+    }
+</script>
+
+<!-- <script>
+    document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+      }
+    });
+</script> -->
+<!-- <script>
+$(document).ready(function(){
+  $('.vemoji-btn').text('😀');
+	$("#vcomments").on('click', 'span.vat',function(){
+		$(this).parent('div.vmeta').next("div.vcontent").after($("div.vwrap"));
+		$('textarea#veditor').focus();
+	})
+})
+</script> -->
+<style>
+@keyframes valineBg{
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+#vcomments .vwrap{
+  padding: 20px 20px 44px;
+  background: linear-gradient(-45deg, rgba(255, 206, 255, .3), rgba(237, 156, 253 ,.3), rgba(173, 214, 251, .3), rgba(192, 255, 208, .3));
+  background-size: 400% 400%;
+  animation: valineBg 15s ease infinite;
+}
+#veditor{
+  background-image: url(https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/other/comment-bg.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+  background-color: rgba(255,255,255,0);
+  /* resize: vertical; */
+  resize:none;
+  min-height:7rem;
+}
+textarea[id='veditor']::placeholder{color:#b3b3b3;font-size:15px;text-align:center;line-height:6rem;}
+.v .vwrap .vheader{width: 80%;bottom:0;position: absolute;}
+.v .vinput{padding:10px 15px;border-bottom:0px;background-color: rgba(255, 0, 110, .1);}
+.v .vwrap .vedit .vctrl{margin-top:-44px;right:0;position:absolute;margin-right:-3px;}
+.v .vwrap .vcontrol{ position:absolute;right:0;bottom:0;width:20%;padding-top:0px;}
+.v .vwrap .vcol-30{
+  position: absolute;left: 4px;bottom: 5px;width: 20px !important;
+}
+.v .vwrap .vcontrol .col.col-80{width: 100%;}
+.v .vbtn.vsubmit{
+  padding: 0;
+  position:absolute; bottom: 0; right: 0; 
+  color: #fff; height: 42px; line-height: 42px; width:150px; text-align: center;
+  border: none;border-radius:22px;background:#fe1b73;
+}
+.v .vbtn.vsubmit:hover{box-shadow: 0 2px 12px #ff4e6a;}
+.v .vwrap .vedit .vctrl span{
+  margin-top: 30px;
+}
+.v .vwrap .vcontrol .col.col-20,.v .vlist .vcard .vhead .vsys{
+  display:none;
+}
+@media screen and (max-width: 520px){
+  .v .vwrap .vcol-30{display: none !important;}
+  textarea[id='veditor']::placeholder{color:#b3b3b3;font-size:14px;text-align:center;line-height: 1;}
+  .vemojis{margin-bottom: 100px;}
+  .v .vwrap .vheader .vinput{width: 33.33%;padding:10px 5px;}
+  .v .vbtn.vsubmit{bottom: 10px;left: 0;right: 0;margin: 0 auto;}
+}
+@media screen and (min-width: 520px;) (max-width: 750px){
+  /* #vcomments .vwrap{height: 400px;} */
+  .v .vwrap .vcol-30{display: none !important;}
+  .v .vwrap .item3{bottom: 60px;}
+  .vemojis{margin-bottom: 200px;}
+  textarea[id='veditor']::placeholder{color:#b3b3b3;font-size:14px;text-align:center;line-height: 1;}
+	.v .vwrap .vheader .vinput{width: 33.33%;padding:10px 5px;}
+  .v .vbtn.vsubmit{bottom: 10px;left: 0;right: 0;margin: 0 auto;}
+}
+.vcard .vhead .vsys:nth-of-type(1){
+  display: inline-block;
+  background-color: rgba(247, 210, 247, .5);
+}
+.vcard .vhead .vsys:nth-of-type(2){
+  display: inline-block;
+  background-color: rgba(224, 235, 247, .5);
+}
+</style>
+    <div style="text-align:center;font-size: 12px;color: #888;">
+            <div class="site-info">
+                
+             
+              <div class="footertext">
+                <p><a href="#" style="color: #b9b9b9;" >Blog wallleap</a>
+                  , Copyright &copy; 2019-2020 
+                  by Luwang All Rights Reserved.</p>
+              </div>
+
+              <!-- <a style="color: #b9b9b9;" href="//beian.miit.gov.cn" target="_blank">	
+                <img src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/img/logo/ICP.png" style="vertical-align: text-bottom; width: 17px;" />
+                赣ICP备20000895号-1
+              </a> -->
+              
+              <span style="padding-left: 20px;">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <span id="time" align="center">载入时间中...</span>
+                <script>
+                  var now = new Date(); 
+                  function createtime() { 
+                    var grt= new Date("08/08/2019 17:38:00");//在此处修改你的建站时间
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("time").innerHTML = "小站已经苟活 "+dnum+" 天 "+hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                 } 
+                 setInterval("createtime()",250);
+                </script>
+              <span style="padding-left: 20px;><i class="fa fa-cog fa-spin" aria-hidden="true"></i></span>
+                <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278079074'%3E%3C/span%3E%3Cscript src='https://s4.cnzz.com/z_stat.php%3Fid%3D1278079074%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+              </span>
+              
+              <div style="text-align:center; padding-top: 20px;">
+                <div class="github-badge">
+                  <a rel="license" href="https://hexo.io/" target="_blank" title="由Hexo强力驱动">
+                  <span class="badge-subject"><i class="fa fa-fire" aria-hidden="true"></i> Powered</span><span class="badge-value bg-blue">Hexo</span></a>
+                </div>
+                <div class="github-badge">
+                    <a rel="license" href="https://coding.net/" target="_blank" title="静态网页托管于CODING">
+                    <span class="badge-subject"><i class="fa fa-heart" aria-hidden="true"></i> Hosted</span>
+                    <span class="badge-value bg-gray">CODING</span></a>
+                  </div>
+                <div class="github-badge">
+                    <a rel="license" href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr提供CDN加速服务">
+                    <span class="badge-subject"><i class="fa fa-firefox fa-spin" aria-hidden="true"></i> CND</span><span class="badge-value bg-cdn">Github&jsDelivr</span></a>
+                </div>
+                <div class="github-badge">
+                    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">
+                    <span class="badge-subject"><i class="fa fa-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0</span></a>
+                </div>
+              </div>  
+          
+              
+            </div><!-- .site-info -->
+          </div>
+</section>
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js,gh/nexmoe/nexmoe.github.io@latest/js/app.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!--<script src="/js/app.js?v=1599833537150"></script>-->
+
+
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+ 
+<script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/shehuizhuyi.js"></script>
+<script> 
+!function(e,t,a){function n(){c(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"),o(),r()}function r(){for(var e=0;e<d.length;e++)d[e].alpha<=0?(t.body.removeChild(d[e].el),d.splice(e,1)):(d[e].y--,d[e].scale+=.004,d[e].alpha-=.013,d[e].el.style.cssText="left:"+d[e].x+"px;top:"+d[e].y+"px;opacity:"+d[e].alpha+";transform:scale("+d[e].scale+","+d[e].scale+") rotate(45deg);background:"+d[e].color+";z-index:99999");requestAnimationFrame(r)}function o(){var t="function"==typeof e.onclick&&e.onclick;e.onclick=function(e){t&&t(),i(e)}}function i(e){var a=t.createElement("div");a.className="heart",d.push({el:a,x:e.clientX-5,y:e.clientY-5,scale:1,alpha:1,color:s()}),t.body.appendChild(a)}function c(e){var a=t.createElement("style");a.type="text/css";try{a.appendChild(t.createTextNode(e))}catch(t){a.styleSheet.cssText=e}t.getElementsByTagName("head")[0].appendChild(a)}function s(){return"rgb("+~~(255*Math.random())+","+~~(255*Math.random())+","+~~(255*Math.random())+")"}var d=[];e.requestAnimationFrame=function(){return e.requestAnimationFrame||e.webkitRequestAnimationFrame||e.mozRequestAnimationFrame||e.oRequestAnimationFrame||e.msRequestAnimationFrame||function(e){setTimeout(e,1e3/60)}}(),n()}(window,document);
+</script>
+
+  
+
+
+
+
+
+</body>
+
+</html>
